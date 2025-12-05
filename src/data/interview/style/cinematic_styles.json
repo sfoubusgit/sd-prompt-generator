@@ -1,0 +1,47 @@
+[
+  {
+    "id": "cinematic-styles-root",
+    "question": "What type of cinematic style?",
+    "answers": [
+      { "id": "noir", "label": "Noir look", "next": "cinematic-weights" },
+      { "id": "golden_hour", "label": "Golden hour cinematic", "next": "cinematic-weights" },
+      { "id": "high_contrast", "label": "High contrast drama", "next": "cinematic-weights" },
+      { "id": "muted_indie", "label": "Muted indie film palette", "next": "cinematic-weights" },
+      { "id": "blockbuster", "label": "Blockbuster color grading", "next": "cinematic-weights" },
+      { "id": "vintage", "label": "Vintage cinematic", "next": "cinematic-weights" }
+    ]
+  },
+  {
+    "id": "cinematic-weights",
+    "question": "How cinematic should it be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "color-palettes-root" },
+      { "id": "moderate", "label": "Moderate", "next": "color-palettes-root" },
+      { "id": "strong", "label": "Strong", "next": "color-palettes-root" }
+    ],
+    "weights": [
+      {
+        "id": "contrast_intensity",
+        "label": "Contrast Intensity",
+        "template": "contrast intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "color_grade_intensity",
+        "label": "Color Grade Intensity",
+        "template": "color grade intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      }
+    ]
+  }
+]
+
+
+
+

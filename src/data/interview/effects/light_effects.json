@@ -1,0 +1,38 @@
+[
+  {
+    "id": "effects-light-root",
+    "question": "What light effects?",
+    "answers": [
+      { "id": "volumetric", "label": "Volumetric lighting", "next": "effects-light-intensity" },
+      { "id": "light_rays", "label": "Light rays", "next": "effects-light-intensity" },
+      { "id": "god_rays", "label": "God rays", "next": "effects-light-intensity" },
+      { "id": "rim_light", "label": "Rim light", "next": "effects-light-intensity" },
+      { "id": "glow", "label": "Glow", "next": "effects-light-intensity" },
+      { "id": "none", "label": "No special light effects", "next": "camera-lens-root" }
+    ]
+  },
+  {
+    "id": "effects-light-intensity",
+    "question": "How intense are the light effects?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "camera-lens-root" },
+      { "id": "moderate", "label": "Moderate", "next": "camera-lens-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "camera-lens-root" }
+    ],
+    "weights": [
+      {
+        "id": "glow_intensity",
+        "label": "Glow Intensity",
+        "template": "glow intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  }
+]
+
+
+
+

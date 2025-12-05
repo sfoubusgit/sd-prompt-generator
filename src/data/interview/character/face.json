@@ -1,0 +1,171 @@
+[
+  {
+    "id": "character-face-root",
+    "question": "What aspect of the face would you like to define?",
+    "answers": [
+      { "id": "face_shape", "label": "Face shape", "next": "face-shape" },
+      { "id": "eyes", "label": "Eyes", "next": "face-eyes" },
+      { "id": "jawline", "label": "Jawline", "next": "face-jawline" },
+      { "id": "lips", "label": "Lips", "next": "face-lips" },
+      { "id": "eyebrows", "label": "Eyebrows", "next": "face-eyebrows" },
+      { "id": "skip_face", "label": "Skip face details", "next": "character-hair-root" }
+    ]
+  },
+  {
+    "id": "face-shape",
+    "question": "What is the face shape?",
+    "answers": [
+      { "id": "oval", "label": "Oval", "next": "face-eyes" },
+      { "id": "round", "label": "Round", "next": "face-eyes" },
+      { "id": "square", "label": "Square", "next": "face-eyes" },
+      { "id": "heart", "label": "Heart-shaped", "next": "face-eyes" },
+      { "id": "diamond", "label": "Diamond", "next": "face-eyes" },
+      { "id": "long", "label": "Long", "next": "face-eyes" }
+    ],
+    "weights": [
+      {
+        "id": "facial_structure_emphasis",
+        "label": "Facial Structure Emphasis",
+        "template": "facial structure emphasis",
+        "min": 1.0,
+        "max": 1.2,
+        "step": 0.01,
+        "default": 1.05
+      }
+    ]
+  },
+  {
+    "id": "face-eyes",
+    "question": "What are the eyes like?",
+    "answers": [
+      { "id": "eye_size", "label": "Eye size", "next": "eye-size" },
+      { "id": "eye_shape", "label": "Eye shape", "next": "eye-shape" },
+      { "id": "skip_eyes", "label": "Skip eye details", "next": "face-jawline" }
+    ]
+  },
+  {
+    "id": "eye-size",
+    "question": "What is the eye size?",
+    "answers": [
+      { "id": "small_eyes", "label": "Small", "next": "eye-shape" },
+      { "id": "medium_eyes", "label": "Medium", "next": "eye-shape" },
+      { "id": "large_eyes", "label": "Large", "next": "eye-shape" }
+    ],
+    "weights": [
+      {
+        "id": "eye_emphasis",
+        "label": "Eye Emphasis",
+        "template": "eye emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "eye-shape",
+    "question": "What is the eye shape?",
+    "answers": [
+      { "id": "almond", "label": "Almond", "next": "face-jawline" },
+      { "id": "round", "label": "Round", "next": "face-jawline" },
+      { "id": "narrow", "label": "Narrow", "next": "face-jawline" },
+      { "id": "wide", "label": "Wide", "next": "face-jawline" },
+      { "id": "upturned", "label": "Upturned", "next": "face-jawline" },
+      { "id": "downturned", "label": "Downturned", "next": "face-jawline" }
+    ],
+    "refinements": [
+      {
+        "id": "refine-eye-shape",
+        "question": "How pronounced is the eye shape?",
+        "answers": [
+          { "id": "subtle", "label": "Subtle" },
+          { "id": "moderate", "label": "Moderate" },
+          { "id": "defined", "label": "Well-defined" }
+        ],
+        "weights": [
+          {
+            "id": "eye_shape_intensity",
+            "label": "Eye Shape Intensity",
+            "template": "eye shape intensity",
+            "min": 1.0,
+            "max": 1.25,
+            "step": 0.01,
+            "default": 1.1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "face-jawline",
+    "question": "What is the jawline like?",
+    "answers": [
+      { "id": "soft", "label": "Soft", "next": "face-lips" },
+      { "id": "defined", "label": "Defined", "next": "face-lips" },
+      { "id": "sharp", "label": "Sharp", "next": "face-lips" },
+      { "id": "rounded", "label": "Rounded", "next": "face-lips" },
+      { "id": "square", "label": "Square", "next": "face-lips" }
+    ],
+    "weights": [
+      {
+        "id": "jawline_definition",
+        "label": "Jawline Definition",
+        "template": "jawline definition",
+        "min": 1.0,
+        "max": 1.25,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  },
+  {
+    "id": "face-lips",
+    "question": "What are the lips like?",
+    "answers": [
+      { "id": "thin", "label": "Thin", "next": "face-eyebrows" },
+      { "id": "medium", "label": "Medium", "next": "face-eyebrows" },
+      { "id": "full", "label": "Full", "next": "face-eyebrows" },
+      { "id": "defined", "label": "Well-defined", "next": "face-eyebrows" },
+      { "id": "soft", "label": "Soft", "next": "face-eyebrows" }
+    ],
+    "weights": [
+      {
+        "id": "lip_definition",
+        "label": "Lip Definition",
+        "template": "lip definition",
+        "min": 1.0,
+        "max": 1.2,
+        "step": 0.01,
+        "default": 1.05
+      }
+    ]
+  },
+  {
+    "id": "face-eyebrows",
+    "question": "What are the eyebrows like?",
+    "answers": [
+      { "id": "thin", "label": "Thin", "next": "character-hair-root" },
+      { "id": "medium", "label": "Medium", "next": "character-hair-root" },
+      { "id": "thick", "label": "Thick", "next": "character-hair-root" },
+      { "id": "arched", "label": "Arched", "next": "character-hair-root" },
+      { "id": "straight", "label": "Straight", "next": "character-hair-root" },
+      { "id": "bushy", "label": "Bushy", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "facial_detail_richness",
+        "label": "Facial Detail Richness",
+        "template": "facial detail richness",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

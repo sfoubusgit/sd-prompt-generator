@@ -1,0 +1,18 @@
+[
+  {
+    "id": "camera-framing-root",
+    "question": "What framing?",
+    "answers": [
+      { "id": "close_up", "label": "Close-up", "next": "camera-dof-root" },
+      { "id": "medium_shot", "label": "Medium shot", "next": "camera-dof-root" },
+      { "id": "full_body", "label": "Full body", "next": "camera-dof-root" },
+      { "id": "wide_shot", "label": "Wide shot", "next": "camera-dof-root" },
+      { "id": "extreme_close", "label": "Extreme close-up", "next": "camera-dof-root" },
+      { "id": "establishing", "label": "Establishing shot", "next": "camera-dof-root" }
+    ]
+  }
+]
+
+
+
+

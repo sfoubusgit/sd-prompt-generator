@@ -1,0 +1,27 @@
+[
+  {
+    "id": "ruins-structures-root",
+    "question": "What type of ruins or ancient place?",
+    "answers": [
+      { "id": "ancient_temple", "label": "Ancient temple", "next": "ruins-condition" },
+      { "id": "castle_ruins", "label": "Castle ruins", "next": "ruins-condition" },
+      { "id": "lost_city", "label": "Lost city", "next": "ruins-condition" },
+      { "id": "monolith", "label": "Monolith", "next": "ruins-condition" },
+      { "id": "buried", "label": "Buried structure", "next": "ruins-condition" }
+    ]
+  },
+  {
+    "id": "ruins-condition",
+    "question": "What condition are the ruins in?",
+    "answers": [
+      { "id": "well_preserved", "label": "Well preserved", "next": "weather-root" },
+      { "id": "partially_ruined", "label": "Partially ruined", "next": "weather-root" },
+      { "id": "heavily_ruined", "label": "Heavily ruined", "next": "weather-root" },
+      { "id": "overgrown", "label": "Overgrown", "next": "weather-root" }
+    ]
+  }
+]
+
+
+
+

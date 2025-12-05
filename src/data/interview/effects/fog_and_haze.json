@@ -1,0 +1,17 @@
+[
+  {
+    "id": "effects-fog-root",
+    "question": "What fog or haze effects?",
+    "answers": [
+      { "id": "light_fog", "label": "Light fog", "next": "effects-light-root" },
+      { "id": "heavy_fog", "label": "Heavy fog", "next": "effects-light-root" },
+      { "id": "mist", "label": "Mist", "next": "effects-light-root" },
+      { "id": "haze", "label": "Haze", "next": "effects-light-root" },
+      { "id": "none", "label": "No fog or haze", "next": "effects-light-root" }
+    ]
+  }
+]
+
+
+
+

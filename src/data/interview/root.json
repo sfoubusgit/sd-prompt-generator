@@ -1,0 +1,10 @@
+{
+  "id": "root",
+  "question": "What are you imagining?",
+  "description": "Choose what you'd like to create - a character, an environment, or both",
+  "answers": [
+    { "id": "character", "label": "A character", "next": "character-identity-root" },
+    { "id": "environment", "label": "An environment or scene", "next": "env-root" },
+    { "id": "both", "label": "Both character and environment", "next": "character-identity-root" }
+  ]
+}

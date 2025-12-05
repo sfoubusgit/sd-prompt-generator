@@ -1,0 +1,122 @@
+[
+  {
+    "id": "character-clothing-root",
+    "question": "What style of clothing?",
+    "answers": [
+      { "id": "casual", "label": "Casual", "next": "clothing-casual" },
+      { "id": "formal", "label": "Formal", "next": "clothing-formal" },
+      { "id": "fantasy", "label": "Fantasy", "next": "clothing-fantasy" },
+      { "id": "scifi", "label": "Sci-fi", "next": "clothing-scifi" },
+      { "id": "armor", "label": "Armor", "next": "clothing-armor" },
+      { "id": "robe", "label": "Robe", "next": "clothing-robe" },
+      { "id": "streetwear", "label": "Streetwear", "next": "clothing-streetwear" },
+      { "id": "skip_clothing", "label": "Skip clothing", "next": "character-accessories-root" }
+    ]
+  },
+  {
+    "id": "clothing-casual",
+    "question": "What type of casual clothing?",
+    "answers": [
+      { "id": "t_shirt", "label": "T-shirt and jeans", "next": "clothing-complexity" },
+      { "id": "hoodie", "label": "Hoodie", "next": "clothing-complexity" },
+      { "id": "dress", "label": "Dress", "next": "clothing-complexity" },
+      { "id": "sweater", "label": "Sweater", "next": "clothing-complexity" },
+      { "id": "jacket", "label": "Jacket", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-formal",
+    "question": "What type of formal clothing?",
+    "answers": [
+      { "id": "suit", "label": "Suit", "next": "clothing-complexity" },
+      { "id": "dress_formal", "label": "Formal dress", "next": "clothing-complexity" },
+      { "id": "tuxedo", "label": "Tuxedo", "next": "clothing-complexity" },
+      { "id": "uniform", "label": "Uniform", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-fantasy",
+    "question": "What type of fantasy clothing?",
+    "answers": [
+      { "id": "noble_robe", "label": "Noble robe", "next": "clothing-complexity" },
+      { "id": "traveler", "label": "Traveler's outfit", "next": "clothing-complexity" },
+      { "id": "merchant", "label": "Merchant's attire", "next": "clothing-complexity" },
+      { "id": "peasant", "label": "Peasant clothing", "next": "clothing-complexity" },
+      { "id": "royal", "label": "Royal garments", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-scifi",
+    "question": "What type of sci-fi clothing?",
+    "answers": [
+      { "id": "techwear", "label": "Techwear", "next": "clothing-complexity" },
+      { "id": "spacesuit", "label": "Spacesuit", "next": "clothing-complexity" },
+      { "id": "cyberpunk", "label": "Cyberpunk style", "next": "clothing-complexity" },
+      { "id": "futuristic", "label": "Futuristic casual", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-armor",
+    "question": "What type of armor?",
+    "answers": [
+      { "id": "light", "label": "Light armor", "next": "clothing-complexity" },
+      { "id": "medium", "label": "Medium armor", "next": "clothing-complexity" },
+      { "id": "heavy", "label": "Heavy armor", "next": "clothing-complexity" },
+      { "id": "plate", "label": "Plate armor", "next": "clothing-complexity" },
+      { "id": "leather", "label": "Leather armor", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-robe",
+    "question": "What type of robe?",
+    "answers": [
+      { "id": "wizard", "label": "Wizard's robe", "next": "clothing-complexity" },
+      { "id": "monk", "label": "Monk's robe", "next": "clothing-complexity" },
+      { "id": "scholar", "label": "Scholar's robe", "next": "clothing-complexity" },
+      { "id": "ceremonial", "label": "Ceremonial robe", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-streetwear",
+    "question": "What type of streetwear?",
+    "answers": [
+      { "id": "urban", "label": "Urban style", "next": "clothing-complexity" },
+      { "id": "sporty", "label": "Sporty", "next": "clothing-complexity" },
+      { "id": "punk", "label": "Punk style", "next": "clothing-complexity" },
+      { "id": "hip_hop", "label": "Hip-hop style", "next": "clothing-complexity" }
+    ]
+  },
+  {
+    "id": "clothing-complexity",
+    "question": "How detailed is the clothing?",
+    "answers": [
+      { "id": "simple", "label": "Simple", "next": "character-accessories-root" },
+      { "id": "detailed", "label": "Detailed", "next": "character-accessories-root" },
+      { "id": "ornate", "label": "Ornate", "next": "character-accessories-root" }
+    ],
+    "weights": [
+      {
+        "id": "clothing_detail_level",
+        "label": "Clothing Detail Level",
+        "template": "clothing detail level",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      },
+      {
+        "id": "ornamentation_emphasis",
+        "label": "Ornamentation Emphasis",
+        "template": "ornamentation emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  }
+]
+
+
+
+

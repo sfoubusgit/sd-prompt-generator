@@ -1,0 +1,38 @@
+[
+  {
+    "id": "fantasy-realms-root",
+    "question": "What type of fantasy realm?",
+    "answers": [
+      { "id": "floating_islands", "label": "Floating islands", "next": "fantasy-intensity" },
+      { "id": "crystal_caves", "label": "Crystal caves", "next": "fantasy-intensity" },
+      { "id": "sky_kingdom", "label": "Sky kingdom", "next": "fantasy-intensity" },
+      { "id": "underwater", "label": "Underwater realm", "next": "fantasy-intensity" },
+      { "id": "ethereal", "label": "Ethereal plane", "next": "fantasy-intensity" },
+      { "id": "shadow_realm", "label": "Shadow realm", "next": "fantasy-intensity" }
+    ]
+  },
+  {
+    "id": "fantasy-intensity",
+    "question": "How fantastical should it be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "weather-root" },
+      { "id": "moderate", "label": "Moderate", "next": "weather-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "weather-root" }
+    ],
+    "weights": [
+      {
+        "id": "fantastical_intensity",
+        "label": "Fantastical Intensity",
+        "template": "fantastical intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.3
+      }
+    ]
+  }
+]
+
+
+
+

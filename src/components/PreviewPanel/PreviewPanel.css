@@ -1,0 +1,134 @@
+.preview-panel {
+  background: #1A1A1F;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+  height: fit-content;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.preview-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview-title {
+  font-size: 22px;
+  color: white;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.preview-badge {
+  background: rgba(110, 86, 249, 0.2);
+  color: #6E56F9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(110, 86, 249, 0.3);
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-label {
+  font-size: 14px;
+  color: #B0B0C3;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-text {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  min-height: 60px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prompt-text {
+  color: white;
+}
+
+.negative-prompt-text {
+  color: #B0B0C3;
+}
+
+.preview-copy-button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 24px;
+  background: #6E56F9;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preview-copy-button:hover {
+  background: #7B65FF;
+  box-shadow: 0 4px 16px rgba(110, 86, 249, 0.4);
+  transform: translateY(-2px);
+}
+
+.preview-copy-button:active {
+  transform: translateY(0);
+}
+
+.preview-reset-button {
+  padding: 8px 16px;
+  background: rgba(255, 77, 77, 0.15);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  border-radius: 8px;
+  color: #ff4d4d;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preview-reset-button:hover {
+  background: rgba(255, 77, 77, 0.25);
+  border-color: #ff4d4d;
+  box-shadow: 0 2px 8px rgba(255, 77, 77, 0.2);
+  transform: translateY(-1px);
+}
+
+.preview-reset-button:active {
+  transform: translateY(0);
+}
+
+
+

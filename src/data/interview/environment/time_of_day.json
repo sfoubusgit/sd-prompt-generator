@@ -1,0 +1,18 @@
+[
+  {
+    "id": "time-of-day-root",
+    "question": "What time of day?",
+    "answers": [
+      { "id": "sunrise", "label": "Sunrise", "next": "terrain-details-root" },
+      { "id": "day", "label": "Day", "next": "terrain-details-root" },
+      { "id": "sunset", "label": "Sunset", "next": "terrain-details-root" },
+      { "id": "night", "label": "Night", "next": "terrain-details-root" },
+      { "id": "twilight", "label": "Twilight", "next": "terrain-details-root" },
+      { "id": "eclipse", "label": "Eclipse", "next": "terrain-details-root" }
+    ]
+  }
+]
+
+
+
+

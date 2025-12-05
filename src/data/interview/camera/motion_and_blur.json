@@ -1,0 +1,36 @@
+[
+  {
+    "id": "camera-motion-root",
+    "question": "What motion or blur?",
+    "answers": [
+      { "id": "static", "label": "Static", "next": "camera-render-quality-root" },
+      { "id": "slight_motion", "label": "Slight motion blur", "next": "camera-motion-strength" },
+      { "id": "moderate_motion", "label": "Moderate motion blur", "next": "camera-motion-strength" },
+      { "id": "strong_motion", "label": "Strong motion blur", "next": "camera-motion-strength" }
+    ]
+  },
+  {
+    "id": "camera-motion-strength",
+    "question": "How strong should the motion blur be?",
+    "answers": [
+      { "id": "light", "label": "Light", "next": "camera-render-quality-root" },
+      { "id": "medium", "label": "Medium", "next": "camera-render-quality-root" },
+      { "id": "heavy", "label": "Heavy", "next": "camera-render-quality-root" }
+    ],
+    "weights": [
+      {
+        "id": "motion_blur_strength",
+        "label": "Motion Blur Strength",
+        "template": "motion blur strength",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

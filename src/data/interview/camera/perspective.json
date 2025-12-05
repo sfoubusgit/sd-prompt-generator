@@ -1,0 +1,168 @@
+[
+  {
+    "id": "perspective-root",
+    "question": "Which visual perspective best describes the image?",
+    "description": "Choose how the viewer relates spatially to the subject.",
+    "answers": [
+      { "id": "eye_level", "label": "Eye-level perspective", "next": "perspective-eye-refine" },
+      { "id": "low_angle_perspective", "label": "Low-angle perspective (looking upward)", "next": "perspective-low-refine" },
+      { "id": "high_angle_perspective", "label": "High-angle perspective (looking downward)", "next": "perspective-high-refine" },
+      { "id": "first_person_perspective", "label": "First-person perspective", "next": "perspective-fpp-refine" },
+      { "id": "third_person_perspective", "label": "Third-person perspective", "next": "perspective-depth-refine" },
+      { "id": "wide_perspective", "label": "Wide perspective (broad scene)", "next": "perspective-wide-refine" },
+      { "id": "close_perspective", "label": "Close perspective (tight framing)", "next": "perspective-close-refine" }
+    ]
+  },
+  {
+    "id": "perspective-eye-refine",
+    "question": "Refine the eye-level perspective.",
+    "answers": [
+      { "id": "natural_eye", "label": "Natural eye-level", "next": null },
+      { "id": "cinematic_eye", "label": "Cinematic eye-level", "next": null },
+      { "id": "slightly_low_eye", "label": "Slightly low eye-level", "next": null },
+      { "id": "slightly_high_eye", "label": "Slightly high eye-level", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "eye_level_depth_emphasis",
+        "label": "Depth emphasis",
+        "template": "eye-level perspective depth",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.12
+      }
+    ]
+  },
+  {
+    "id": "perspective-low-refine",
+    "question": "How strong is the low-angle perspective?",
+    "answers": [
+      { "id": "subtle_low", "label": "Subtle upward tilt", "next": null },
+      { "id": "moderate_low", "label": "Moderate low-angle", "next": null },
+      { "id": "dramatic_low", "label": "Dramatic low-angle", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "low_angle_exaggeration",
+        "label": "Angle exaggeration",
+        "template": "low-angle perspective exaggeration",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.18
+      }
+    ]
+  },
+  {
+    "id": "perspective-high-refine",
+    "question": "How strong is the high-angle perspective?",
+    "answers": [
+      { "id": "subtle_high", "label": "Subtle high viewpoint", "next": null },
+      { "id": "moderate_high", "label": "Moderate high-angle", "next": null },
+      { "id": "dramatic_high", "label": "Dramatic high-angle", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "high_angle_exaggeration",
+        "label": "Angle exaggeration",
+        "template": "high-angle perspective exaggeration",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.17
+      }
+    ]
+  },
+  {
+    "id": "perspective-fpp-refine",
+    "question": "Refine the first-person perspective.",
+    "answers": [
+      { "id": "standard_fpp", "label": "Standard first-person view", "next": null },
+      { "id": "immersive_fpp", "label": "Immersive FPP", "next": null },
+      { "id": "dynamic_fpp", "label": "Dynamic, action-oriented FPP", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "fpp_intensity",
+        "label": "Immersion intensity",
+        "template": "first-person perspective immersion",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.35,
+        "step": 0.01,
+        "default": 1.14
+      }
+    ]
+  },
+  {
+    "id": "perspective-depth-refine",
+    "question": "How deep should the third-person perspective feel?",
+    "answers": [
+      { "id": "short_depth", "label": "Short perceived depth", "next": null },
+      { "id": "medium_depth", "label": "Medium perceived depth", "next": null },
+      { "id": "strong_depth", "label": "Strong depth perception", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "perspective_depth_strength",
+        "label": "Depth strength",
+        "template": "third-person perspective depth strength",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.45,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "id": "perspective-wide-refine",
+    "question": "Refine the wide perspective.",
+    "description": "A wide perspective emphasizes space, scenery, and distance.",
+    "answers": [
+      { "id": "mild_wide", "label": "Mild wide view", "next": null },
+      { "id": "balanced_wide", "label": "Balanced wide shot", "next": null },
+      { "id": "extreme_wide", "label": "Extreme wide shot", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "wide_angle_exaggeration",
+        "label": "Wide-angle exaggeration",
+        "template": "wide-angle perspective exaggeration",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.5,
+        "step": 0.01,
+        "default": 1.22
+      }
+    ]
+  },
+  {
+    "id": "perspective-close-refine",
+    "question": "Refine the close perspective.",
+    "answers": [
+      { "id": "tight_close", "label": "Tight close-up", "next": null },
+      { "id": "medium_close", "label": "Medium close-up", "next": null },
+      { "id": "intense_close", "label": "Intense, intimate close-up", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "close_perspective_intensity",
+        "label": "Close-up intensity",
+        "template": "close-up perspective intensity",
+        "tags": ["camera", "perspective"],
+        "min": 1.0,
+        "max": 1.35,
+        "step": 0.01,
+        "default": 1.16
+      }
+    ]
+  }
+]
+
+
+

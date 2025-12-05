@@ -1,0 +1,38 @@
+[
+  {
+    "id": "scifi-worlds-root",
+    "question": "What type of sci-fi world?",
+    "answers": [
+      { "id": "alien_planet", "label": "Alien planet", "next": "scifi-intensity" },
+      { "id": "space_station", "label": "Space station", "next": "scifi-intensity" },
+      { "id": "orbital_platform", "label": "Orbital platform", "next": "scifi-intensity" },
+      { "id": "asteroid_base", "label": "Asteroid base", "next": "scifi-intensity" },
+      { "id": "dyson_sphere", "label": "Dyson sphere", "next": "scifi-intensity" },
+      { "id": "generation_ship", "label": "Generation ship", "next": "scifi-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-intensity",
+    "question": "How alien should it be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "weather-root" },
+      { "id": "moderate", "label": "Moderate", "next": "weather-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "weather-root" }
+    ],
+    "weights": [
+      {
+        "id": "alien_ness",
+        "label": "Alien-ness",
+        "template": "alien environment",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.3
+      }
+    ]
+  }
+]
+
+
+
+

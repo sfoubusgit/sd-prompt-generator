@@ -1,0 +1,16 @@
+[
+  {
+    "id": "camera-lens-root",
+    "question": "What focal length?",
+    "answers": [
+      { "id": "portrait", "label": "Portrait (50-85mm)", "next": "camera-angle-root" },
+      { "id": "wide", "label": "Wide angle (14-35mm)", "next": "camera-angle-root" },
+      { "id": "telephoto", "label": "Telephoto (85-200mm+)", "next": "camera-angle-root" },
+      { "id": "standard", "label": "Standard (35-50mm)", "next": "camera-angle-root" }
+    ]
+  }
+]
+
+
+
+

@@ -1,0 +1,310 @@
+⭐⭐⭐ CURSOR SUPER-PROMPT — APPLY FULL REFACTOR + NEW FEATURES ⭐⭐⭐
+
+You are modifying an existing program.
+DO NOT remove or rewrite unrelated files.
+Only apply the changes described below.
+
+Follow the instructions exactly.
+
+🟣 GOAL
+
+Refactor the Guided Prompt Interview application to:
+
+Fix refinement nodes failing to advance (“Soft waves” bug)
+
+Remove all pending answer logic (pendingAnswer, pendingRefinement, continue* methods, canContinue)
+
+Make clicking an answer auto-advance
+
+Make selections persistent and non-destructive when navigating back
+
+Replace the selectedAnswers array with a Map<string, SelectedAnswer>
+
+Replace the refinement logic with Map<string, SelectedRefinement> (already partially implemented)
+
+Add a new method jumpTo(nodeId) to navigate directly to any previous question
+
+Add a new UI component: SelectionSummary
+
+Show the Summary in the right column under the Preview
+
+Update assemblePrompt to use the new Maps
+
+Remove all old leftover logic that refers to pending or implicit navigation
+
+Make navigation explicit: answers must lead to valid next in JSON
+
+DO NOT change the styling system or global layout
+
+🟣 FILES YOU MUST MODIFY
+
+Modify these existing files:
+
+src/hooks/useInterviewEngine.ts
+src/pages/InterviewPage.tsx
+src/services/promptAssembler.ts
+
+
+Create these new files:
+
+src/components/SelectionSummary/SelectionSummary.tsx
+src/components/SelectionSummary/SelectionSummary.css
+
+
+Make NO other files.
+
+🟣 STEP 1 — Update JSON expectation
+
+Modify the interview engine so that refinement answers MUST contain next if more steps follow.
+
+Remove any prefix-guessing or fallback navigation.
+
+🟣 STEP 2 — REWRITE useInterviewEngine.ts
+REMOVE completely:
+
+pendingAnswer
+
+pendingRefinement
+
+continueFromPending
+
+continueToNext
+
+canContinue
+
+showContinue
+
+Any prefix-matching or auto-guessing logic
+
+ADD / REPLACE with:
+New state:
+const [answerMap, setAnswerMap] = useState<Map<string, SelectedAnswer>>(new Map());
+const [refinementMap, setRefinementMap] = useState<Map<string, SelectedRefinement>>(new Map());
+
+Replace selectedAnswers entirely with answerMap.
+Replace refinement logic with refinementMap.
+REPLACE next() implementation with:
+const next = useCallback((answerId: string) => {
+  if (!currentNode) return;
+
+  const answer = currentNode.answers.find(a => a.id === answerId);
+  if (!answer) return;
+
+  const isRefinement = currentNodeId.startsWith("refine-");
+
+  if (isRefinement) {
+    setRefinementMap(prev => {
+      const m = new Map(prev);
+      m.set(currentNodeId, {
+        refinementId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      });
+      return m;
+    });
+  } else {
+    setAnswerMap(prev => {
+      const m = new Map(prev);
+      m.set(currentNodeId, {
+        nodeId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      });
+      return m;
+    });
+  }
+
+  if (answer.next) {
+    setHistory(prev => [...prev, answer.next!]);
+    setCurrentNodeId(answer.next!);
+  }
+}, [currentNode, currentNodeId]);
+
+Update previous():
+const previous = useCallback(() => {
+  if (history.length <= 1) return;
+
+  const newHistory = [...history];
+  newHistory.pop();
+  const prevNodeId = newHistory[newHistory.length - 1];
+
+  setHistory(newHistory);
+  setCurrentNodeId(prevNodeId);
+}, [history]);
+
+
+(NO deletions of answers or refinements.)
+
+Add jumpTo():
+const jumpTo = useCallback((nodeId: string) => {
+  if (!nodeMap.has(nodeId)) return;
+
+  setCurrentNodeId(nodeId);
+
+  if (!history.includes(nodeId)) {
+    setHistory(prev => [...prev, nodeId]);
+  }
+}, [history, nodeMap]);
+
+Update getPreviewPrompt():
+const getPreviewPrompt = useCallback(() => {
+  const ordered: SelectedAnswer[] = [];
+
+  history.forEach(nodeId => {
+    const ans = answerMap.get(nodeId);
+    if (ans) ordered.push(ans);
+  });
+
+  const refinements = Array.from(refinementMap.values());
+  const weightsArr = Array.from(weightValues.values());
+
+  return assemblePrompt(ordered, refinements, weightsArr);
+}, [history, answerMap, refinementMap, weightValues]);
+
+RETURN jumpTo and getSelectionSummary:
+
+Add this:
+
+const getSelectionSummary = useCallback(() => {
+  return history
+    .map(nodeId => {
+      const node = nodeMap.get(nodeId);
+      const ans = answerMap.get(nodeId);
+      if (!node || !ans) return null;
+
+      return {
+        nodeId,
+        question: node.question,
+        answerLabel: ans.label
+      };
+    })
+    .filter(Boolean);
+}, [history, answerMap, nodeMap]);
+
+
+And add to return object:
+
+jumpTo,
+getSelectionSummary,
+
+🟣 STEP 3 — Update InterviewPage.tsx
+REMOVE completely:
+
+Logic related to pending answers
+
+Continue button logic
+
+showContinue conditions
+
+canContinue usage
+
+CHANGE answer selection:
+
+Replace:
+
+onSelectAnswer={selectAnswer}
+
+
+WITH:
+
+onSelectAnswer={next}
+
+
+Same for refinement answers:
+
+onSelectRefinement={next}
+
+Add SelectionSummary panel
+
+Inside the right column beneath PreviewPanel, add:
+
+const summary = getSelectionSummary();
+
+<SelectionSummary 
+  items={summary} 
+  onSelectNode={(nodeId) => jumpTo(nodeId)}
+/>
+
+🟣 STEP 4 — Create SelectionSummary Component
+File: src/components/SelectionSummary/SelectionSummary.tsx
+import "./SelectionSummary.css";
+
+export function SelectionSummary({ items, onSelectNode }) {
+  if (!items || items.length === 0) return null;
+
+  return (
+    <div className="selection-summary">
+      <h3 className="summary-title">Your Selections</h3>
+      <ul className="summary-list">
+        {items.map(item => (
+          <li 
+            key={item.nodeId} 
+            className="summary-item"
+            onClick={() => onSelectNode(item.nodeId)}
+          >
+            <div className="summary-question">{item.question}</div>
+            <div className="summary-answer">{item.answerLabel}</div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+File: SelectionSummary.css
+.selection-summary {
+  margin-top: 24px;
+  padding: 16px;
+  background: #1A1A1F;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.summary-title {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #ccc;
+}
+
+.summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-item {
+  padding: 8px 0;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-question {
+  font-size: 14px;
+  color: #888;
+}
+
+.summary-answer {
+  font-size: 15px;
+  color: #6E56F9;
+}
+
+🟣 STEP 5 — Update promptAssembler.ts
+
+Modify it so it expects arrays:
+
+export function assemblePrompt(answers, refinements, weights) {
+  let parts: string[] = [];
+
+  answers.forEach(a => parts.push(a.label));
+  refinements.forEach(r => parts.push(r.label));
+
+  weights.forEach(w => {
+    parts.push(`(${w.template}:${w.value.toFixed(2)})`);
+  });
+
+  return parts.join(", ");
+}

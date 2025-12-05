@@ -1,0 +1,38 @@
+[
+  {
+    "id": "effects-particles-root",
+    "question": "What particle or spark effects?",
+    "answers": [
+      { "id": "sparkles", "label": "Sparkles", "next": "effects-particles-intensity" },
+      { "id": "embers", "label": "Embers", "next": "effects-particles-intensity" },
+      { "id": "dust", "label": "Dust particles", "next": "effects-particles-intensity" },
+      { "id": "snowflakes", "label": "Snowflakes", "next": "effects-particles-intensity" },
+      { "id": "energy_particles", "label": "Energy particles", "next": "effects-particles-intensity" },
+      { "id": "none", "label": "No particle effects", "next": "effects-fog-root" }
+    ]
+  },
+  {
+    "id": "effects-particles-intensity",
+    "question": "How dense are the particles?",
+    "answers": [
+      { "id": "sparse", "label": "Sparse", "next": "effects-fog-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-fog-root" },
+      { "id": "dense", "label": "Dense", "next": "effects-fog-root" }
+    ],
+    "weights": [
+      {
+        "id": "particle_density",
+        "label": "Particle Density",
+        "template": "particle density",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  }
+]
+
+
+
+

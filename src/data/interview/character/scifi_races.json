@@ -1,0 +1,103 @@
+[
+  {
+    "id": "scifi-races-root",
+    "question": "What sci-fi being?",
+    "answers": [
+      { "id": "android", "label": "Android", "next": "scifi-android" },
+      { "id": "cyborg", "label": "Cyborg", "next": "scifi-cyborg" },
+      { "id": "alien_humanoid", "label": "Alien (humanoid)", "next": "scifi-alien-humanoid" },
+      { "id": "alien_exotic", "label": "Alien (exotic)", "next": "scifi-alien-exotic" },
+      { "id": "synthetic", "label": "Synthetic being", "next": "scifi-synthetic" }
+    ]
+  },
+  {
+    "id": "scifi-android",
+    "question": "What type of android?",
+    "answers": [
+      { "id": "humanoid", "label": "Humanoid android", "next": "scifi-tech-intensity" },
+      { "id": "mechanical", "label": "Mechanical android", "next": "scifi-tech-intensity" },
+      { "id": "organic_looking", "label": "Organic-looking android", "next": "scifi-tech-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-cyborg",
+    "question": "What type of cyborg?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle augmentations", "next": "scifi-tech-intensity" },
+      { "id": "moderate", "label": "Moderate augmentations", "next": "scifi-tech-intensity" },
+      { "id": "extensive", "label": "Extensive augmentations", "next": "scifi-tech-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-alien-humanoid",
+    "question": "What type of humanoid alien?",
+    "answers": [
+      { "id": "near_human", "label": "Near-human", "next": "scifi-alien-intensity" },
+      { "id": "distinct_features", "label": "Distinct features", "next": "scifi-alien-intensity" },
+      { "id": "hybrid", "label": "Hybrid species", "next": "scifi-alien-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-alien-exotic",
+    "question": "What type of exotic alien?",
+    "answers": [
+      { "id": "insectoid", "label": "Insectoid", "next": "scifi-alien-intensity" },
+      { "id": "crystalline", "label": "Crystalline", "next": "scifi-alien-intensity" },
+      { "id": "energy_being", "label": "Energy being", "next": "scifi-alien-intensity" },
+      { "id": "plant_based", "label": "Plant-based", "next": "scifi-alien-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-synthetic",
+    "question": "What type of synthetic being?",
+    "answers": [
+      { "id": "hologram", "label": "Hologram", "next": "scifi-tech-intensity" },
+      { "id": "nanite_swarm", "label": "Nanite swarm", "next": "scifi-tech-intensity" },
+      { "id": "ai_manifestation", "label": "AI manifestation", "next": "scifi-tech-intensity" }
+    ]
+  },
+  {
+    "id": "scifi-tech-intensity",
+    "question": "How technological should the appearance be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-body-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-body-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "character-body-root" }
+    ],
+    "weights": [
+      {
+        "id": "technological_intensity",
+        "label": "Technological Intensity",
+        "template": "technological intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "id": "scifi-alien-intensity",
+    "question": "How alien should the appearance be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-body-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-body-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "character-body-root" }
+    ],
+    "weights": [
+      {
+        "id": "alien_ness",
+        "label": "Alien-ness",
+        "template": "alien appearance",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      }
+    ]
+  }
+]
+
+
+
+

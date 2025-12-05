@@ -1,0 +1,18 @@
+[
+  {
+    "id": "camera-angle-root",
+    "question": "What camera angle?",
+    "answers": [
+      { "id": "eye_level", "label": "Eye-level", "next": "camera-framing-root" },
+      { "id": "low_angle", "label": "Low angle", "next": "camera-framing-root" },
+      { "id": "high_angle", "label": "High angle", "next": "camera-framing-root" },
+      { "id": "dutch_tilt", "label": "Dutch tilt", "next": "camera-framing-root" },
+      { "id": "bird_eye", "label": "Bird's eye view", "next": "camera-framing-root" },
+      { "id": "worm_eye", "label": "Worm's eye view", "next": "camera-framing-root" }
+    ]
+  }
+]
+
+
+
+

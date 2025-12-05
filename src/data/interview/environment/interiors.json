@@ -1,0 +1,63 @@
+[
+  {
+    "id": "interiors-root",
+    "question": "What type of interior?",
+    "answers": [
+      { "id": "room", "label": "Room", "next": "interior-room-type" },
+      { "id": "hall", "label": "Hall", "next": "interior-hall" },
+      { "id": "chamber", "label": "Chamber", "next": "interior-chamber" },
+      { "id": "library", "label": "Library", "next": "interior-library" },
+      { "id": "laboratory", "label": "Laboratory", "next": "interior-lab" }
+    ]
+  },
+  {
+    "id": "interior-room-type",
+    "question": "What type of room?",
+    "answers": [
+      { "id": "bedroom", "label": "Bedroom", "next": "weather-root" },
+      { "id": "study", "label": "Study", "next": "weather-root" },
+      { "id": "kitchen", "label": "Kitchen", "next": "weather-root" },
+      { "id": "living", "label": "Living room", "next": "weather-root" }
+    ]
+  },
+  {
+    "id": "interior-hall",
+    "question": "What type of hall?",
+    "answers": [
+      { "id": "grand", "label": "Grand hall", "next": "weather-root" },
+      { "id": "corridor", "label": "Corridor", "next": "weather-root" },
+      { "id": "throne", "label": "Throne hall", "next": "weather-root" }
+    ]
+  },
+  {
+    "id": "interior-chamber",
+    "question": "What type of chamber?",
+    "answers": [
+      { "id": "secret", "label": "Secret chamber", "next": "weather-root" },
+      { "id": "ritual", "label": "Ritual chamber", "next": "weather-root" },
+      { "id": "treasure", "label": "Treasure chamber", "next": "weather-root" }
+    ]
+  },
+  {
+    "id": "interior-library",
+    "question": "What type of library?",
+    "answers": [
+      { "id": "ancient", "label": "Ancient library", "next": "weather-root" },
+      { "id": "modern", "label": "Modern library", "next": "weather-root" },
+      { "id": "magical", "label": "Magical library", "next": "weather-root" }
+    ]
+  },
+  {
+    "id": "interior-lab",
+    "question": "What type of laboratory?",
+    "answers": [
+      { "id": "alchemy", "label": "Alchemy lab", "next": "weather-root" },
+      { "id": "scientific", "label": "Scientific lab", "next": "weather-root" },
+      { "id": "tech", "label": "Tech lab", "next": "weather-root" }
+    ]
+  }
+]
+
+
+
+

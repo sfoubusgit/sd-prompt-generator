@@ -1,0 +1,755 @@
+🟣 CURSOR PROMPT — CREATE EXTREMELY NUANCED INTERVIEW JSON CONTENT
+
+Important context:
+The project already contains a Guided Prompt Interview Creator with TypeScript types, a useInterviewEngine hook, and a prompt assembler as described in ABOUT_THE_PROGRAM.txt.
+Your task in this prompt is to only create and populate JSON files under src/data/interview/ that define a very large, nuanced decision tree.
+
+1️⃣ High-Level Goal
+
+Populate src/data/interview/ with an extremely nuanced, content-rich set of JSON files that define:
+
+Deep character creation (EXTREME depth, every safe aspect)
+
+Deep art style and rendering style
+
+Deep environment / world / setting
+
+Plus effects and camera options
+
+All JSON must conform to the InterviewNode, RefinementNode, WeightAttribute, and AnswerOption interfaces already defined in src/types/interview.ts (as described in ABOUT_THE_PROGRAM.txt).
+
+You MUST:
+
+Not modify any React/TS code
+
+Only add or update JSON content files
+
+Keep everything safe (no sexual, explicit, or fetish content)
+
+Maximize nuance in a SFW way: style, mood, structure, details, expression, etc.
+
+2️⃣ Scope: EXTREME Nuance in Every Aspect
+
+Treat all parts as EXTREME:
+
+Character: EXTREMELY detailed
+
+Art style: EXTREMELY detailed
+
+Environment: EXTREMELY detailed
+
+Aim for at least ~200 nodes, ideally more (up to ~400–500), spread across many JSON files and subfolders.
+
+You may put multiple nodes in one JSON file (arrays), but keep them logically grouped.
+
+3️⃣ Folder & File Structure
+
+Create/ensure this structure exists:
+
+src/data/interview/
+  root.json
+
+  character/
+    identity.json
+    body.json
+    face.json
+    hair.json
+    clothing.json
+    accessories.json
+    personality.json
+    expression.json
+    pose.json
+    archetype.json
+    ethnicity.json
+    fantasy_races.json
+    scifi_races.json
+    powers.json
+
+  style/
+    artstyle_root.json
+    anime_styles.json
+    realism_styles.json
+    painting_styles.json
+    3d_styles.json
+    cinematic_styles.json
+    color_palettes.json
+    texture_materials.json
+
+  environment/
+    env_root.json
+    nature_biomes.json
+    cities_and_settlements.json
+    interiors.json
+    fantasy_realms.json
+    scifi_worlds.json
+    ruins_and_structures.json
+    weather.json
+    atmosphere_and_mood.json
+    time_of_day.json
+    terrain_details.json
+
+  effects/
+    magic_and_aura.json
+    particles_and_sparks.json
+    fog_and_haze.json
+    light_effects.json
+    distortions_and_glitches.json
+
+  camera/
+    lens_and_focal_length.json
+    angle_and_perspective.json
+    framing_and_composition.json
+    depth_of_field.json
+    motion_and_blur.json
+    render_quality.json
+
+
+Each of these JSON files will contain one or more InterviewNode objects (as an object or an array).
+
+4️⃣ JSON Schema (Must Match Existing Types)
+
+For every node, follow this schema (which matches src/types/interview.ts):
+
+{
+  "id": "string",
+  "question": "string",
+  "description": "string (optional)",
+  "answers": [
+    {
+      "id": "string",
+      "label": "string",
+      "next": "string (optional)",
+      "autoRefine": true // optional boolean
+    }
+  ],
+  "refinements": [
+    {
+      "id": "string",
+      "question": "string",
+      "answers": [
+        { "id": "string", "label": "string", "next": "string (optional)" }
+      ],
+      "weights": [
+        {
+          "id": "string",
+          "label": "string",
+          "template": "string",
+          "min": 1.0,
+          "max": 1.3,
+          "step": 0.01,
+          "default": 1.1
+        }
+      ]
+    }
+  ],
+  "weights": [
+    {
+      "id": "string",
+      "label": "string",
+      "template": "string",
+      "min": 1.0,
+      "max": 1.3,
+      "step": 0.01,
+      "default": 1.1
+    }
+  ]
+}
+
+
+Not all nodes must have refinements or weights, but many should — this is where nuance comes from.
+
+5️⃣ Entry Points: root.json, character + environment roots
+
+You MUST ensure there is a top-level entry node in src/data/interview/root.json:
+
+{
+  "id": "root",
+  "question": "What are you imagining?",
+  "answers": [
+    { "id": "character", "label": "A character", "next": "character-identity-root" },
+    { "id": "environment", "label": "An environment or scene", "next": "env-root" }
+  ]
+}
+
+
+Then:
+
+character-identity-root should live in character/identity.json
+
+env-root should live in environment/env_root.json
+
+Both should fan out into deep trees.
+
+6️⃣ Character System (EXTREME Nuance)
+
+Create a large, interconnected tree for character creation.
+
+6.1 identity.json
+
+Nodes for:
+
+species type: human, elf, dwarf, orc, angel, demon, fae, beastfolk, android, cyborg, alien archetype, etc.
+
+Answer selection should lead into:
+
+character-ethnicity-root (for humans)
+
+fantasy-races-root (for fantasy types)
+
+scifi-races-root (for alien/robot types)
+
+Include weights where appropriate, e.g., “fantasy intensity”, “non-human traits emphasis”.
+
+6.2 ethnicity.json
+
+For humans:
+Questions about broad ethnic background and safe skin tone descriptions (no stereotypes, keep respectful).
+
+Include weights for:
+
+“skin tone richness”
+
+“face feature detail”
+
+6.3 fantasy_races.json & scifi_races.json
+
+Detailed options like:
+
+high elf / wood elf / dark elf
+
+different demon/angel archetypes
+
+various alien body plans (humanoid, semi-humanoid, exotic)
+
+With refinements & weights like:
+
+“otherworldliness intensity”
+
+“non-human trait emphasis”
+
+6.4 body.json
+
+Nodes about:
+
+height range (short, average, tall)
+
+build (slim, average, athletic, strong)
+
+posture (relaxed, upright, imposing)
+
+Weights like:
+
+physique emphasis
+
+posture intensity
+
+Keep all body content SFW.
+
+6.5 face.json
+
+Nodes about:
+
+face shape
+
+jawline softness
+
+eye size (subtle, not exaggerated)
+
+eye shape (almond, round, narrow)
+
+lip fullness (soft, defined)
+
+eyebrow style
+
+Weights like:
+
+facial detail richness
+
+eye emphasis
+
+expression intensity (in combination with expression.json)
+
+6.6 hair.json
+
+Nodes about:
+
+hair length (short, medium, long, very long)
+
+texture (straight, wavy, curly, coily)
+
+style (loose, ponytail, braids, bun, elaborate)
+
+color: natural palette & fantasy palette
+
+Refinements:
+
+“How curly?”
+
+“How vivid is the hair color?”
+
+Weights:
+
+curl intensity
+
+hair volume
+
+color vibrance
+
+6.7 clothing.json
+
+Nodes for:
+
+base style (casual, formal, fantasy, sci-fi, armor, robe, streetwear)
+
+substyles (noble robe, light armor, techwear, etc.)
+
+complexity (simple, detailed, ornate)
+
+Weights:
+
+clothing detail level
+
+ornamentation emphasis
+
+Keep all clothing content non-sexual.
+
+6.8 accessories.json
+
+Nodes for:
+
+jewelry
+
+headwear
+
+glasses
+
+masks
+
+tech gadgets
+
+Weights:
+
+accessory emphasis
+
+technological feel
+
+6.9 personality.json & expression.json
+
+Nodes for:
+
+core traits: shy, confident, mysterious, calm, energetic, stoic, etc.
+
+expression: soft smile, gentle, serious, intense, surprised
+
+Refinements:
+
+“How strong is this trait?”
+
+“How visible is the emotion?”
+
+Weights:
+
+personality intensity
+
+expression intensity
+
+6.10 pose.json
+
+Nodes for:
+
+stance (standing relaxed, heroic pose, walking, sitting, floating)
+
+gesture (hands at sides, holding an item, casting magic, reaching out)
+
+Weights:
+
+pose dynamism
+
+gesture emphasis
+
+6.11 archetype.json
+
+Nodes for:
+
+class/role: mage, knight, rogue, healer, scholar, hacker, pilot, etc.
+
+special flavor: “wandering,” “royal,” “cursed,” “chosen,” etc.
+
+Weights:
+
+archetype clarity
+
+dramatic flair
+
+6.12 powers.json (optional, for fantasy/sci-fi)
+
+Nodes for:
+
+magic element (fire, ice, nature, shadow, light, arcane)
+
+sci-fi abilities (psionics, nanotech, augmentations)
+
+Weights:
+
+aura intensity
+
+power visual strength
+
+All combined, character should be extremely configurable.
+
+7️⃣ Style System (EXTREME Nuance)
+
+Create nodes that ask about how the image should look artistically, including:
+
+artstyle_root.json
+
+Question like:
+
+“What overall art style do you imagine?”
+
+Answers:
+
+Anime
+
+Semi-realistic
+
+Realistic
+
+Painterly illustration
+
+3D render
+
+Cartoon
+
+Comic book
+
+Pixel art, etc.
+
+Each answer links into more specific files:
+
+anime_styles.json
+
+Detailed anime subtypes:
+
+soft, romantic anime
+
+dynamic shounen action
+
+gothic or dark anime
+
+cinematic anime realism
+
+old-school cel-style
+
+chibi-inspired
+
+Weights:
+
+stylization intensity
+
+line crispness
+
+color vibrancy
+
+realism_styles.json
+
+Nodes for:
+
+cinematic realism
+
+portrait photography look
+
+natural light realism
+
+hyperrealistic
+
+Weights like:
+
+realism intensity
+
+detail micro-sharpness
+
+painting_styles.json
+
+Nodes for:
+
+oil painting
+
+watercolor
+
+ink & wash
+
+gouache
+
+digital painting with painterly brushwork
+
+Weights:
+
+brushstroke visibility
+
+texture emphasis
+
+3d_styles.json
+
+Nodes for:
+
+CG render
+
+stylized 3D
+
+clay render
+
+toy-like / figurine-like
+
+Weights:
+
+render smoothness
+
+specular highlight intensity
+
+cinematic_styles.json
+
+Nodes for:
+
+noir look
+
+golden hour cinematic
+
+high contrast drama
+
+muted indie film palette
+
+blockbuster color grading
+
+Weights:
+
+contrast intensity
+
+color grade intensity
+
+color_palettes.json, texture_materials.json
+
+Nodes for:
+
+warm / cool / pastel / neon / monochrome palettes
+
+material focus: fabric, metal, stone, glass, wood, etc.
+
+Weights:
+
+color saturation
+
+texture presence
+
+8️⃣ Environment System (EXTREME Nuance)
+
+Build a world-scale tree:
+
+env_root.json
+
+Question:
+
+“What kind of environment or setting?”
+
+Answers:
+
+Nature
+
+City / settlement
+
+Interior
+
+Fantasy realm
+
+Sci-fi world
+
+Ruins / ancient places
+
+Each answer jumps into specific files:
+
+nature_biomes.json
+
+Nodes for:
+
+forest (temperate, tropical, enchanted, haunted, snowy, autumnal)
+
+mountains (rocky, snowy peaks, misty mountains)
+
+deserts, beaches, oceans, lakes, etc.
+
+Refinements:
+
+density
+
+wild vs tamed
+
+presence of water, rocks, flora
+
+Weights:
+
+environment complexity
+
+nature dominance
+
+cities_and_settlements.json
+
+Nodes for:
+
+medieval town
+
+modern city
+
+cyberpunk metropolis
+
+futuristic megacity
+
+steampunk district
+
+Refinements:
+
+clean vs gritty
+
+density of buildings
+
+crowd presence
+
+Weights:
+
+urban complexity
+
+neon intensity (for cyberpunk)
+
+fantasy_realms.json & scifi_worlds.json
+
+Nodes for:
+
+floating islands
+
+crystal caves
+
+sky kingdoms
+
+alien planets
+
+space stations
+
+orbital platforms
+
+Weights:
+
+fantastical intensity
+
+alien-ness
+
+weather.json, atmosphere_and_mood.json, time_of_day.json, terrain_details.json
+
+Nodes for:
+
+rain, snow, storm, fog, clear skies
+
+mood: serene, ominous, heroic, melancholic
+
+time: sunrise, day, sunset, night, twilight, eclipses
+
+ground details: moss, crystals, ruins fragments, debris, sand, ash
+
+Weights:
+
+weather intensity
+
+fog/haze density
+
+mood strength
+
+9️⃣ Effects & Camera Systems
+effects/…
+
+Nodes for:
+
+magical aura, particles, embers, sparkles
+
+volumetric lighting, light rays
+
+screen-space effects like subtle glitches, chromatic aberration (tastefully)
+
+Weights:
+
+magic visibility
+
+particle density
+
+glow intensity
+
+camera/…
+
+Nodes for:
+
+focal length (portrait / wide / tele)
+
+angle (eye-level, low angle, high angle, Dutch tilt)
+
+framing (close-up, medium shot, full body, wide shot)
+
+depth of field (subtle, moderate, strong)
+
+motion (static, slight motion blur for action)
+
+render quality emphasis
+
+Weights:
+
+DOF strength
+
+motion blur strength
+
+crispness emphasis
+
+🔟 Connectivity and Flow
+
+Make sure:
+
+Every next points to a valid id in some JSON file.
+
+There are no dead ends until a natural “end of interview” point.
+
+You can have multiple end points where next is null; in those, the engine should consider the interview finished.
+
+1️⃣1️⃣ Safety & Tone
+
+All content must remain:
+
+non-sexual, non-explicit
+
+non-fetish
+
+respectful regarding ethnicity, culture, and body
+
+focused on visual / stylistic / atmospheric nuance
+
+Use safe, neutral, creative language.
+
+1️⃣2️⃣ DO NOT
+
+Do not:
+
+Change TypeScript or React source files
+
+Change ABOUT_THE_PROGRAM.txt
+
+Implement randomizers, presets, or editors in this prompt
+
+Add NSFW or explicit attributes
+
+Your job in this prompt is only to generate and fill out JSON files under src/data/interview/ with an EXTREMELY nuanced, deeply layered decision tree as described.
+
+📌 End of Cursor Prompt
+
+Paste this entire thing into Cursor and let it generate the JSON content.
+
+If you want, next I can:
+
+Design specific example nodes for one branch (e.g. full “anime elf mage in enchanted forest” path)
+
+Help you debug the first run once Cursor has generated everything
+
+Or design a smaller “test tree” to validate behavior before plugging in the full dataset.

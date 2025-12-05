@@ -1,0 +1,164 @@
+[
+  {
+    "id": "character-nsfw-root",
+    "question": "Would you like to configure NSFW attributes?",
+    "description": "Configure adult content attributes for the character",
+    "answers": [
+      { "id": "yes_nsfw", "label": "Yes", "next": "nsfw-options" },
+      { "id": "no_nsfw", "label": "No", "next": "character-face-root" }
+    ]
+  },
+  {
+    "id": "nsfw-options",
+    "question": "Which NSFW attribute would you like to configure?",
+    "answers": [
+      { "id": "nude", "label": "Nudity settings", "next": "nsfw-nude" },
+      { "id": "breasts", "label": "Breast size", "next": "nsfw-breasts" },
+      { "id": "vagina", "label": "Vagina size", "next": "nsfw-vagina" },
+      { "id": "penis", "label": "Penis size", "next": "nsfw-penis" },
+      { "id": "buttocks", "label": "Buttocks size", "next": "nsfw-buttocks" },
+      { "id": "done_nsfw", "label": "Done with NSFW attributes", "next": "character-face-root" }
+    ]
+  },
+  {
+    "id": "nsfw-nude",
+    "question": "Nudity setting",
+    "answers": [
+      { "id": "nude_on", "label": "Nude (on)", "next": "nsfw-options" },
+      { "id": "nude_off", "label": "Clothed (off)", "next": "nsfw-options" },
+      { "id": "partial", "label": "Partially nude", "next": "nsfw-options" },
+      { "id": "lingerie", "label": "Lingerie", "next": "nsfw-options" }
+    ],
+    "weights": [
+      {
+        "id": "nudity_emphasis",
+        "label": "Nudity Emphasis",
+        "template": "nudity emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "id": "nsfw-breasts",
+    "question": "Breast size",
+    "description": "Adjust the breast size using the slider",
+    "weights": [
+      {
+        "id": "breast_size_emphasis",
+        "label": "Breast Size",
+        "template": "breast size",
+        "min": 1.0,
+        "max": 1.5,
+        "step": 0.01,
+        "default": 1.2,
+        "tags": []
+      }
+    ],
+    "answers": [
+      { "id": "configure_shape", "label": "Configure breast shape", "next": "nsfw-breast-shape" },
+      { "id": "skip_shape", "label": "Skip", "next": "nsfw-options" }
+    ]
+  },
+  {
+    "id": "nsfw-breast-shape",
+    "question": "What is the breast shape?",
+    "description": "Select the shape of the breasts",
+    "answers": [
+      { "id": "round", "label": "Round", "next": "nsfw-options" },
+      { "id": "teardrop", "label": "Teardrop", "next": "nsfw-options" },
+      { "id": "bell", "label": "Bell Shape", "next": "nsfw-options" },
+      { "id": "asymmetric", "label": "Asymmetric", "next": "nsfw-options" },
+      { "id": "east_west", "label": "East-West", "next": "nsfw-options" },
+      { "id": "side_set", "label": "Side Set", "next": "nsfw-options" },
+      { "id": "slender", "label": "Slender", "next": "nsfw-options" },
+      { "id": "relaxed", "label": "Relaxed", "next": "nsfw-options" },
+      { "id": "conical", "label": "Conical", "next": "nsfw-options" }
+    ]
+  },
+  {
+    "id": "nsfw-vagina",
+    "question": "Vagina size",
+    "description": "Adjust the vagina size using the slider",
+    "weights": [
+      {
+        "id": "vagina_size_emphasis",
+        "label": "Vagina Size",
+        "template": "vagina size",
+        "min": 1.0,
+        "max": 1.5,
+        "step": 0.01,
+        "default": 1.2,
+        "tags": []
+      },
+      {
+        "id": "vagina_detail_emphasis",
+        "label": "Vagina Detail",
+        "template": "vagina detail",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "id": "nsfw-penis",
+    "question": "Penis size",
+    "description": "Adjust the penis size using the slider",
+    "weights": [
+      {
+        "id": "penis_size_emphasis",
+        "label": "Penis Size",
+        "template": "penis size",
+        "min": 1.0,
+        "max": 1.5,
+        "step": 0.01,
+        "default": 1.2,
+        "tags": []
+      },
+      {
+        "id": "penis_detail_emphasis",
+        "label": "Penis Detail",
+        "template": "penis detail",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15,
+        "tags": []
+      }
+    ]
+  },
+  {
+    "id": "nsfw-buttocks",
+    "question": "Buttocks size",
+    "description": "Adjust the buttocks size using the slider",
+    "weights": [
+      {
+        "id": "buttocks_size_emphasis",
+        "label": "Buttocks Size",
+        "template": "buttocks size",
+        "min": 1.0,
+        "max": 1.5,
+        "step": 0.01,
+        "default": 1.2,
+        "tags": []
+      },
+      {
+        "id": "buttocks_shape_emphasis",
+        "label": "Buttocks Shape",
+        "template": "buttocks shape",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15,
+        "tags": []
+      }
+    ]
+  }
+]
+

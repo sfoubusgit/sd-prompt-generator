@@ -1,0 +1,2264 @@
+================================================================================
+GUIDED PROMPT INTERVIEW CREATOR - COMPLETE CODEBASE
+================================================================================
+
+This file contains the complete source code, folder structure, and all files
+for the Guided Prompt Interview Creator application.
+
+Generated: 2024
+
+================================================================================
+FOLDER AND FILE STRUCTURE
+================================================================================
+
+creator/
+├── ABOUT_THE_PROGRAM.txt
+├── COMPLETE_CODEBASE.txt (this file)
+├── README.md
+├── index.html
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── src/
+    ├── main.tsx
+    ├── App.tsx
+    ├── App.css
+    ├── index.css
+    ├── types/
+    │   └── interview.ts
+    ├── services/
+    │   └── promptAssembler.ts
+    ├── hooks/
+    │   └── useInterviewEngine.ts
+    ├── pages/
+    │   ├── InterviewPage.tsx
+    │   └── InterviewPage.css
+    ├── components/
+    │   ├── AnswerButton/
+    │   │   ├── AnswerButton.tsx
+    │   │   └── AnswerButton.css
+    │   ├── StepIndicator/
+    │   │   ├── StepIndicator.tsx
+    │   │   └── StepIndicator.css
+    │   ├── WeightSlider/
+    │   │   ├── WeightSlider.tsx
+    │   │   └── WeightSlider.css
+    │   ├── RefinementPanel/
+    │   │   ├── RefinementPanel.tsx
+    │   │   └── RefinementPanel.css
+    │   ├── QuestionCard/
+    │   │   ├── QuestionCard.tsx
+    │   │   └── QuestionCard.css
+    │   ├── NavigationButtons/
+    │   │   ├── NavigationButtons.tsx
+    │   │   └── NavigationButtons.css
+    │   └── PreviewPanel/
+    │       ├── PreviewPanel.tsx
+    │       └── PreviewPanel.css
+    └── data/
+        └── interview/
+            ├── root.json
+            ├── character/
+            │   ├── identity.json
+            │   ├── body.json (included in identity.json)
+            │   ├── face.json
+            │   ├── hair.json
+            │   ├── clothing.json
+            │   ├── accessories.json
+            │   ├── personality.json
+            │   ├── expression.json
+            │   ├── pose.json
+            │   ├── archetype.json
+            │   ├── ethnicity.json
+            │   ├── fantasy_races.json
+            │   ├── scifi_races.json
+            │   └── powers.json
+            ├── style/
+            │   ├── artstyle_root.json
+            │   ├── anime_styles.json
+            │   ├── realism_styles.json
+            │   ├── painting_styles.json
+            │   ├── 3d_styles.json
+            │   ├── cinematic_styles.json
+            │   ├── color_palettes.json
+            │   └── texture_materials.json
+            ├── environment/
+            │   ├── env_root.json
+            │   ├── nature_biomes.json
+            │   ├── cities_and_settlements.json
+            │   ├── interiors.json
+            │   ├── fantasy_realms.json
+            │   ├── scifi_worlds.json
+            │   ├── ruins_and_structures.json
+            │   ├── weather.json
+            │   ├── atmosphere_and_mood.json
+            │   ├── time_of_day.json
+            │   └── terrain_details.json
+            ├── effects/
+            │   ├── magic_and_aura.json
+            │   ├── particles_and_sparks.json
+            │   ├── fog_and_haze.json
+            │   ├── light_effects.json
+            │   └── distortions_and_glitches.json
+            └── camera/
+                ├── lens_and_focal_length.json
+                ├── angle_and_perspective.json
+                ├── framing_and_composition.json
+                ├── depth_of_field.json
+                ├── motion_and_blur.json
+                └── render_quality.json
+
+Total: 44 JSON files containing 200+ interview nodes
+
+================================================================================
+CONFIGURATION FILES
+================================================================================
+
+FILE: package.json
+================================================================================
+{
+  "name": "guided-prompt-interview-creator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  }
+}
+
+================================================================================
+FILE: tsconfig.json
+================================================================================
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+
+================================================================================
+FILE: tsconfig.node.json
+================================================================================
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+================================================================================
+FILE: vite.config.ts
+================================================================================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [react()],
+})
+
+================================================================================
+FILE: index.html
+================================================================================
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guided Prompt Interview Creator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+================================================================================
+SOURCE CODE FILES
+================================================================================
+
+FILE: src/main.tsx
+================================================================================
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+================================================================================
+FILE: src/App.tsx
+================================================================================
+import { InterviewPage } from './pages/InterviewPage';
+import './App.css';
+
+function App() {
+  return (
+    <div className="app">
+      <InterviewPage />
+    </div>
+  );
+}
+
+export default App;
+
+================================================================================
+FILE: src/App.css
+================================================================================
+.app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+================================================================================
+FILE: src/index.css
+================================================================================
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0F0F12;
+  color: white;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(110, 86, 249, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 86, 249, 0.5);
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(110, 86, 249, 0.3);
+  color: white;
+}
+
+/* Focus outline */
+*:focus {
+  outline: 2px solid rgba(110, 86, 249, 0.5);
+  outline-offset: 2px;
+}
+
+button:focus {
+  outline: 2px solid rgba(110, 86, 249, 0.5);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+================================================================================
+FILE: src/types/interview.ts
+================================================================================
+export interface AnswerOption {
+  id: string;
+  label: string;
+  next?: string;
+  autoRefine?: boolean;
+}
+
+export interface WeightAttribute {
+  id: string;
+  label: string;
+  template: string;
+  min: number;
+  max: number;
+  step: number;
+  default: number;
+}
+
+export interface RefinementNode {
+  id: string;
+  question: string;
+  answers: AnswerOption[];
+  weights?: WeightAttribute[];
+}
+
+export interface InterviewNode {
+  id: string;
+  question: string;
+  description?: string;
+  answers: AnswerOption[];
+  refinements?: RefinementNode[];
+  weights?: WeightAttribute[];
+}
+
+================================================================================
+FILE: src/services/promptAssembler.ts
+================================================================================
+import { InterviewNode, RefinementNode } from '../types/interview';
+
+export interface SelectedAnswer {
+  nodeId: string;
+  answerId: string;
+  label: string;
+}
+
+export interface SelectedRefinement {
+  refinementId: string;
+  answerId: string;
+  label: string;
+}
+
+export interface WeightValue {
+  attrId: string;
+  value: number;
+  template: string;
+}
+
+export function assemblePrompt(
+  selectedAnswers: SelectedAnswer[],
+  selectedRefinements: SelectedRefinement[],
+  weightValues: WeightValue[]
+): { prompt: string; negativePrompt: string } {
+  const parts: string[] = [];
+
+  // Add main answers
+  selectedAnswers.forEach((answer) => {
+    parts.push(answer.label.toLowerCase());
+  });
+
+  // Add refinements
+  selectedRefinements.forEach((refinement) => {
+    parts.push(refinement.label.toLowerCase());
+  });
+
+  // Add weighted attributes
+  weightValues.forEach((weight) => {
+    parts.push(`(${weight.template}:${weight.value.toFixed(2)})`);
+  });
+
+  // Combine into natural language prompt
+  let prompt = parts.join(', ');
+
+  // Add default negative prompt
+  const negativePrompt = 'deformed, distorted, extra limbs, low detail, low quality, bad anatomy';
+
+  return { prompt, negativePrompt };
+}
+
+================================================================================
+FILE: src/hooks/useInterviewEngine.ts
+================================================================================
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
+import { InterviewNode, RefinementNode } from '../types/interview';
+import { assemblePrompt, SelectedAnswer, SelectedRefinement, WeightValue } from '../services/promptAssembler';
+
+// Load all JSON files recursively from all subdirectories
+const interviewFiles = import.meta.glob('/src/data/interview/**/*.json', { eager: true });
+
+// Build node map
+const nodeMap = new Map<string, InterviewNode | RefinementNode>();
+
+Object.values(interviewFiles).forEach((module: any) => {
+  // JSON files are imported as default exports in Vite
+  const data = module.default ?? module;
+  if (Array.isArray(data)) {
+    data.forEach((node: InterviewNode | RefinementNode) => {
+      nodeMap.set(node.id, node);
+    });
+  } else if (data && data.id) {
+    nodeMap.set(data.id, data);
+  }
+});
+
+export function useInterviewEngine() {
+  const [currentNodeId, setCurrentNodeId] = useState<string>('root');
+  const [history, setHistory] = useState<string[]>(['root']);
+  const [selectedAnswers, setSelectedAnswers] = useState<SelectedAnswer[]>([]);
+  const [selectedRefinements, setSelectedRefinements] = useState<Map<string, SelectedRefinement>>(new Map());
+  const [weightValues, setWeightValues] = useState<Map<string, WeightValue>>(new Map());
+  const [pendingAnswer, setPendingAnswer] = useState<{ nodeId: string; answerId: string; label: string } | null>(null);
+  const [pendingRefinement, setPendingRefinement] = useState<{ refinementId: string; answerId: string; label: string } | null>(null);
+  
+  // Use refs to access current state synchronously
+  const pendingAnswerRef = useRef<{ nodeId: string; answerId: string; label: string } | null>(null);
+  const pendingRefinementRef = useRef<{ refinementId: string; answerId: string; label: string } | null>(null);
+  const historyRef = useRef<string[]>(['root']);
+  
+  // Keep refs in sync with state
+  useEffect(() => {
+    pendingAnswerRef.current = pendingAnswer;
+  }, [pendingAnswer]);
+  
+  useEffect(() => {
+    pendingRefinementRef.current = pendingRefinement;
+  }, [pendingRefinement]);
+  
+  useEffect(() => {
+    historyRef.current = history;
+  }, [history]);
+
+  const currentNode = nodeMap.get(currentNodeId) as InterviewNode | undefined;
+
+  const selectAnswer = useCallback((answerId: string) => {
+    if (!currentNode) return;
+
+    const answer = currentNode.answers.find((a) => a.id === answerId);
+    if (!answer) return;
+
+    // Check if current node is a refinement node
+    const isRefinementNode = currentNodeId.startsWith('refine-');
+    
+    if (isRefinementNode) {
+      // For refinement nodes, set as pending refinement
+      setPendingRefinement({
+        refinementId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      });
+      setPendingAnswer(null);
+    } else {
+      // Regular node - set as pending answer
+      setPendingAnswer({
+        nodeId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      });
+      setPendingRefinement(null);
+    }
+  }, [currentNode, currentNodeId]);
+
+  const next = useCallback((answerId: string) => {
+    // Legacy support - for backward compatibility, auto-continue immediately
+    // This is used by "Suggest for Me" button - it selects and continues in one action
+    if (!currentNode) return;
+
+    const answer = currentNode.answers.find((a) => a.id === answerId);
+    if (!answer) return;
+
+    // Check if current node is a refinement node
+    const isRefinementNode = currentNodeId.startsWith('refine-');
+    
+    if (isRefinementNode) {
+      // For refinement nodes, record as refinement and continue
+      const refinement: SelectedRefinement = {
+        refinementId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      };
+      setSelectedRefinements((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(currentNodeId, refinement);
+        return newMap;
+      });
+      
+      // If there's a next node, navigate to it
+      if (answer.next) {
+        setHistory((prev) => [...prev, answer.next!]);
+        setCurrentNodeId(answer.next);
+      }
+    } else {
+      // Regular node - record as answer and continue
+      const newAnswer: SelectedAnswer = {
+        nodeId: currentNodeId,
+        answerId: answer.id,
+        label: answer.label,
+      };
+      setSelectedAnswers((prev) => [...prev, newAnswer]);
+
+      // Move to next node if specified
+      if (answer.next) {
+        setHistory((prev) => [...prev, answer.next!]);
+        setCurrentNodeId(answer.next);
+      } else {
+        // Check if there are refinements on current node
+        if (currentNode.refinements && currentNode.refinements.length > 0) {
+          // Auto-refine if specified
+          if (answer.autoRefine && currentNode.refinements[0]) {
+            setHistory((prev) => [...prev, currentNode.refinements![0].id]);
+            setCurrentNodeId(currentNode.refinements[0].id);
+          }
+        }
+      }
+    }
+  }, [currentNode, currentNodeId]);
+
+  const continueFromPending = useCallback(() => {
+    // Use refs to access current state synchronously
+    const currentPendingAnswer = pendingAnswerRef.current;
+    const currentPendingRefinement = pendingRefinementRef.current;
+    const currentHistory = historyRef.current;
+    
+    if (currentPendingAnswer) {
+      // Record the pending answer
+      const newAnswer: SelectedAnswer = {
+        nodeId: currentPendingAnswer.nodeId,
+        answerId: currentPendingAnswer.answerId,
+        label: currentPendingAnswer.label,
+      };
+      setSelectedAnswers((prev) => [...prev, newAnswer]);
+
+      const answerNode = nodeMap.get(currentPendingAnswer.nodeId) as InterviewNode | undefined;
+      const answer = answerNode?.answers.find((a) => a.id === currentPendingAnswer.answerId);
+      
+      if (answer?.next) {
+        const newHistory = [...currentHistory, answer.next!];
+        setHistory(newHistory);
+        historyRef.current = newHistory;
+        setCurrentNodeId(answer.next);
+      } else if (answerNode?.refinements && answerNode.refinements.length > 0) {
+        // Check if there are refinements on current node
+        if (answer?.autoRefine && answerNode.refinements[0]) {
+          const newHistory = [...currentHistory, answerNode.refinements[0].id];
+          setHistory(newHistory);
+          historyRef.current = newHistory;
+          setCurrentNodeId(answerNode.refinements[0].id);
+        }
+      }
+      
+      setPendingAnswer(null);
+      pendingAnswerRef.current = null;
+    } else if (currentPendingRefinement) {
+      // Record the pending refinement
+      const refinement: SelectedRefinement = {
+        refinementId: currentPendingRefinement.refinementId,
+        answerId: currentPendingRefinement.answerId,
+        label: currentPendingRefinement.label,
+      };
+      setSelectedRefinements((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(currentPendingRefinement.refinementId, refinement);
+        return newMap;
+      });
+
+      const refinementNode = nodeMap.get(currentPendingRefinement.refinementId) as RefinementNode | undefined;
+      const answer = refinementNode?.answers.find((a) => a.id === currentPendingRefinement.answerId);
+      
+      if (answer?.next) {
+        const newHistory = [...currentHistory, answer.next!];
+        setHistory(newHistory);
+        historyRef.current = newHistory;
+        setCurrentNodeId(answer.next);
+      } else {
+        // If no next node, try to find the next unvisited node
+        const visitedNodeIds = new Set(currentHistory);
+        const currentNodePrefix = currentPendingRefinement.refinementId.split('-')[0];
+        
+        // Find all nodes that match the prefix and haven't been visited
+        const candidateNodes: string[] = [];
+        nodeMap.forEach((node, nodeId) => {
+          if (!visitedNodeIds.has(nodeId) && 
+              !nodeId.startsWith('refine-') && 
+              nodeId.startsWith(currentNodePrefix + '-')) {
+            candidateNodes.push(nodeId);
+          }
+        });
+        
+        // If we found candidates, go to the first one
+        if (candidateNodes.length > 0) {
+          const nextNodeId = candidateNodes[0];
+          const newHistory = [...currentHistory, nextNodeId];
+          setHistory(newHistory);
+          historyRef.current = newHistory;
+          setCurrentNodeId(nextNodeId);
+        }
+      }
+      
+      setPendingRefinement(null);
+      pendingRefinementRef.current = null;
+    }
+  }, [nodeMap]);
+
+  const previous = useCallback(() => {
+    if (history.length <= 1) return;
+
+    const newHistory = [...history];
+    newHistory.pop();
+    const prevNodeId = newHistory[newHistory.length - 1];
+    
+    setHistory(newHistory);
+    setCurrentNodeId(prevNodeId);
+    
+    // Clear pending selections
+    setPendingAnswer(null);
+    setPendingRefinement(null);
+    
+    // Remove the last answer or refinement
+    const wasRefinementNode = currentNodeId.startsWith('refine-');
+    if (wasRefinementNode) {
+      setSelectedRefinements((prev) => {
+        const newMap = new Map(prev);
+        newMap.delete(currentNodeId);
+        return newMap;
+      });
+    } else {
+      setSelectedAnswers((prev) => prev.slice(0, -1));
+    }
+  }, [history, currentNodeId]);
+
+  const selectRefinement = useCallback((refinementId: string, answerId: string, label: string) => {
+    const refinement = new Map(selectedRefinements);
+    refinement.set(refinementId, { refinementId, answerId, label });
+    setSelectedRefinements(refinement);
+  }, [selectedRefinements]);
+
+  const setWeight = useCallback((attrId: string, value: number, template: string) => {
+    const weights = new Map(weightValues);
+    weights.set(attrId, { attrId, value, template });
+    setWeightValues(weights);
+  }, [weightValues]);
+
+  const reset = useCallback(() => {
+    setCurrentNodeId('root');
+    setHistory(['root']);
+    setSelectedAnswers([]);
+    setSelectedRefinements(new Map());
+    setWeightValues(new Map());
+  }, []);
+
+  const getPreviewPrompt = useCallback((): { prompt: string; negativePrompt: string } => {
+    const refinementsArray = Array.from(selectedRefinements.values());
+    const weightsArray = Array.from(weightValues.values());
+    return assemblePrompt(selectedAnswers, refinementsArray, weightsArray);
+  }, [selectedAnswers, selectedRefinements, weightValues]);
+
+  const isFinished = useCallback((): boolean => {
+    if (!currentNode) return true;
+    
+    // If we're on a refinement node, check if a refinement has been selected
+    const isRefinementNode = currentNodeId.startsWith('refine-');
+    if (isRefinementNode) {
+      // Check if a refinement answer has been selected
+      const hasSelectedRefinement = selectedRefinements.has(currentNodeId);
+      // If no refinement selected, we're not finished
+      if (!hasSelectedRefinement) return false;
+      // If refinement selected but no next node, we're finished
+      return currentNode.answers.every((a) => !a.next);
+    }
+    
+    // For regular nodes, check if all answers have no next and no refinements
+    return currentNode.answers.length === 0 || 
+           currentNode.answers.every((a) => !a.next && (!currentNode.refinements || currentNode.refinements.length === 0));
+  }, [currentNode, currentNodeId, selectedRefinements]);
+
+  const getCurrentRefinement = useCallback((): RefinementNode | undefined => {
+    // Check if current node is a refinement node (nodes that start with "refine-" or have no next pointers)
+    const currentNodeAsRefinement = nodeMap.get(currentNodeId);
+    if (currentNodeAsRefinement && currentNodeId.startsWith('refine-')) {
+      // It's a refinement node referenced directly
+      const hasNextPointers = currentNodeAsRefinement.answers && currentNodeAsRefinement.answers.some((a: any) => a.next);
+      if (!hasNextPointers) {
+        return currentNodeAsRefinement as RefinementNode;
+      }
+    }
+    
+    // Otherwise check refinements on current node
+    if (!currentNode || !currentNode.refinements) return undefined;
+    
+    // Find refinement that hasn't been answered yet
+    for (const refinement of currentNode.refinements) {
+      if (!selectedRefinements.has(refinement.id)) {
+        return refinement;
+      }
+    }
+    
+    return undefined;
+  }, [currentNode, currentNodeId, selectedRefinements]);
+
+  const getActiveWeights = useCallback((): Array<{ id: string; label: string; template: string; min: number; max: number; step: number; default: number; value: number }> => {
+    const weights: Array<{ id: string; label: string; template: string; min: number; max: number; step: number; default: number; value: number }> = [];
+    
+    if (currentNode?.weights) {
+      currentNode.weights.forEach((weight) => {
+        const currentValue = weightValues.get(weight.id);
+        weights.push({
+          ...weight,
+          value: currentValue?.value ?? weight.default,
+        });
+      });
+    }
+    
+    const currentRefinement = getCurrentRefinement();
+    if (currentRefinement?.weights) {
+      currentRefinement.weights.forEach((weight) => {
+        const currentValue = weightValues.get(weight.id);
+        weights.push({
+          ...weight,
+          value: currentValue?.value ?? weight.default,
+        });
+      });
+    }
+    
+    return weights;
+  }, [currentNode, weightValues, getCurrentRefinement]);
+
+  const stepCount = useMemo(() => {
+    // Calculate total steps (simplified - count nodes in path)
+    return history.length;
+  }, [history]);
+
+  const canContinue = useCallback((): boolean => {
+    // Can continue if there's a pending answer or pending refinement
+    return pendingAnswer !== null || pendingRefinement !== null;
+  }, [pendingAnswer, pendingRefinement]);
+
+  const continueToNext = useCallback(() => {
+    // Find the next node to continue to after a refinement
+    // Look for nodes that haven't been visited yet and aren't refinements
+    const visitedNodeIds = new Set(history);
+    
+    // Try to find a node that's a logical continuation
+    // For now, we'll look for nodes that start with the same prefix (e.g., "character-")
+    const currentNodePrefix = currentNodeId.split('-')[0];
+    
+    // Find all nodes that match the prefix and haven't been visited
+    const candidateNodes: string[] = [];
+    nodeMap.forEach((node, nodeId) => {
+      if (!visitedNodeIds.has(nodeId) && 
+          !nodeId.startsWith('refine-') && 
+          nodeId.startsWith(currentNodePrefix + '-')) {
+        candidateNodes.push(nodeId);
+      }
+    });
+    
+    // If we found candidates, go to the first one
+    // Otherwise, try to find any unvisited non-refinement node
+    if (candidateNodes.length > 0) {
+      const nextNodeId = candidateNodes[0];
+      setHistory((prev) => [...prev, nextNodeId]);
+      setCurrentNodeId(nextNodeId);
+    } else {
+      // Look for any unvisited node that's not a refinement
+      nodeMap.forEach((node, nodeId) => {
+        if (!visitedNodeIds.has(nodeId) && !nodeId.startsWith('refine-') && nodeId !== 'root') {
+          setHistory((prev) => [...prev, nodeId]);
+          setCurrentNodeId(nodeId);
+          return;
+        }
+      });
+    }
+  }, [currentNodeId, history, nodeMap]);
+
+  return {
+    currentNode,
+    currentNodeId,
+    history,
+    selectedAnswers,
+    selectedRefinements,
+    weightValues,
+    next,
+    previous,
+    selectAnswer,
+    selectRefinement,
+    setWeight,
+    reset,
+    getPreviewPrompt,
+    isFinished,
+    getCurrentRefinement,
+    getActiveWeights,
+    stepCount,
+    nodeMap,
+    canContinue,
+    continueFromPending,
+    continueToNext,
+    pendingAnswer,
+    pendingRefinement,
+  };
+}
+
+================================================================================
+FILE: src/pages/InterviewPage.tsx
+================================================================================
+import { useInterviewEngine } from '../hooks/useInterviewEngine';
+import { QuestionCard } from '../components/QuestionCard/QuestionCard';
+import { PreviewPanel } from '../components/PreviewPanel/PreviewPanel';
+import './InterviewPage.css';
+
+export function InterviewPage() {
+  const {
+    currentNode,
+    currentNodeId,
+    next,
+    previous,
+    selectAnswer,
+    selectRefinement,
+    setWeight,
+    getPreviewPrompt,
+    isFinished,
+    getCurrentRefinement,
+    getActiveWeights,
+    stepCount,
+    history,
+    selectedRefinements,
+    weightValues,
+    canContinue,
+    continueFromPending,
+    continueToNext,
+    pendingAnswer,
+    pendingRefinement,
+  } = useInterviewEngine();
+
+  if (!currentNode) {
+    return (
+      <div className="interview-page">
+        <div className="error-message">Error: Could not load interview data</div>
+      </div>
+    );
+  }
+
+  const preview = getPreviewPrompt();
+  const currentRefinement = getCurrentRefinement();
+  const activeWeights = getActiveWeights();
+
+  // Check if current node is a refinement node (it's the refinement itself)
+  const isRefinementNode = currentRefinement && currentRefinement.id === currentNode.id;
+  
+  // Check if we should show the continue button - show it if there's a pending selection
+  const shouldShowContinue = canContinue();
+  
+  // Get selected answer ID for highlighting (check pending first, then saved)
+  const selectedAnswerId = pendingAnswer?.nodeId === currentNodeId 
+    ? pendingAnswer.answerId 
+    : undefined;
+  
+  // Get selected refinement answer ID (prioritize pending, then saved)
+  const selectedRefinementAnswerId = pendingRefinement?.refinementId === (currentRefinement?.id || currentNodeId) 
+    ? pendingRefinement.answerId 
+    : (currentRefinement ? selectedRefinements.get(currentRefinement.id)?.answerId : undefined);
+
+  const handleAnswerSelect = (answerId: string) => {
+    // Use selectAnswer instead of next to allow Continue button
+    if (selectAnswer) {
+      selectAnswer(answerId);
+    } else {
+      // Fallback to next for backward compatibility
+      next(answerId);
+    }
+  };
+
+  const handleRefinementSelect = (answerId: string) => {
+    // When on a refinement node, use selectAnswer
+    if (isRefinementNode) {
+      if (selectAnswer) {
+        selectAnswer(answerId);
+      } else {
+        next(answerId);
+      }
+    } else if (currentRefinement) {
+      // This is for refinements shown as panels (not standalone nodes)
+      const answer = currentRefinement.answers.find((a) => a.id === answerId);
+      if (answer) {
+        selectRefinement(currentRefinement.id, answerId, answer.label);
+      }
+    }
+  };
+
+  const handleContinue = () => {
+    if (continueFromPending) {
+      continueFromPending();
+    } else if (continueToNext) {
+      continueToNext();
+    }
+  };
+
+  const handleWeightChange = (attrId: string, value: number, template: string) => {
+    setWeight(attrId, value, template);
+  };
+
+  const handleSuggest = () => {
+    // Auto-select first answer if available
+    if (currentNode.answers.length > 0) {
+      handleAnswerSelect(currentNode.answers[0].id);
+    }
+  };
+
+  // Merge weight values from both node and refinement
+  const allWeightValues = new Map(weightValues);
+  if (currentNode.weights) {
+    currentNode.weights.forEach((weight) => {
+      if (!allWeightValues.has(weight.id)) {
+        allWeightValues.set(weight.id, {
+          value: weight.default,
+          template: weight.template,
+        });
+      }
+    });
+  }
+  if (currentRefinement?.weights) {
+    currentRefinement.weights.forEach((weight) => {
+      if (!allWeightValues.has(weight.id)) {
+        allWeightValues.set(weight.id, {
+          value: weight.default,
+          template: weight.template,
+        });
+      }
+    });
+  }
+
+  return (
+    <div className="interview-page">
+      <div className="interview-container">
+        <div className="interview-left">
+          {isRefinementNode ? (
+            // Show refinement as main question
+            <QuestionCard
+              node={currentRefinement as any}
+              currentStep={stepCount}
+              selectedAnswerId={selectedRefinementAnswerId}
+              onSelectAnswer={handleRefinementSelect}
+              onPrevious={previous}
+              onSuggest={handleSuggest}
+              onContinue={handleContinue}
+              weightValues={allWeightValues}
+              onWeightChange={handleWeightChange}
+              canGoBack={history.length > 1}
+              showContinue={shouldShowContinue}
+            />
+          ) : (
+            <QuestionCard
+              node={currentNode}
+              currentStep={stepCount}
+              selectedAnswerId={selectedAnswerId}
+              onSelectAnswer={handleAnswerSelect}
+              onPrevious={previous}
+              onSuggest={handleSuggest}
+              onContinue={handleContinue}
+              refinement={
+                currentRefinement && !isRefinementNode
+                  ? {
+                      node: currentRefinement,
+                      selectedAnswerId: selectedRefinementAnswerId,
+                      onSelectAnswer: handleRefinementSelect,
+                    }
+                  : undefined
+              }
+              weightValues={allWeightValues}
+              onWeightChange={handleWeightChange}
+              canGoBack={history.length > 1}
+              showContinue={shouldShowContinue}
+            />
+          )}
+        </div>
+        <div className="interview-right">
+          <PreviewPanel
+            prompt={preview.prompt}
+            negativePrompt={preview.negativePrompt}
+            isFinished={isFinished()}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/pages/InterviewPage.css
+================================================================================
+.interview-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #0F0F12;
+}
+
+.interview-container {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.interview-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.interview-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 1200px) {
+  .interview-container {
+    grid-template-columns: 1fr;
+  }
+
+  .interview-right {
+    order: -1;
+  }
+
+  .preview-panel {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+================================================================================
+COMPONENT FILES
+================================================================================
+
+FILE: src/components/AnswerButton/AnswerButton.tsx
+================================================================================
+import './AnswerButton.css';
+
+interface AnswerButtonProps {
+  label: string;
+  onClick: () => void;
+  isSelected?: boolean;
+}
+
+export function AnswerButton({ label, onClick, isSelected }: AnswerButtonProps) {
+  return (
+    <button
+      className={`answer-button ${isSelected ? 'selected' : ''}`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+}
+
+================================================================================
+FILE: src/components/AnswerButton/AnswerButton.css
+================================================================================
+.answer-button {
+  width: 100%;
+  padding: 16px 24px;
+  background: #1A1A1F;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.answer-button:hover {
+  background: #222228;
+  border-color: rgba(110, 86, 249, 0.3);
+  box-shadow: 0 4px 12px rgba(110, 86, 249, 0.15);
+  transform: translateY(-2px);
+}
+
+.answer-button.selected {
+  background: rgba(110, 86, 249, 0.1);
+  border-color: #6E56F9;
+  box-shadow: 0 0 0 2px rgba(110, 86, 249, 0.2), 0 4px 16px rgba(110, 86, 249, 0.25);
+}
+
+.answer-button:active {
+  transform: translateY(0);
+}
+
+================================================================================
+FILE: src/components/StepIndicator/StepIndicator.tsx
+================================================================================
+import './StepIndicator.css';
+
+interface StepIndicatorProps {
+  currentStep: number;
+  totalSteps?: number;
+}
+
+export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
+  return (
+    <div className="step-indicator">
+      <span className="step-text">
+        Step {currentStep}{totalSteps ? ` of ${totalSteps}` : ''}
+      </span>
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/StepIndicator/StepIndicator.css
+================================================================================
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.step-text {
+  font-size: 14px;
+  color: #B0B0C3;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+================================================================================
+FILE: src/components/WeightSlider/WeightSlider.tsx
+================================================================================
+import './WeightSlider.css';
+
+interface WeightSliderProps {
+  id: string;
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (value: number) => void;
+}
+
+export function WeightSlider({ id, label, value, min, max, step, onChange }: WeightSliderProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(parseFloat(e.target.value));
+  };
+
+  const percentage = ((value - min) / (max - min)) * 100;
+
+  return (
+    <div className="weight-slider">
+      <div className="weight-slider-header">
+        <label htmlFor={id} className="weight-slider-label">
+          {label}
+        </label>
+        <span className="weight-slider-value">{value.toFixed(2)}</span>
+      </div>
+      <div className="weight-slider-wrapper">
+        <input
+          type="range"
+          id={id}
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={handleChange}
+          className="weight-slider-input"
+          style={{
+            background: `linear-gradient(to right, #6E56F9 0%, #6E56F9 ${percentage}%, rgba(255, 255, 255, 0.05) ${percentage}%, rgba(255, 255, 255, 0.05) 100%)`
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/WeightSlider/WeightSlider.css
+================================================================================
+.weight-slider {
+  margin-bottom: 24px;
+}
+
+.weight-slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.weight-slider-label {
+  font-size: 15px;
+  color: white;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.weight-slider-value {
+  font-size: 15px;
+  color: #6E56F9;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  background: rgba(110, 86, 249, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(110, 86, 249, 0.2);
+}
+
+.weight-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.weight-slider-input {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.weight-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6E56F9;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px rgba(110, 86, 249, 0.2), 0 2px 8px rgba(110, 86, 249, 0.4);
+  transition: all 0.2s ease;
+}
+
+.weight-slider-input::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(110, 86, 249, 0.25), 0 4px 12px rgba(110, 86, 249, 0.5);
+  transform: scale(1.1);
+}
+
+.weight-slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #6E56F9;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 4px rgba(110, 86, 249, 0.2), 0 2px 8px rgba(110, 86, 249, 0.4);
+  transition: all 0.2s ease;
+}
+
+.weight-slider-input::-moz-range-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(110, 86, 249, 0.25), 0 4px 12px rgba(110, 86, 249, 0.5);
+  transform: scale(1.1);
+}
+
+.weight-slider-input::-moz-range-track {
+  background: rgba(255, 255, 255, 0.05);
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Fill the track with violet */
+.weight-slider-input {
+  background: linear-gradient(
+    to right,
+    #6E56F9 0%,
+    #6E56F9 calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%),
+    rgba(255, 255, 255, 0.05) calc((var(--value) - var(--min)) / (var(--max) - var(--min)) * 100%),
+    rgba(255, 255, 255, 0.05) 100%
+  );
+}
+
+================================================================================
+FILE: src/components/RefinementPanel/RefinementPanel.tsx
+================================================================================
+import './RefinementPanel.css';
+import { RefinementNode } from '../../types/interview';
+import { AnswerButton } from '../AnswerButton/AnswerButton';
+import { WeightSlider } from '../WeightSlider/WeightSlider';
+
+interface RefinementPanelProps {
+  refinement: RefinementNode;
+  selectedAnswerId?: string;
+  onSelectAnswer: (answerId: string) => void;
+  weightValues: Map<string, { value: number; template: string }>;
+  onWeightChange: (attrId: string, value: number, template: string) => void;
+}
+
+export function RefinementPanel({
+  refinement,
+  selectedAnswerId,
+  onSelectAnswer,
+  weightValues,
+  onWeightChange,
+}: RefinementPanelProps) {
+  return (
+    <div className="refinement-panel">
+      <h3 className="refinement-question">{refinement.question}</h3>
+      <div className="refinement-answers">
+        {refinement.answers.map((answer) => (
+          <AnswerButton
+            key={answer.id}
+            label={answer.label}
+            onClick={() => onSelectAnswer(answer.id)}
+            isSelected={selectedAnswerId === answer.id}
+          />
+        ))}
+      </div>
+      {refinement.weights && refinement.weights.length > 0 && (
+        <div className="refinement-weights">
+          {refinement.weights.map((weight) => {
+            const currentValue = weightValues.get(weight.id);
+            return (
+              <WeightSlider
+                key={weight.id}
+                id={weight.id}
+                label={weight.label}
+                value={currentValue?.value ?? weight.default}
+                min={weight.min}
+                max={weight.max}
+                step={weight.step}
+                onChange={(value) => onWeightChange(weight.id, value, weight.template)}
+              />
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/RefinementPanel/RefinementPanel.css
+================================================================================
+.refinement-panel {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.refinement-question {
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 20px;
+}
+
+.refinement-answers {
+  margin-bottom: 24px;
+}
+
+.refinement-weights {
+  margin-top: 24px;
+}
+
+================================================================================
+FILE: src/components/QuestionCard/QuestionCard.tsx
+================================================================================
+import './QuestionCard.css';
+import { InterviewNode } from '../../types/interview';
+import { AnswerButton } from '../AnswerButton/AnswerButton';
+import { RefinementPanel } from '../RefinementPanel/RefinementPanel';
+import { WeightSlider } from '../WeightSlider/WeightSlider';
+import { StepIndicator } from '../StepIndicator/StepIndicator';
+import { NavigationButtons } from '../NavigationButtons/NavigationButtons';
+
+interface QuestionCardProps {
+  node: InterviewNode;
+  currentStep: number;
+  selectedAnswerId?: string;
+  onSelectAnswer: (answerId: string) => void;
+  onPrevious: () => void;
+  onSuggest: () => void;
+  onContinue?: () => void;
+  refinement?: {
+    node: any;
+    selectedAnswerId?: string;
+    onSelectAnswer: (answerId: string) => void;
+  };
+  weightValues: Map<string, { value: number; template: string }>;
+  onWeightChange: (attrId: string, value: number, template: string) => void;
+  canGoBack: boolean;
+  showContinue?: boolean;
+}
+
+export function QuestionCard({
+  node,
+  currentStep,
+  selectedAnswerId,
+  onSelectAnswer,
+  onPrevious,
+  onSuggest,
+  onContinue,
+  refinement,
+  weightValues,
+  onWeightChange,
+  canGoBack,
+  showContinue,
+}: QuestionCardProps) {
+  return (
+    <div className="question-card">
+      <StepIndicator currentStep={currentStep} />
+      <h2 className="question-title">{node.question}</h2>
+      {node.description && (
+        <p className="question-description">{node.description}</p>
+      )}
+      <div className="question-answers">
+        {node.answers.map((answer) => (
+          <AnswerButton
+            key={answer.id}
+            label={answer.label}
+            onClick={() => onSelectAnswer(answer.id)}
+            isSelected={selectedAnswerId === answer.id}
+          />
+        ))}
+      </div>
+      {node.weights && node.weights.length > 0 && (
+        <div className="question-weights">
+          {node.weights.map((weight) => {
+            const currentValue = weightValues.get(weight.id);
+            return (
+              <WeightSlider
+                key={weight.id}
+                id={weight.id}
+                label={weight.label}
+                value={currentValue?.value ?? weight.default}
+                min={weight.min}
+                max={weight.max}
+                step={weight.step}
+                onChange={(value) => onWeightChange(weight.id, value, weight.template)}
+              />
+            );
+          })}
+        </div>
+      )}
+      {refinement && (
+        <RefinementPanel
+          refinement={refinement.node}
+          selectedAnswerId={refinement.selectedAnswerId}
+          onSelectAnswer={refinement.onSelectAnswer}
+          weightValues={weightValues}
+          onWeightChange={onWeightChange}
+        />
+      )}
+      <NavigationButtons
+        onPrevious={onPrevious}
+        onSuggest={onSuggest}
+        onContinue={onContinue}
+        canGoBack={canGoBack}
+        showContinue={showContinue}
+      />
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/QuestionCard/QuestionCard.css
+================================================================================
+.question-card {
+  background: #1A1A1F;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, rgba(110, 86, 249, 0.3), rgba(110, 86, 249, 0));
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.question-card:hover::before {
+  opacity: 1;
+}
+
+.question-title {
+  font-size: 28px;
+  color: white;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.question-description {
+  font-size: 15px;
+  color: #B0B0C3;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.question-answers {
+  margin-bottom: 24px;
+}
+
+.question-weights {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+================================================================================
+FILE: src/components/NavigationButtons/NavigationButtons.tsx
+================================================================================
+import './NavigationButtons.css';
+
+interface NavigationButtonsProps {
+  onPrevious: () => void;
+  onSuggest: () => void;
+  onContinue?: () => void;
+  canGoBack: boolean;
+  showContinue?: boolean;
+}
+
+export function NavigationButtons({ onPrevious, onSuggest, onContinue, canGoBack, showContinue }: NavigationButtonsProps) {
+  return (
+    <div className="navigation-buttons">
+      <button
+        className="nav-button nav-button-back"
+        onClick={onPrevious}
+        disabled={!canGoBack}
+      >
+        ← Back
+      </button>
+      {showContinue && onContinue ? (
+        <button
+          className="nav-button nav-button-continue"
+          onClick={onContinue}
+        >
+          Continue →
+        </button>
+      ) : (
+        <button
+          className="nav-button nav-button-suggest"
+          onClick={onSuggest}
+        >
+          Suggest for Me
+        </button>
+      )}
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/NavigationButtons/NavigationButtons.css
+================================================================================
+.navigation-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav-button {
+  flex: 1;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav-button-back {
+  background: rgba(255, 255, 255, 0.03);
+  color: #B0B0C3;
+}
+
+.nav-button-back:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-button-back:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.nav-button-suggest {
+  background: rgba(110, 86, 249, 0.15);
+  color: #6E56F9;
+  border-color: rgba(110, 86, 249, 0.3);
+}
+
+.nav-button-suggest:hover {
+  background: rgba(110, 86, 249, 0.25);
+  border-color: #6E56F9;
+  box-shadow: 0 4px 12px rgba(110, 86, 249, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav-button-continue {
+  background: #6E56F9;
+  color: white;
+  border-color: #6E56F9;
+}
+
+.nav-button-continue:hover {
+  background: #7B65FF;
+  border-color: #7B65FF;
+  box-shadow: 0 4px 16px rgba(110, 86, 249, 0.4);
+  transform: translateY(-2px);
+}
+
+.nav-button:active {
+  transform: translateY(0);
+}
+
+================================================================================
+FILE: src/components/PreviewPanel/PreviewPanel.tsx
+================================================================================
+import './PreviewPanel.css';
+
+interface PreviewPanelProps {
+  prompt: string;
+  negativePrompt: string;
+  isFinished: boolean;
+}
+
+export function PreviewPanel({ prompt, negativePrompt, isFinished }: PreviewPanelProps) {
+  const handleCopy = () => {
+    const fullPrompt = `${prompt}\n\nNegative prompt: ${negativePrompt}`;
+    navigator.clipboard.writeText(fullPrompt).then(() => {
+      // You could add a toast notification here
+      alert('Prompt copied to clipboard!');
+    }).catch((err) => {
+      console.error('Failed to copy:', err);
+    });
+  };
+
+  return (
+    <div className="preview-panel">
+      <div className="preview-header">
+        <h3 className="preview-title">Prompt Preview</h3>
+        {isFinished && (
+          <span className="preview-badge">Complete</span>
+        )}
+      </div>
+      <div className="preview-content">
+        <div className="preview-section">
+          <label className="preview-label">Prompt</label>
+          <div className="preview-text prompt-text">
+            {prompt || 'Start answering questions to build your prompt...'}
+          </div>
+        </div>
+        <div className="preview-section">
+          <label className="preview-label">Negative Prompt</label>
+          <div className="preview-text negative-prompt-text">
+            {negativePrompt}
+          </div>
+        </div>
+      </div>
+      {isFinished && prompt && (
+        <button className="preview-copy-button" onClick={handleCopy}>
+          Copy Prompt
+        </button>
+      )}
+    </div>
+  );
+}
+
+================================================================================
+FILE: src/components/PreviewPanel/PreviewPanel.css
+================================================================================
+.preview-panel {
+  background: #1A1A1F;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  position: sticky;
+  top: 32px;
+  height: fit-content;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.preview-title {
+  font-size: 22px;
+  color: white;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.preview-badge {
+  background: rgba(110, 86, 249, 0.2);
+  color: #6E56F9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid rgba(110, 86, 249, 0.3);
+}
+
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-label {
+  font-size: 14px;
+  color: #B0B0C3;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.preview-text {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  min-height: 60px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.prompt-text {
+  color: white;
+}
+
+.negative-prompt-text {
+  color: #B0B0C3;
+}
+
+.preview-copy-button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 24px;
+  background: #6E56F9;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preview-copy-button:hover {
+  background: #7B65FF;
+  box-shadow: 0 4px 16px rgba(110, 86, 249, 0.4);
+  transform: translateY(-2px);
+}
+
+.preview-copy-button:active {
+  transform: translateY(0);
+}
+
+================================================================================
+JSON DATA FILES
+================================================================================
+
+NOTE: There are 44 JSON files containing 200+ interview nodes. Below are
+representative examples. All JSON files follow the same structure as defined
+in src/types/interview.ts.
+
+================================================================================
+FILE: src/data/interview/root.json
+================================================================================
+{
+  "id": "root",
+  "question": "What are you imagining?",
+  "description": "Choose what you'd like to create - a character, an environment, or both",
+  "answers": [
+    { "id": "character", "label": "A character", "next": "character-identity-root" },
+    { "id": "environment", "label": "An environment or scene", "next": "env-root" },
+    { "id": "both", "label": "Both character and environment", "next": "character-identity-root" }
+  ]
+}
+
+================================================================================
+FILE: src/data/interview/character/identity.json (Example - contains 5 nodes)
+================================================================================
+[
+  {
+    "id": "character-identity-root",
+    "question": "What type of being is this character?",
+    "description": "Choose the fundamental nature of your character",
+    "answers": [
+      { "id": "human", "label": "Human", "next": "character-ethnicity-root" },
+      { "id": "fantasy", "label": "Fantasy race (elf, dwarf, etc.)", "next": "fantasy-races-root" },
+      { "id": "scifi", "label": "Sci-fi being (alien, android, etc.)", "next": "scifi-races-root" },
+      { "id": "hybrid", "label": "Hybrid or mixed heritage", "next": "character-ethnicity-root" }
+    ]
+  },
+  {
+    "id": "character-ethnicity-root",
+    "question": "What is the character's ethnic background?",
+    "description": "Choose a broad ethnic category",
+    "answers": [
+      { "id": "east_asian", "label": "East Asian", "next": "character-body-root" },
+      { "id": "south_asian", "label": "South Asian", "next": "character-body-root" },
+      { "id": "african", "label": "African", "next": "character-body-root" },
+      { "id": "middle_eastern", "label": "Middle Eastern", "next": "character-body-root" },
+      { "id": "european", "label": "European", "next": "character-body-root" },
+      { "id": "latin_american", "label": "Latin American", "next": "character-body-root" },
+      { "id": "indigenous", "label": "Indigenous", "next": "character-body-root" },
+      { "id": "mixed", "label": "Mixed heritage", "next": "character-body-root" },
+      { "id": "unspecified", "label": "Unspecified / fantasy human", "next": "character-body-root" }
+    ],
+    "weights": [
+      {
+        "id": "skin_tone_richness",
+        "label": "Skin Tone Richness",
+        "template": "skin tone richness",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      },
+      {
+        "id": "facial_feature_detail",
+        "label": "Facial Feature Detail",
+        "template": "facial feature detail",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "character-body-root",
+    "question": "What is the character's body type?",
+    "answers": [
+      { "id": "height", "label": "Height", "next": "character-height" },
+      { "id": "build", "label": "Build", "next": "character-build" },
+      { "id": "posture", "label": "Posture", "next": "character-posture" }
+    ]
+  },
+  {
+    "id": "character-height",
+    "question": "What is the character's height?",
+    "answers": [
+      { "id": "very_short", "label": "Very short", "next": "character-build" },
+      { "id": "short", "label": "Short", "next": "character-build" },
+      { "id": "average", "label": "Average height", "next": "character-build" },
+      { "id": "tall", "label": "Tall", "next": "character-build" },
+      { "id": "very_tall", "label": "Very tall", "next": "character-build" }
+    ],
+    "weights": [
+      {
+        "id": "height_emphasis",
+        "label": "Height Emphasis",
+        "template": "height emphasis",
+        "min": 1.0,
+        "max": 1.2,
+        "step": 0.01,
+        "default": 1.05
+      }
+    ]
+  },
+  {
+    "id": "character-build",
+    "question": "What is the character's build?",
+    "answers": [
+      { "id": "slim", "label": "Slim", "next": "character-posture" },
+      { "id": "average_build", "label": "Average build", "next": "character-posture" },
+      { "id": "athletic", "label": "Athletic", "next": "character-posture" },
+      { "id": "muscular", "label": "Muscular", "next": "character-posture" },
+      { "id": "stocky", "label": "Stocky", "next": "character-posture" }
+    ],
+    "weights": [
+      {
+        "id": "physique_emphasis",
+        "label": "Physique Emphasis",
+        "template": "physique emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  },
+  {
+    "id": "character-posture",
+    "question": "What is the character's posture?",
+    "answers": [
+      { "id": "relaxed", "label": "Relaxed", "next": "character-face-root" },
+      { "id": "upright", "label": "Upright", "next": "character-face-root" },
+      { "id": "imposing", "label": "Imposing", "next": "character-face-root" },
+      { "id": "slouched", "label": "Slouched", "next": "character-face-root" },
+      { "id": "graceful", "label": "Graceful", "next": "character-face-root" }
+    ],
+    "weights": [
+      {
+        "id": "posture_intensity",
+        "label": "Posture Intensity",
+        "template": "posture intensity",
+        "min": 1.0,
+        "max": 1.25,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  }
+]
+
+================================================================================
+FILE: src/data/interview/character/hair.json (Example with refinements)
+================================================================================
+[
+  {
+    "id": "character-hair-root",
+    "question": "What is the hair like?",
+    "answers": [
+      { "id": "length", "label": "Hair length", "next": "hair-length" },
+      { "id": "texture", "label": "Hair texture", "next": "hair-texture" },
+      { "id": "style", "label": "Hair style", "next": "hair-style" },
+      { "id": "color", "label": "Hair color", "next": "hair-color" },
+      { "id": "skip_hair", "label": "Skip hair details", "next": "character-clothing-root" }
+    ]
+  },
+  {
+    "id": "hair-length",
+    "question": "What is the hair length?",
+    "answers": [
+      { "id": "bald", "label": "Bald", "next": "hair-texture" },
+      { "id": "very_short", "label": "Very short", "next": "hair-texture" },
+      { "id": "short", "label": "Short", "next": "hair-texture" },
+      { "id": "medium", "label": "Medium", "next": "hair-texture" },
+      { "id": "long", "label": "Long", "next": "hair-texture" },
+      { "id": "very_long", "label": "Very long", "next": "hair-texture" }
+    ]
+  },
+  {
+    "id": "hair-texture",
+    "question": "What is the hair texture?",
+    "answers": [
+      { "id": "straight", "label": "Straight", "next": "hair-style" },
+      { "id": "wavy", "label": "Wavy", "next": "refine-wavy" },
+      { "id": "curly", "label": "Curly", "next": "refine-curly" },
+      { "id": "coily", "label": "Coily", "next": "refine-coily" }
+    ]
+  },
+  {
+    "id": "refine-wavy",
+    "question": "How wavy?",
+    "answers": [
+      { "id": "soft_waves", "label": "Soft waves" },
+      { "id": "defined_waves", "label": "Defined waves" },
+      { "id": "beach_waves", "label": "Beach waves" }
+    ],
+    "weights": [
+      {
+        "id": "wave_intensity",
+        "label": "Wave Intensity",
+        "template": "wave intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.12
+      }
+    ]
+  },
+  {
+    "id": "refine-curly",
+    "question": "How curly?",
+    "answers": [
+      { "id": "soft_waves", "label": "Soft waves" },
+      { "id": "defined_curls", "label": "Defined curls" },
+      { "id": "tight_coils", "label": "Tight coils" }
+    ],
+    "weights": [
+      {
+        "id": "curl_intensity",
+        "label": "Curl Intensity",
+        "template": "curl intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.12
+      }
+    ]
+  },
+  {
+    "id": "refine-coily",
+    "question": "How coily?",
+    "answers": [
+      { "id": "loose_coils", "label": "Loose coils" },
+      { "id": "tight_coils", "label": "Tight coils" },
+      { "id": "zigzag_pattern", "label": "Zigzag pattern" }
+    ],
+    "weights": [
+      {
+        "id": "coil_intensity",
+        "label": "Coil Intensity",
+        "template": "coil intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "hair-style",
+    "question": "What is the hair style?",
+    "answers": [
+      { "id": "loose", "label": "Loose and free", "next": "hair-color" },
+      { "id": "ponytail", "label": "Ponytail", "next": "hair-color" },
+      { "id": "braids", "label": "Braids", "next": "hair-color" },
+      { "id": "bun", "label": "Bun", "next": "hair-color" },
+      { "id": "elaborate", "label": "Elaborate updo", "next": "hair-color" },
+      { "id": "messy", "label": "Messy", "next": "hair-color" },
+      { "id": "neat", "label": "Neat and styled", "next": "hair-color" },
+      { "id": "undercut", "label": "Undercut", "next": "hair-color" },
+      { "id": "fade", "label": "Fade", "next": "hair-color" }
+    ],
+    "weights": [
+      {
+        "id": "hair_volume",
+        "label": "Hair Volume",
+        "template": "hair volume",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  },
+  {
+    "id": "hair-color",
+    "question": "What is the hair color?",
+    "answers": [
+      { "id": "natural", "label": "Natural colors", "next": "hair-color-natural" },
+      { "id": "fantasy", "label": "Fantasy colors", "next": "hair-color-fantasy" },
+      { "id": "skip_color", "label": "Skip color", "next": "character-clothing-root" }
+    ]
+  },
+  {
+    "id": "hair-color-natural",
+    "question": "Which natural color?",
+    "answers": [
+      { "id": "black", "label": "Black", "next": "character-clothing-root" },
+      { "id": "brown", "label": "Brown", "next": "character-clothing-root" },
+      { "id": "blonde", "label": "Blonde", "next": "character-clothing-root" },
+      { "id": "red", "label": "Red", "next": "character-clothing-root" },
+      { "id": "auburn", "label": "Auburn", "next": "character-clothing-root" },
+      { "id": "gray", "label": "Gray", "next": "character-clothing-root" },
+      { "id": "white", "label": "White", "next": "character-clothing-root" }
+    ],
+    "refinements": [
+      {
+        "id": "refine-hair-vibrance",
+        "question": "How vivid is the hair color?",
+        "answers": [
+          { "id": "muted", "label": "Muted" },
+          { "id": "natural", "label": "Natural" },
+          { "id": "vibrant", "label": "Vibrant" }
+        ],
+        "weights": [
+          {
+            "id": "color_vibrance",
+            "label": "Color Vibrance",
+            "template": "hair color vibrance",
+            "min": 1.0,
+            "max": 1.3,
+            "step": 0.01,
+            "default": 1.1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hair-color-fantasy",
+    "question": "Which fantasy color?",
+    "answers": [
+      { "id": "silver", "label": "Silver", "next": "character-clothing-root" },
+      { "id": "blue", "label": "Blue", "next": "character-clothing-root" },
+      { "id": "purple", "label": "Purple", "next": "character-clothing-root" },
+      { "id": "pink", "label": "Pink", "next": "character-clothing-root" },
+      { "id": "green", "label": "Green", "next": "character-clothing-root" },
+      { "id": "rainbow", "label": "Rainbow", "next": "character-clothing-root" },
+      { "id": "ombre", "label": "Ombre", "next": "character-clothing-root" }
+    ],
+    "refinements": [
+      {
+        "id": "refine-fantasy-vibrance",
+        "question": "How vivid is the fantasy color?",
+        "answers": [
+          { "id": "subtle", "label": "Subtle" },
+          { "id": "moderate", "label": "Moderate" },
+          { "id": "intense", "label": "Intense" },
+          { "id": "glowing", "label": "Glowing" }
+        ],
+        "weights": [
+          {
+            "id": "fantasy_color_vibrance",
+            "label": "Fantasy Color Vibrance",
+            "template": "fantasy hair color vibrance",
+            "min": 1.0,
+            "max": 1.4,
+            "step": 0.01,
+            "default": 1.2
+          }
+        ]
+      }
+    ]
+  }
+]
+
+================================================================================
+COMPLETE JSON FILE LIST
+================================================================================
+
+All JSON files follow the same structure. Here is the complete list:
+
+CHARACTER SYSTEM (14 files):
+- src/data/interview/character/identity.json (5 nodes)
+- src/data/interview/character/face.json (8 nodes)
+- src/data/interview/character/hair.json (10 nodes with refinements)
+- src/data/interview/character/clothing.json (9 nodes)
+- src/data/interview/character/accessories.json (8 nodes)
+- src/data/interview/character/personality.json (2 nodes)
+- src/data/interview/character/expression.json (2 nodes)
+- src/data/interview/character/pose.json (3 nodes)
+- src/data/interview/character/archetype.json (3 nodes)
+- src/data/interview/character/fantasy_races.json (10 nodes)
+- src/data/interview/character/scifi_races.json (8 nodes)
+- src/data/interview/character/powers.json (5 nodes)
+- src/data/interview/character/ethnicity.json (1 node)
+
+STYLE SYSTEM (8 files):
+- src/data/interview/style/artstyle_root.json (1 node)
+- src/data/interview/style/anime_styles.json (2 nodes)
+- src/data/interview/style/realism_styles.json (2 nodes)
+- src/data/interview/style/painting_styles.json (2 nodes)
+- src/data/interview/style/3d_styles.json (2 nodes)
+- src/data/interview/style/cinematic_styles.json (2 nodes)
+- src/data/interview/style/color_palettes.json (2 nodes)
+- src/data/interview/style/texture_materials.json (2 nodes)
+
+ENVIRONMENT SYSTEM (11 files):
+- src/data/interview/environment/env_root.json (1 node)
+- src/data/interview/environment/nature_biomes.json (10 nodes)
+- src/data/interview/environment/cities_and_settlements.json (4 nodes)
+- src/data/interview/environment/interiors.json (6 nodes)
+- src/data/interview/environment/fantasy_realms.json (2 nodes)
+- src/data/interview/environment/scifi_worlds.json (2 nodes)
+- src/data/interview/environment/ruins_and_structures.json (2 nodes)
+- src/data/interview/environment/weather.json (2 nodes)
+- src/data/interview/environment/atmosphere_and_mood.json (3 nodes)
+- src/data/interview/environment/time_of_day.json (1 node)
+- src/data/interview/environment/terrain_details.json (1 node)
+
+EFFECTS SYSTEM (5 files):
+- src/data/interview/effects/magic_and_aura.json (2 nodes)
+- src/data/interview/effects/particles_and_sparks.json (2 nodes)
+- src/data/interview/effects/fog_and_haze.json (1 node)
+- src/data/interview/effects/light_effects.json (2 nodes)
+- src/data/interview/effects/distortions_and_glitches.json (1 node)
+
+CAMERA SYSTEM (6 files):
+- src/data/interview/camera/lens_and_focal_length.json (1 node)
+- src/data/interview/camera/angle_and_perspective.json (1 node)
+- src/data/interview/camera/framing_and_composition.json (1 node)
+- src/data/interview/camera/depth_of_field.json (2 nodes)
+- src/data/interview/camera/motion_and_blur.json (2 nodes)
+- src/data/interview/camera/render_quality.json (1 node)
+
+ROOT:
+- src/data/interview/root.json (1 node)
+
+TOTAL: 44 JSON files, 200+ interview nodes
+
+================================================================================
+END OF CODEBASE
+================================================================================
+
+This file contains the complete source code for the Guided Prompt Interview Creator.
+All TypeScript/React source files, CSS styles, and configuration files are included.
+
+The JSON data files are too numerous to include in full (44 files with 200+ nodes),
+but representative examples are shown above. All JSON files follow the same structure
+as defined in src/types/interview.ts.
+
+To use this codebase:
+1. Create the folder structure as shown above
+2. Copy all the code files to their respective locations
+3. Copy all JSON files to src/data/interview/ and subdirectories
+4. Run: npm install
+5. Run: npm run dev
+
+================================================================================
+
+
+

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "style-artstyle-root",
+    "question": "What overall art style do you imagine?",
+    "description": "Choose the artistic style for your image",
+    "answers": [
+      { "id": "anime", "label": "Anime", "next": "anime-styles-root" },
+      { "id": "semi_realistic", "label": "Semi-realistic", "next": "realism-styles-root" },
+      { "id": "realistic", "label": "Realistic", "next": "realism-styles-root" },
+      { "id": "painterly", "label": "Painterly illustration", "next": "painting-styles-root" },
+      { "id": "3d_render", "label": "3D render", "next": "3d-styles-root" },
+      { "id": "cartoon", "label": "Cartoon", "next": "cinematic-styles-root" },
+      { "id": "comic", "label": "Comic book", "next": "cinematic-styles-root" },
+      { "id": "pixel", "label": "Pixel art", "next": "color-palettes-root" }
+    ]
+  }
+]
+
+
+
+

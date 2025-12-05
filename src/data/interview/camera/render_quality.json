@@ -1,0 +1,26 @@
+[
+  {
+    "id": "camera-render-quality-root",
+    "question": "What render quality emphasis?",
+    "answers": [
+      { "id": "standard", "label": "Standard", "next": null },
+      { "id": "high", "label": "High quality", "next": null },
+      { "id": "ultra", "label": "Ultra high quality", "next": null }
+    ],
+    "weights": [
+      {
+        "id": "crispness_emphasis",
+        "label": "Crispness Emphasis",
+        "template": "crispness emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

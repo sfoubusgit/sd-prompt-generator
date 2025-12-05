@@ -1,0 +1,43 @@
+[
+  {
+    "id": "character-personality-root",
+    "question": "What is the character's core personality?",
+    "answers": [
+      { "id": "shy", "label": "Shy", "next": "personality-intensity" },
+      { "id": "confident", "label": "Confident", "next": "personality-intensity" },
+      { "id": "mysterious", "label": "Mysterious", "next": "personality-intensity" },
+      { "id": "calm", "label": "Calm", "next": "personality-intensity" },
+      { "id": "energetic", "label": "Energetic", "next": "personality-intensity" },
+      { "id": "stoic", "label": "Stoic", "next": "personality-intensity" },
+      { "id": "cheerful", "label": "Cheerful", "next": "personality-intensity" },
+      { "id": "serious", "label": "Serious", "next": "personality-intensity" },
+      { "id": "playful", "label": "Playful", "next": "personality-intensity" },
+      { "id": "wise", "label": "Wise", "next": "personality-intensity" },
+      { "id": "skip_personality", "label": "Skip personality", "next": "character-expression-root" }
+    ]
+  },
+  {
+    "id": "personality-intensity",
+    "question": "How strong is this personality trait?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-expression-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-expression-root" },
+      { "id": "strong", "label": "Strong", "next": "character-expression-root" }
+    ],
+    "weights": [
+      {
+        "id": "personality_intensity",
+        "label": "Personality Intensity",
+        "template": "personality intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

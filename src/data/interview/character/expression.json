@@ -1,0 +1,43 @@
+[
+  {
+    "id": "character-expression-root",
+    "question": "What is the character's expression?",
+    "answers": [
+      { "id": "neutral", "label": "Neutral", "next": "expression-intensity" },
+      { "id": "soft_smile", "label": "Soft smile", "next": "expression-intensity" },
+      { "id": "gentle", "label": "Gentle", "next": "expression-intensity" },
+      { "id": "serious", "label": "Serious", "next": "expression-intensity" },
+      { "id": "intense", "label": "Intense", "next": "expression-intensity" },
+      { "id": "surprised", "label": "Surprised", "next": "expression-intensity" },
+      { "id": "determined", "label": "Determined", "next": "expression-intensity" },
+      { "id": "peaceful", "label": "Peaceful", "next": "expression-intensity" },
+      { "id": "melancholic", "label": "Melancholic", "next": "expression-intensity" },
+      { "id": "joyful", "label": "Joyful", "next": "expression-intensity" },
+      { "id": "focused", "label": "Focused", "next": "expression-intensity" }
+    ]
+  },
+  {
+    "id": "expression-intensity",
+    "question": "How visible is the emotion?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-pose-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-pose-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "character-pose-root" }
+    ],
+    "weights": [
+      {
+        "id": "expression_intensity",
+        "label": "Expression Intensity",
+        "template": "expression intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

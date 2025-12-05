@@ -1,0 +1,81 @@
+[
+  {
+    "id": "character-powers-root",
+    "question": "Does the character have special powers or abilities?",
+    "answers": [
+      { "id": "magic", "label": "Magic", "next": "powers-magic" },
+      { "id": "scifi", "label": "Sci-fi abilities", "next": "powers-scifi" },
+      { "id": "none", "label": "No special powers", "next": "style-artstyle-root" }
+    ]
+  },
+  {
+    "id": "powers-magic",
+    "question": "What type of magic?",
+    "answers": [
+      { "id": "fire", "label": "Fire", "next": "powers-intensity" },
+      { "id": "ice", "label": "Ice", "next": "powers-intensity" },
+      { "id": "nature", "label": "Nature", "next": "powers-intensity" },
+      { "id": "shadow", "label": "Shadow", "next": "powers-intensity" },
+      { "id": "light", "label": "Light", "next": "powers-intensity" },
+      { "id": "arcane", "label": "Arcane", "next": "powers-intensity" },
+      { "id": "healing", "label": "Healing", "next": "powers-intensity" },
+      { "id": "time", "label": "Time", "next": "powers-intensity" },
+      { "id": "space", "label": "Space", "next": "powers-intensity" }
+    ]
+  },
+  {
+    "id": "powers-scifi",
+    "question": "What type of sci-fi ability?",
+    "answers": [
+      { "id": "psionics", "label": "Psionics", "next": "powers-intensity" },
+      { "id": "nanotech", "label": "Nanotech", "next": "powers-intensity" },
+      { "id": "augmentations", "label": "Augmentations", "next": "powers-intensity" },
+      { "id": "energy_manipulation", "label": "Energy manipulation", "next": "powers-intensity" },
+      { "id": "hacking", "label": "Hacking abilities", "next": "powers-intensity" }
+    ]
+  },
+  {
+    "id": "powers-intensity",
+    "question": "How visible are the powers?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "powers-visual" },
+      { "id": "moderate", "label": "Moderate", "next": "powers-visual" },
+      { "id": "pronounced", "label": "Pronounced", "next": "powers-visual" }
+    ]
+  },
+  {
+    "id": "powers-visual",
+    "question": "How should the powers appear visually?",
+    "answers": [
+      { "id": "aura", "label": "Aura", "next": "style-artstyle-root" },
+      { "id": "particles", "label": "Particles", "next": "style-artstyle-root" },
+      { "id": "glow", "label": "Glow", "next": "style-artstyle-root" },
+      { "id": "energy_flow", "label": "Energy flow", "next": "style-artstyle-root" },
+      { "id": "none", "label": "No visual effects", "next": "style-artstyle-root" }
+    ],
+    "weights": [
+      {
+        "id": "aura_intensity",
+        "label": "Aura Intensity",
+        "template": "aura intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "power_visual_strength",
+        "label": "Power Visual Strength",
+        "template": "power visual strength",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      }
+    ]
+  }
+]
+
+
+
+

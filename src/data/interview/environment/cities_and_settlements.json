@@ -1,0 +1,67 @@
+[
+  {
+    "id": "cities-settlements-root",
+    "question": "What type of city or settlement?",
+    "answers": [
+      { "id": "medieval", "label": "Medieval town", "next": "city-detail" },
+      { "id": "modern", "label": "Modern city", "next": "city-detail" },
+      { "id": "cyberpunk", "label": "Cyberpunk metropolis", "next": "city-detail" },
+      { "id": "futuristic", "label": "Futuristic megacity", "next": "city-detail" },
+      { "id": "steampunk", "label": "Steampunk district", "next": "city-detail" },
+      { "id": "village", "label": "Small village", "next": "city-detail" }
+    ]
+  },
+  {
+    "id": "city-detail",
+    "question": "What is the city's character?",
+    "answers": [
+      { "id": "clean", "label": "Clean", "next": "city-density" },
+      { "id": "gritty", "label": "Gritty", "next": "city-density" },
+      { "id": "lively", "label": "Lively", "next": "city-density" },
+      { "id": "deserted", "label": "Deserted", "next": "city-density" }
+    ]
+  },
+  {
+    "id": "city-density",
+    "question": "How dense are the buildings?",
+    "answers": [
+      { "id": "sparse", "label": "Sparse", "next": "city-weights" },
+      { "id": "moderate", "label": "Moderate", "next": "city-weights" },
+      { "id": "dense", "label": "Dense", "next": "city-weights" },
+      { "id": "very_dense", "label": "Very dense", "next": "city-weights" }
+    ]
+  },
+  {
+    "id": "city-weights",
+    "question": "How should the city be emphasized?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "weather-root" },
+      { "id": "moderate", "label": "Moderate", "next": "weather-root" },
+      { "id": "strong", "label": "Strong", "next": "weather-root" }
+    ],
+    "weights": [
+      {
+        "id": "urban_complexity",
+        "label": "Urban Complexity",
+        "template": "urban complexity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "neon_intensity",
+        "label": "Neon Intensity",
+        "template": "neon intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      }
+    ]
+  }
+]
+
+
+
+

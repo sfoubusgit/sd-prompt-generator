@@ -1,0 +1,14 @@
+[
+  {
+    "id": "character-ethnicity-detailed",
+    "question": "Would you like to specify more details?",
+    "answers": [
+      { "id": "yes", "label": "Yes", "next": "character-body-root" },
+      { "id": "no", "label": "No, continue", "next": "character-body-root" }
+    ]
+  }
+]
+
+
+
+

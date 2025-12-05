@@ -1,0 +1,38 @@
+[
+  {
+    "id": "weather-root",
+    "question": "What is the weather?",
+    "answers": [
+      { "id": "clear", "label": "Clear skies", "next": "atmosphere-mood-root" },
+      { "id": "rain", "label": "Rain", "next": "weather-intensity" },
+      { "id": "snow", "label": "Snow", "next": "weather-intensity" },
+      { "id": "storm", "label": "Storm", "next": "weather-intensity" },
+      { "id": "fog", "label": "Fog", "next": "weather-intensity" },
+      { "id": "wind", "label": "Windy", "next": "weather-intensity" }
+    ]
+  },
+  {
+    "id": "weather-intensity",
+    "question": "How intense is the weather?",
+    "answers": [
+      { "id": "light", "label": "Light", "next": "atmosphere-mood-root" },
+      { "id": "moderate", "label": "Moderate", "next": "atmosphere-mood-root" },
+      { "id": "heavy", "label": "Heavy", "next": "atmosphere-mood-root" }
+    ],
+    "weights": [
+      {
+        "id": "weather_intensity",
+        "label": "Weather Intensity",
+        "template": "weather intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  }
+]
+
+
+
+

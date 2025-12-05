@@ -1,0 +1,81 @@
+.interview-page {
+  min-height: 100vh;
+  padding: 0;
+  background: #0F0F12;
+}
+
+.interview-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.interview-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.interview-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.interview-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 32px;
+  align-self: start;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+/* Scrollbar styling for right column */
+.interview-right::-webkit-scrollbar {
+  width: 6px;
+}
+
+.interview-right::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.interview-right::-webkit-scrollbar-thumb {
+  background: rgba(110, 86, 249, 0.3);
+  border-radius: 3px;
+}
+
+.interview-right::-webkit-scrollbar-thumb:hover {
+  background: rgba(110, 86, 249, 0.5);
+}
+
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 1200px) {
+  .interview-container {
+    grid-template-columns: 1fr;
+  }
+
+  .interview-right {
+    order: -1;
+  }
+
+  .preview-panel {
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+
+

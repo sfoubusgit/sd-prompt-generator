@@ -1,0 +1,26 @@
+.refinement-panel {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.refinement-question {
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 20px;
+}
+
+.refinement-answers {
+  margin-bottom: 24px;
+}
+
+.refinement-weights {
+  margin-top: 24px;
+}
+
+
+
+
+

@@ -1,0 +1,60 @@
+[
+  {
+    "id": "atmosphere-mood-root",
+    "question": "What is the atmosphere and mood?",
+    "answers": [
+      { "id": "serene", "label": "Serene", "next": "mood-intensity" },
+      { "id": "ominous", "label": "Ominous", "next": "mood-intensity" },
+      { "id": "heroic", "label": "Heroic", "next": "mood-intensity" },
+      { "id": "melancholic", "label": "Melancholic", "next": "mood-intensity" },
+      { "id": "mysterious", "label": "Mysterious", "next": "mood-intensity" },
+      { "id": "peaceful", "label": "Peaceful", "next": "mood-intensity" },
+      { "id": "dramatic", "label": "Dramatic", "next": "mood-intensity" }
+    ]
+  },
+  {
+    "id": "mood-intensity",
+    "question": "How strong is the mood?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "fog-haze-density" },
+      { "id": "moderate", "label": "Moderate", "next": "fog-haze-density" },
+      { "id": "strong", "label": "Strong", "next": "fog-haze-density" }
+    ],
+    "weights": [
+      {
+        "id": "mood_strength",
+        "label": "Mood Strength",
+        "template": "mood strength",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "id": "fog-haze-density",
+    "question": "How much fog or haze?",
+    "answers": [
+      { "id": "none", "label": "None", "next": "time-of-day-root" },
+      { "id": "light", "label": "Light", "next": "time-of-day-root" },
+      { "id": "moderate", "label": "Moderate", "next": "time-of-day-root" },
+      { "id": "heavy", "label": "Heavy", "next": "time-of-day-root" }
+    ],
+    "weights": [
+      {
+        "id": "fog_haze_density",
+        "label": "Fog/Haze Density",
+        "template": "fog haze density",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

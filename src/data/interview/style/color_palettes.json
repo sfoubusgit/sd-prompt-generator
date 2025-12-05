@@ -1,0 +1,41 @@
+[
+  {
+    "id": "color-palettes-root",
+    "question": "What color palette?",
+    "answers": [
+      { "id": "warm", "label": "Warm", "next": "color-saturation" },
+      { "id": "cool", "label": "Cool", "next": "color-saturation" },
+      { "id": "pastel", "label": "Pastel", "next": "color-saturation" },
+      { "id": "neon", "label": "Neon", "next": "color-saturation" },
+      { "id": "monochrome", "label": "Monochrome", "next": "color-saturation" },
+      { "id": "earth_tones", "label": "Earth tones", "next": "color-saturation" },
+      { "id": "vibrant", "label": "Vibrant", "next": "color-saturation" },
+      { "id": "muted", "label": "Muted", "next": "color-saturation" }
+    ]
+  },
+  {
+    "id": "color-saturation",
+    "question": "How saturated should the colors be?",
+    "answers": [
+      { "id": "desaturated", "label": "Desaturated", "next": "texture-materials-root" },
+      { "id": "normal", "label": "Normal", "next": "texture-materials-root" },
+      { "id": "saturated", "label": "Saturated", "next": "texture-materials-root" },
+      { "id": "highly_saturated", "label": "Highly saturated", "next": "texture-materials-root" }
+    ],
+    "weights": [
+      {
+        "id": "color_saturation",
+        "label": "Color Saturation",
+        "template": "color saturation",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+
+
+
+

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "effects-distortions-root",
+    "question": "What distortion or glitch effects?",
+    "answers": [
+      { "id": "subtle_glitch", "label": "Subtle glitch", "next": "camera-lens-root" },
+      { "id": "chromatic_aberration", "label": "Chromatic aberration", "next": "camera-lens-root" },
+      { "id": "none", "label": "No distortions", "next": "camera-lens-root" }
+    ]
+  }
+]
+
+
+
+

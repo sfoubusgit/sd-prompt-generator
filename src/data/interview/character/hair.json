@@ -1,0 +1,203 @@
+[
+  {
+    "id": "character-hair-root",
+    "question": "What hair attribute would you like to edit next?",
+    "answers": [
+      { "id": "length", "label": "Hair length", "next": "hair-length" },
+      { "id": "texture", "label": "Hair texture", "next": "hair-texture" },
+      { "id": "style", "label": "Hair style", "next": "hair-style" },
+      { "id": "color", "label": "Hair color", "next": "hair-color" },
+      { "id": "skip_hair", "label": "Skip hair details", "next": "character-clothing-root" }
+    ]
+  },
+  {
+    "id": "hair-length",
+    "question": "What is the hair length?",
+    "answers": [
+      { "id": "bald", "label": "Bald", "next": "hair-texture" },
+      { "id": "very_short", "label": "Very short", "next": "hair-texture" },
+      { "id": "short", "label": "Short", "next": "hair-texture" },
+      { "id": "medium", "label": "Medium", "next": "hair-texture" },
+      { "id": "long", "label": "Long", "next": "hair-texture" },
+      { "id": "very_long", "label": "Very long", "next": "hair-texture" }
+    ]
+  },
+  {
+    "id": "hair-texture",
+    "question": "What is the hair texture?",
+    "answers": [
+      { "id": "straight", "label": "Straight", "next": "hair-style" },
+      { "id": "wavy", "label": "Wavy", "next": "refine-wavy" },
+      { "id": "curly", "label": "Curly", "next": "refine-curly" },
+      { "id": "coily", "label": "Coily", "next": "refine-coily" }
+    ]
+  },
+  {
+    "id": "refine-wavy",
+    "question": "How wavy?",
+    "answers": [
+      { "id": "soft_waves", "label": "Soft waves" },
+      { "id": "defined_waves", "label": "Defined waves" },
+      { "id": "beach_waves", "label": "Beach waves" }
+    ],
+    "weights": [
+      {
+        "id": "wave_intensity",
+        "label": "Wave Intensity",
+        "template": "wave intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.12
+      }
+    ]
+  },
+  {
+    "id": "refine-curly",
+    "question": "How curly?",
+    "answers": [
+      { "id": "soft_waves", "label": "Soft waves" },
+      { "id": "defined_curls", "label": "Defined curls" },
+      { "id": "tight_coils", "label": "Tight coils" }
+    ],
+    "weights": [
+      {
+        "id": "curl_intensity",
+        "label": "Curl Intensity",
+        "template": "curl intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.12
+      }
+    ]
+  },
+  {
+    "id": "refine-coily",
+    "question": "How coily?",
+    "answers": [
+      { "id": "loose_coils", "label": "Loose coils" },
+      { "id": "tight_coils", "label": "Tight coils" },
+      { "id": "zigzag_pattern", "label": "Zigzag pattern" }
+    ],
+    "weights": [
+      {
+        "id": "coil_intensity",
+        "label": "Coil Intensity",
+        "template": "coil intensity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "hair-style",
+    "question": "What is the hair style?",
+    "answers": [
+      { "id": "loose", "label": "Loose and free", "next": "hair-color" },
+      { "id": "ponytail", "label": "Ponytail", "next": "hair-color" },
+      { "id": "braids", "label": "Braids", "next": "hair-color" },
+      { "id": "bun", "label": "Bun", "next": "hair-color" },
+      { "id": "elaborate", "label": "Elaborate updo", "next": "hair-color" },
+      { "id": "messy", "label": "Messy", "next": "hair-color" },
+      { "id": "neat", "label": "Neat and styled", "next": "hair-color" },
+      { "id": "undercut", "label": "Undercut", "next": "hair-color" },
+      { "id": "fade", "label": "Fade", "next": "hair-color" }
+    ],
+    "weights": [
+      {
+        "id": "hair_volume",
+        "label": "Hair Volume",
+        "template": "hair volume",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  },
+  {
+    "id": "hair-color",
+    "question": "What is the hair color?",
+    "answers": [
+      { "id": "natural", "label": "Natural colors", "next": "hair-color-natural" },
+      { "id": "fantasy", "label": "Fantasy colors", "next": "hair-color-fantasy" },
+      { "id": "skip_color", "label": "Skip color", "next": "character-clothing-root" }
+    ]
+  },
+  {
+    "id": "hair-color-natural",
+    "question": "Which natural color?",
+    "answers": [
+      { "id": "black", "label": "Black", "next": "character-clothing-root" },
+      { "id": "brown", "label": "Brown", "next": "character-clothing-root" },
+      { "id": "blonde", "label": "Blonde", "next": "character-clothing-root" },
+      { "id": "red", "label": "Red", "next": "character-clothing-root" },
+      { "id": "auburn", "label": "Auburn", "next": "character-clothing-root" },
+      { "id": "gray", "label": "Gray", "next": "character-clothing-root" },
+      { "id": "white", "label": "White", "next": "character-clothing-root" }
+    ],
+    "refinements": [
+      {
+        "id": "refine-hair-vibrance",
+        "question": "How vivid is the hair color?",
+        "answers": [
+          { "id": "muted", "label": "Muted" },
+          { "id": "natural", "label": "Natural" },
+          { "id": "vibrant", "label": "Vibrant" }
+        ],
+        "weights": [
+          {
+            "id": "color_vibrance",
+            "label": "Color Vibrance",
+            "template": "hair color vibrance",
+            "min": 1.0,
+            "max": 1.3,
+            "step": 0.01,
+            "default": 1.1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hair-color-fantasy",
+    "question": "Which fantasy color?",
+    "answers": [
+      { "id": "silver", "label": "Silver", "next": "character-clothing-root" },
+      { "id": "blue", "label": "Blue", "next": "character-clothing-root" },
+      { "id": "purple", "label": "Purple", "next": "character-clothing-root" },
+      { "id": "pink", "label": "Pink", "next": "character-clothing-root" },
+      { "id": "green", "label": "Green", "next": "character-clothing-root" },
+      { "id": "rainbow", "label": "Rainbow", "next": "character-clothing-root" },
+      { "id": "ombre", "label": "Ombre", "next": "character-clothing-root" }
+    ],
+    "refinements": [
+      {
+        "id": "refine-fantasy-vibrance",
+        "question": "How vivid is the fantasy color?",
+        "answers": [
+          { "id": "subtle", "label": "Subtle" },
+          { "id": "moderate", "label": "Moderate" },
+          { "id": "intense", "label": "Intense" },
+          { "id": "glowing", "label": "Glowing" }
+        ],
+        "weights": [
+          {
+            "id": "fantasy_color_vibrance",
+            "label": "Fantasy Color Vibrance",
+            "template": "fantasy hair color vibrance",
+            "min": 1.0,
+            "max": 1.4,
+            "step": 0.01,
+            "default": 1.2
+          }
+        ]
+      }
+    ]
+  }
+]
+
+

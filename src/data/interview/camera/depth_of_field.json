@@ -1,0 +1,36 @@
+[
+  {
+    "id": "camera-dof-root",
+    "question": "What depth of field?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "camera-dof-strength" },
+      { "id": "moderate", "label": "Moderate", "next": "camera-dof-strength" },
+      { "id": "strong", "label": "Strong", "next": "camera-dof-strength" },
+      { "id": "none", "label": "No depth of field", "next": "camera-motion-root" }
+    ]
+  },
+  {
+    "id": "camera-dof-strength",
+    "question": "How strong should the depth of field be?",
+    "answers": [
+      { "id": "light", "label": "Light", "next": "camera-motion-root" },
+      { "id": "medium", "label": "Medium", "next": "camera-motion-root" },
+      { "id": "heavy", "label": "Heavy", "next": "camera-motion-root" }
+    ],
+    "weights": [
+      {
+        "id": "dof_strength",
+        "label": "DOF Strength",
+        "template": "depth of field strength",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  }
+]
+
+
+
+

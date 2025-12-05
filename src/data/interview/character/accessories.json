@@ -1,0 +1,113 @@
+[
+  {
+    "id": "character-accessories-root",
+    "question": "What accessories does the character have?",
+    "answers": [
+      { "id": "jewelry", "label": "Jewelry", "next": "accessories-jewelry" },
+      { "id": "headwear", "label": "Headwear", "next": "accessories-headwear" },
+      { "id": "glasses", "label": "Glasses", "next": "accessories-glasses" },
+      { "id": "mask", "label": "Mask", "next": "accessories-mask" },
+      { "id": "tech", "label": "Tech gadgets", "next": "accessories-tech" },
+      { "id": "weapon", "label": "Weapon", "next": "accessories-weapon" },
+      { "id": "skip_accessories", "label": "Skip accessories", "next": "character-personality-root" }
+    ]
+  },
+  {
+    "id": "accessories-jewelry",
+    "question": "What type of jewelry?",
+    "answers": [
+      { "id": "necklace", "label": "Necklace", "next": "accessories-emphasis" },
+      { "id": "earrings", "label": "Earrings", "next": "accessories-emphasis" },
+      { "id": "ring", "label": "Ring", "next": "accessories-emphasis" },
+      { "id": "bracelet", "label": "Bracelet", "next": "accessories-emphasis" },
+      { "id": "multiple", "label": "Multiple pieces", "next": "accessories-emphasis" }
+    ]
+  },
+  {
+    "id": "accessories-headwear",
+    "question": "What type of headwear?",
+    "answers": [
+      { "id": "hat", "label": "Hat", "next": "accessories-emphasis" },
+      { "id": "cap", "label": "Cap", "next": "accessories-emphasis" },
+      { "id": "crown", "label": "Crown", "next": "accessories-emphasis" },
+      { "id": "helmet", "label": "Helmet", "next": "accessories-emphasis" },
+      { "id": "hood", "label": "Hood", "next": "accessories-emphasis" }
+    ]
+  },
+  {
+    "id": "accessories-glasses",
+    "question": "What type of glasses?",
+    "answers": [
+      { "id": "reading", "label": "Reading glasses", "next": "accessories-emphasis" },
+      { "id": "sunglasses", "label": "Sunglasses", "next": "accessories-emphasis" },
+      { "id": "tech_glasses", "label": "Tech glasses", "next": "accessories-emphasis" },
+      { "id": "goggles", "label": "Goggles", "next": "accessories-emphasis" }
+    ]
+  },
+  {
+    "id": "accessories-mask",
+    "question": "What type of mask?",
+    "answers": [
+      { "id": "medical", "label": "Medical mask", "next": "accessories-emphasis" },
+      { "id": "ceremonial", "label": "Ceremonial mask", "next": "accessories-emphasis" },
+      { "id": "gas_mask", "label": "Gas mask", "next": "accessories-emphasis" },
+      { "id": "theatrical", "label": "Theatrical mask", "next": "accessories-emphasis" }
+    ]
+  },
+  {
+    "id": "accessories-tech",
+    "question": "What type of tech gadget?",
+    "answers": [
+      { "id": "hologram", "label": "Hologram device", "next": "accessories-emphasis" },
+      { "id": "implant", "label": "Visible implant", "next": "accessories-emphasis" },
+      { "id": "wrist_device", "label": "Wrist device", "next": "accessories-emphasis" },
+      { "id": "visor", "label": "Tech visor", "next": "accessories-emphasis" }
+    ],
+    "weights": [
+      {
+        "id": "technological_feel",
+        "label": "Technological Feel",
+        "template": "technological feel",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "accessories-weapon",
+    "question": "What type of weapon?",
+    "answers": [
+      { "id": "sword", "label": "Sword", "next": "accessories-emphasis" },
+      { "id": "staff", "label": "Staff", "next": "accessories-emphasis" },
+      { "id": "bow", "label": "Bow", "next": "accessories-emphasis" },
+      { "id": "gun", "label": "Gun", "next": "accessories-emphasis" },
+      { "id": "energy_weapon", "label": "Energy weapon", "next": "accessories-emphasis" }
+    ]
+  },
+  {
+    "id": "accessories-emphasis",
+    "question": "How prominent are the accessories?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-personality-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-personality-root" },
+      { "id": "prominent", "label": "Prominent", "next": "character-personality-root" }
+    ],
+    "weights": [
+      {
+        "id": "accessory_emphasis",
+        "label": "Accessory Emphasis",
+        "template": "accessory emphasis",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  }
+]
+
+
+
+

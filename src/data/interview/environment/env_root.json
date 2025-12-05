@@ -1,0 +1,20 @@
+[
+  {
+    "id": "env-root",
+    "question": "What kind of environment or setting?",
+    "description": "Choose the type of environment for your scene",
+    "answers": [
+      { "id": "nature", "label": "Nature", "next": "nature-biomes-root" },
+      { "id": "city", "label": "City / settlement", "next": "cities-settlements-root" },
+      { "id": "interior", "label": "Interior", "next": "interiors-root" },
+      { "id": "fantasy", "label": "Fantasy realm", "next": "fantasy-realms-root" },
+      { "id": "scifi", "label": "Sci-fi world", "next": "scifi-worlds-root" },
+      { "id": "ruins", "label": "Ruins / ancient places", "next": "ruins-structures-root" },
+      { "id": "skip_env", "label": "Skip environment", "next": "effects-magic-root" }
+    ]
+  }
+]
+
+
+
+

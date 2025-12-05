@@ -1,0 +1,58 @@
+[
+  {
+    "id": "anime-styles-root",
+    "question": "What type of anime style?",
+    "answers": [
+      { "id": "soft_romantic", "label": "Soft, romantic anime", "next": "anime-weights" },
+      { "id": "shounen", "label": "Dynamic shounen action", "next": "anime-weights" },
+      { "id": "gothic", "label": "Gothic or dark anime", "next": "anime-weights" },
+      { "id": "cinematic", "label": "Cinematic anime realism", "next": "anime-weights" },
+      { "id": "cel_style", "label": "Old-school cel-style", "next": "anime-weights" },
+      { "id": "chibi", "label": "Chibi-inspired", "next": "anime-weights" },
+      { "id": "moe", "label": "Moe style", "next": "anime-weights" },
+      { "id": "retro", "label": "Retro anime", "next": "anime-weights" }
+    ]
+  },
+  {
+    "id": "anime-weights",
+    "question": "How should the anime style be emphasized?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "color-palettes-root" },
+      { "id": "moderate", "label": "Moderate", "next": "color-palettes-root" },
+      { "id": "strong", "label": "Strong", "next": "color-palettes-root" }
+    ],
+    "weights": [
+      {
+        "id": "stylization_intensity",
+        "label": "Stylization Intensity",
+        "template": "stylization intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "line_crispness",
+        "label": "Line Crispness",
+        "template": "line crispness",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      },
+      {
+        "id": "color_vibrancy",
+        "label": "Color Vibrancy",
+        "template": "color vibrancy",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      }
+    ]
+  }
+]
+
+
+
+

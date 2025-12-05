@@ -1,0 +1,63 @@
+[
+  {
+    "id": "character-pose-root",
+    "question": "What is the character's pose?",
+    "answers": [
+      { "id": "stance", "label": "Stance", "next": "pose-stance" },
+      { "id": "gesture", "label": "Gesture", "next": "pose-gesture" },
+      { "id": "skip_pose", "label": "Skip pose details", "next": "character-archetype-root" }
+    ]
+  },
+  {
+    "id": "pose-stance",
+    "question": "What is the character's stance?",
+    "answers": [
+      { "id": "standing_relaxed", "label": "Standing relaxed", "next": "pose-gesture" },
+      { "id": "heroic", "label": "Heroic pose", "next": "pose-gesture" },
+      { "id": "walking", "label": "Walking", "next": "pose-gesture" },
+      { "id": "sitting", "label": "Sitting", "next": "pose-gesture" },
+      { "id": "floating", "label": "Floating", "next": "pose-gesture" },
+      { "id": "crouching", "label": "Crouching", "next": "pose-gesture" },
+      { "id": "leaning", "label": "Leaning", "next": "pose-gesture" }
+    ],
+    "weights": [
+      {
+        "id": "pose_dynamism",
+        "label": "Pose Dynamism",
+        "template": "pose dynamism",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  },
+  {
+    "id": "pose-gesture",
+    "question": "What gesture is the character making?",
+    "answers": [
+      { "id": "hands_sides", "label": "Hands at sides", "next": "character-archetype-root" },
+      { "id": "holding_item", "label": "Holding an item", "next": "character-archetype-root" },
+      { "id": "casting_magic", "label": "Casting magic", "next": "character-archetype-root" },
+      { "id": "reaching_out", "label": "Reaching out", "next": "character-archetype-root" },
+      { "id": "arms_crossed", "label": "Arms crossed", "next": "character-archetype-root" },
+      { "id": "pointing", "label": "Pointing", "next": "character-archetype-root" },
+      { "id": "hands_together", "label": "Hands together", "next": "character-archetype-root" }
+    ],
+    "weights": [
+      {
+        "id": "gesture_emphasis",
+        "label": "Gesture Emphasis",
+        "template": "gesture emphasis",
+        "min": 1.0,
+        "max": 1.25,
+        "step": 0.01,
+        "default": 1.1
+      }
+    ]
+  }
+]
+
+
+
+

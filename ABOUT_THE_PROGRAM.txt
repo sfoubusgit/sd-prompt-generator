@@ -1,0 +1,422 @@
+⭐⭐⭐ PROGRAM DESCRIPTION (Place This in Your Folder) ⭐⭐⭐
+🟣 GUIDED PROMPT INTERVIEW CREATOR — FULL SYSTEM DESCRIPTION
+
+This document describes the complete architecture, purpose, and behavior of the Guided Prompt Interview Creator, a standalone application designed to build extremely high-quality Stable Diffusion prompts through an adaptive question-and-answer interview system.
+
+============================================================
+1. PURPOSE OF THE APPLICATION
+============================================================
+
+The Guided Prompt Interview Creator is an interactive system that helps users build complex and nuanced Stable Diffusion prompts without manually constructing text, understanding AI prompt engineering, or navigating complex settings.
+
+Instead of presenting long lists of tags, toggles, and text inputs, the app works like a creative assistant that asks the user structured questions. Each answer leads to the next, eventually producing a rich, highly detailed, weight-enhanced AI image prompt.
+
+This makes the tool ideal for:
+
+Beginners who want guidance
+
+Artists who want structured work
+
+Professionals who want fine-grained control
+
+Users who want high-quality, consistent output
+
+The application focuses exclusively on Guided Interview Mode.
+Other features such as randomization, preset builders, tag editing, or library managers are intentionally not included.
+
+============================================================
+2. TOP-LEVEL CONCEPT
+============================================================
+
+The application behaves like a branching interview system, where each question leads to the next based on the user's answers.
+
+Each question can include:
+
+A main question ("What hair type?")
+
+Answer choices
+
+Optional refinement questions
+
+Optional weight sliders
+
+Optional descriptions
+
+Optional auto-suggest buttons
+
+Each question is part of a decision tree, defined entirely through JSON files.
+
+Whenever the user provides an answer, the system:
+
+Records the answer
+
+Moves to the next appropriate node
+
+Updates the prompt preview
+
+Displays additional refinements or weight controls when necessary
+
+This continues until the interview reaches a natural conclusion.
+
+============================================================
+3. USER EXPERIENCE SUMMARY
+============================================================
+Screen Layout
+
+The app uses a two-column layout:
+
+LEFT:
+
+A large, centered "Question Card" shows the current question
+
+Answer buttons
+
+Refinement questions
+
+Weight sliders
+
+Navigation buttons ("Back" and "Suggest for Me")
+
+A step indicator ("Step 4 of 12")
+
+RIGHT:
+
+A live-updating Prompt Preview
+
+Displays assembled text for the final Stable Diffusion prompt
+
+Updates after every answer or slider change
+
+Flow Example
+
+“What are you imagining?”
+→ User selects “A character.”
+
+“What gender is the character?”
+→ User selects “Female.”
+
+“What age?”
+→ User selects “Young adult.”
+
+“What is the hair like?”
+→ User selects “Curly.”
+
+“How curly?” (refinement)
+→ User selects “Defined curls.”
+
+Curl Intensity (weight slider)
+→ User sets “1.18”
+
+Environment questions
+
+Artistic style questions
+
+Final composition questions
+
+Upon completion, the app assembles the full prompt.
+
+============================================================
+4. USER INTERFACE DESIGN PHILOSOPHY
+============================================================
+
+The UI visually matches the preview concept:
+
+COLOR PALETTE
+
+Background: #0F0F12
+
+Cards: #1A1A1F
+
+Accent color: #6E56F9 (violet glow)
+
+Text: white + soft grays
+
+Borders: subtle transparent whites
+
+COMPONENT STYLE
+
+Rounded corners (18–20px)
+
+Soft drop shadows
+
+Violet outer glow
+
+Clean geometric typography (Inter or Manrope)
+
+Smooth transitions
+
+BUTTONS
+
+Soft pill shape
+
+Hover glow
+
+Subtle press animation
+
+SLIDERS
+
+Dark track with violet fill
+
+Glowing thumb control
+
+Numeric value displayed on the right
+
+ANIMATION
+
+Fade transitions when moving between questions
+
+Smooth updates to preview panel
+
+This creates a calm, cinematic, modern design meant to immerse the user.
+
+============================================================
+5. DECISION TREE SYSTEM
+============================================================
+
+All flow logic is defined in JSON files stored in:
+
+src/data/interview/
+
+
+Each file defines one or more nodes in the decision tree.
+
+Nodes contain:
+
+id
+
+question
+
+description (optional)
+
+answers (required)
+
+refinements (optional)
+
+weights (optional)
+
+File loading
+
+The application automatically loads all .json files in that folder using:
+
+import.meta.glob('/src/data/interview/*.json', { eager: true })
+
+
+This means:
+
+Adding new interview categories is as simple as creating new JSON files
+
+No code changes are required
+
+============================================================
+6. INTERVIEW ENGINE
+============================================================
+
+The core logic is implemented in a React hook:
+
+useInterviewEngine()
+
+
+Responsibilities:
+
+6.1 Track State
+
+Current question node
+
+History of visited nodes
+
+Selected answers
+
+Selected refinements
+
+Slider values for weighted attributes
+
+6.2 Navigation
+
+next(answerId) moves to the next node
+
+previous() goes back to the prior node
+
+reset() restarts the interview
+
+6.3 Real-Time Preview
+
+getPreviewPrompt() returns the partial or final prompt text, dynamically assembled.
+
+6.4 Completion
+
+isFinished() identifies when no further nodes remain.
+
+The engine creates a structured pipeline from the user’s responses to the final prompt.
+
+============================================================
+7. WEIGHT SYSTEM (ADVANCED NUANCE)
+============================================================
+
+Any node or refinement node may include weight sliders.
+
+Weights adjust how strongly something is represented in the final prompt:
+
+Example:
+
+"weights": [
+  {
+    "id": "curl_intensity",
+    "label": "Curl Intensity",
+    "template": "curl intensity",
+    "min": 1.0,
+    "max": 1.3,
+    "step": 0.01,
+    "default": 1.12
+  }
+]
+
+
+This creates a slider.
+
+The final prompt will then include:
+
+(curl intensity:1.12)
+
+
+Weights allow for:
+
+nuance
+
+subtlety
+
+intensity control
+
+stylization
+
+depth
+
+This system is essential for high-quality prompt engineering.
+
+============================================================
+8. PROMPT ASSEMBLY
+============================================================
+
+A dedicated file:
+
+src/services/promptAssembler.ts
+
+
+Collects:
+
+The main subject
+
+All selected attributes
+
+All refinement answers
+
+All weights
+
+Then it outputs a professionally structured Stable Diffusion prompt.
+
+Example output:
+
+A young adult female character with defined curly hair (curl intensity:1.18),
+standing in an enchanted forest (magical atmosphere:1.32),
+anime style, soft ambient lighting, subtle particle effects.
+
+Negative prompt:
+deformed, distorted, extra limbs, low detail, low quality, bad anatomy
+
+
+The preview panel updates continuously as the user builds their character or environment.
+
+============================================================
+9. WHAT THIS APP IS NOT
+============================================================
+
+This program intentionally does not include:
+
+❌ Random prompt generator
+❌ Traditional prompt builder interface
+❌ Tag library manager
+❌ JSON editor
+❌ Preset system
+❌ Multi-mode navigation
+
+The entire project is ONLY the Guided Prompt Interview Creator.
+
+============================================================
+10. CORE PRINCIPLES AND DESIGN VALUES
+============================================================
+✔ Simplicity
+
+Users should never feel overwhelmed. Questions appear one at a time with gentle pacing.
+
+✔ Nuance
+
+Every answer can be refined. Every detail can be weighted. Prompts become extremely rich.
+
+✔ Expandability
+
+Adding new topics (e.g., “makeup style”, “weather”, “camera angle”) only requires creating new JSON files.
+
+✔ User agency
+
+Users can:
+
+choose answers
+
+refine them
+
+adjust weights
+
+or press “Suggest for me”
+
+✔ Transparency
+
+The prompt preview always shows what is being created.
+
+✔ Clarity
+
+Explanations and labels are layman-friendly.
+
+============================================================
+11. INTENDED FUTURE EXPANSIONS
+============================================================
+
+Although not part of this version, the system is designed to support:
+
+Multiple interview modes
+
+Preset questionnaires
+
+Character save/load
+
+Library editing UI
+
+Prompt randomization overlays
+
+Style modules (anime, realism, watercolor, cyberpunk)
+
+The architecture allows infinite growth.
+
+============================================================
+12. SUMMARY
+============================================================
+
+The Guided Prompt Interview Creator is a deeply nuanced, adaptive, user-friendly system for generating high-quality Stable Diffusion prompts. It functions through a JSON-powered decision tree, a dynamic interview engine, and a clean, cinematic UI modeled after a modern creative assistant.
+
+This document fully describes:
+
+The purpose
+
+The technical architecture
+
+The UI style
+
+The data model
+
+The workflow
+
+The user experience
+
+The limitations and focus of the project
+
+This file should be kept in the project folder to help all collaborators understand the program and its intended behavior.
+
+⭐ END OF FILE ⭐

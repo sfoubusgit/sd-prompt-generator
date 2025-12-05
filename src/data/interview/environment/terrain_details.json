@@ -1,0 +1,19 @@
+[
+  {
+    "id": "terrain-details-root",
+    "question": "What terrain details are present?",
+    "answers": [
+      { "id": "moss", "label": "Moss", "next": "effects-magic-root" },
+      { "id": "crystals", "label": "Crystals", "next": "effects-magic-root" },
+      { "id": "ruins_fragments", "label": "Ruins fragments", "next": "effects-magic-root" },
+      { "id": "debris", "label": "Debris", "next": "effects-magic-root" },
+      { "id": "sand", "label": "Sand", "next": "effects-magic-root" },
+      { "id": "ash", "label": "Ash", "next": "effects-magic-root" },
+      { "id": "none", "label": "No specific terrain details", "next": "effects-magic-root" }
+    ]
+  }
+]
+
+
+
+
