@@ -250,6 +250,7 @@ export interface SelectedAnswer {
   answerId: string;
   label: string;
   questionText?: string; // Question text for context
+  customExtension?: string; // Custom text extension added by user
 }
 
 export interface SelectedRefinement {
@@ -258,6 +259,7 @@ export interface SelectedRefinement {
   answerId: string;
   label: string;
   questionText?: string; // Question text for context
+  customExtension?: string; // Custom text extension added by user
 }
 
 export interface WeightValue {
@@ -268,6 +270,7 @@ export interface WeightValue {
   tags?: string[];
   associatedAnswerId?: string; // ID of the selection this weight belongs to
   answerLabel?: string; // Label of the answer to prefix the template
+  questionText?: string; // Question text for context (used for intensity weights)
 }
 
 export function assemblePrompt(
@@ -295,20 +298,43 @@ export function assemblePrompt(
     // (but only if not already expanded by expandAbstractAnswer)
     else if (a.questionText && !ABSTRACT_ANSWERS.includes(a.label.toLowerCase().trim())) {
       const question = a.questionText.toLowerCase();
+      
+      // Special handling for root question "What are you imagining?"
+      if (question === "what are you imagining?") {
+        // Only "A character" should output just "character" (unless there's a custom extension)
+        // If there's a custom extension, keep the original format "a character"
+        if (a.label.toLowerCase().startsWith("a character") && !a.customExtension) {
+          label = "character";
+        } else {
+          // Remove "A " or "An " prefix but keep the rest
+          label = label.toLowerCase().replace(/^(a |an )/, '');
+        }
+      }
       // Match patterns like:
       // - "What are the lips like?" -> "lips"
       // - "What is the jawline like?" -> "jawline"
       // - "What is the hair texture?" -> "hair texture"
       // - "What is the hair length?" -> "hair length"
-      let match = question.match(/what (?:are|is) (?:the )?(.+?) (?:like|like\?)$/);
-      if (!match) {
-        // Try pattern without "like" - e.g., "What is the hair texture?"
-        match = question.match(/what (?:are|is) (?:the )?(.+?)\?$/);
+      // - "What is the hair style?" -> "hair style"
+      else {
+        let match = question.match(/what (?:are|is) (?:the )?(.+?) (?:like|like\?)$/);
+        if (!match) {
+          // Try pattern without "like" - e.g., "What is the hair texture?"
+          match = question.match(/what (?:are|is) (?:the )?(.+?)\?$/);
+        }
+        if (match && match[1]) {
+          const subject = match[1].trim();
+          // Skip if subject is "you imagining" or similar patterns that don't make sense
+          if (subject !== "you imagining" && !subject.includes("you ")) {
+            label = `${label.toLowerCase()} ${subject}`;
+          }
+        }
       }
-      if (match && match[1]) {
-        const subject = match[1].trim();
-        label = `${label.toLowerCase()} ${subject}`;
-      }
+    }
+    
+    // Append custom extension if provided
+    if (a.customExtension && a.customExtension.trim()) {
+      label = `${label} ${a.customExtension.trim()}`;
     }
     
     parts.push(label);
@@ -320,6 +346,45 @@ export function assemblePrompt(
     if (r.questionText) {
       label = expandAbstractAnswer(r.label, r.questionText);
     }
+    
+    // Append custom extension if provided
+    if (r.customExtension && r.customExtension.trim()) {
+      label = `${label} ${r.customExtension.trim()}`;
+    }
+    
+    // Add context from question for non-abstract refinement answers
+    // Similar to how regular answers get context
+    if (r.questionText && !ABSTRACT_ANSWERS.includes(r.label.toLowerCase().trim())) {
+      const question = r.questionText.toLowerCase();
+      
+      // For hair-related refinements, add "hair style" or appropriate category
+      if (question.includes('hair') || question.includes('wavy') || question.includes('curly') || question.includes('coily')) {
+        // Check if it's about style, texture, or other attribute
+        if (question.includes('style') || question.includes('how wavy') || question.includes('how curly') || question.includes('how coily')) {
+          label = `${label.toLowerCase()} hair style`;
+        } else if (question.includes('texture')) {
+          label = `${label.toLowerCase()} hair texture`;
+        } else {
+          label = `${label.toLowerCase()} hair`;
+        }
+      }
+      // For other refinements, try to extract context from question
+      else {
+        // Match patterns like "How X?" or "What X?" to extract subject
+        let match = question.match(/how (.+?)\?$/);
+        if (!match) {
+          match = question.match(/what (?:is|are) (?:the )?(.+?)\?$/);
+        }
+        if (match && match[1]) {
+          const subject = match[1].trim();
+          // Only append if subject is meaningful and not too generic
+          if (subject && !['it', 'this', 'that'].includes(subject)) {
+            label = `${label.toLowerCase()} ${subject}`;
+          }
+        }
+      }
+    }
+    
     parts.push(label);
   });
 
@@ -328,15 +393,78 @@ export function assemblePrompt(
 
   weights.forEach(w => {
     // Handle intensity weights specially - format as (answerLabel: intensity)
-    if (w.attrId === 'intensity' && w.answerLabel) {
+    // Allow intensity weights even without answerLabel for effects nodes
+    if (w.attrId === 'intensity') {
       // Skip intensity for root node answers
       const isRootAnswer = answers.some(a => a.id === w.associatedAnswerId && a.nodeId === 'root');
       if (isRootAnswer) {
         return;
       }
-      // Sanitize the answer label for intensity
+      
+      // Find the associated answer to get question context
+      const associatedAnswer = answers.find(a => a.id === w.associatedAnswerId);
+      let label = w.answerLabel?.toLowerCase() || '';
+      
+      // Get question text from weight or associated answer
+      const questionText = w.questionText || associatedAnswer?.questionText;
+      
+      // If we have question context, try to extract meaningful context
+      if (questionText) {
+        const question = questionText.toLowerCase();
+        
+        // For "How saturated should the colors be?" -> use "image colors"
+        if (question.includes('saturated') && question.includes('color')) {
+          label = `${label} image colors`;
+        }
+        // For effects questions: "How intense should the X be?" -> use "X"
+        // This handles questions like "How intense should the lighting effect be?"
+        else if (question.includes('how intense should') || question.includes('how intense')) {
+          let match = question.match(/how intense should (?:the )?(.+?) be\?$/);
+          if (!match) {
+            match = question.match(/how intense should (.+?)\?$/);
+          }
+          if (match && match[1]) {
+            const subject = match[1].trim();
+            // For effects, combine answer label with subject (e.g., "subtle lighting effect")
+            // If label is empty (effects node without answer), just use the subject
+            if (label) {
+              label = `${label} ${subject}`;
+            } else {
+              label = subject;
+            }
+          }
+        }
+        // For other questions, try to extract the subject
+        else if (question.includes('how') || question.includes('what')) {
+          // Try to extract subject from question patterns
+          // "How X should the Y be?" -> use "Y"
+          let match = question.match(/how .+ should the (.+?) be\?$/);
+          if (!match) {
+            match = question.match(/how .+ should (.+?) be\?$/);
+          }
+          if (!match) {
+            match = question.match(/what (?:are|is) (?:the )?(.+?)\?$/);
+          }
+          if (match && match[1]) {
+            const subject = match[1].trim();
+            // Use "image" prefix for color-related subjects
+            if (subject.includes('color') || subject.includes('saturation')) {
+              label = label ? `${label} image ${subject}` : `image ${subject}`;
+            } else {
+              label = label ? `${label} ${subject}` : subject;
+            }
+          }
+        }
+      }
+      
+      // If we still don't have a label, use a fallback
+      if (!label) {
+        label = 'intensity';
+      }
+      
+      // Sanitize the label for intensity
       const safeLabel = sanitizeTemplate({
-        template: w.answerLabel.toLowerCase(),
+        template: label,
         tags: w.tags || []
       });
       
@@ -355,25 +483,38 @@ export function assemblePrompt(
     
     let template = w.template;
     
-    // ALWAYS prefix template with answer label if available - weights should never appear alone
-    // This ensures "augmentations" becomes "augmentations augmentations" (from answer) or similar contextualization
+    // Prefix template with answer label if available, BUT:
+    // - Don't prefix if template is already descriptive (e.g., "penis size", "breast size", "vagina size")
+    // - Don't prefix if template already contains the answer label
+    // - For weight-only nodes (no answerLabel), use template as-is
     if (w.answerLabel) {
-      // Check if template already contains the answer label to avoid duplication
       const answerLower = w.answerLabel.toLowerCase();
       const templateLower = template.toLowerCase();
       
-      // If template doesn't already contain the answer, prefix it
-      if (!templateLower.includes(answerLower)) {
+      // List of descriptive templates that shouldn't be prefixed with answer labels
+      // These templates are already complete and descriptive on their own
+      const descriptiveTemplates = [
+        'penis size', 'breast size', 'vagina size', 'buttocks size',
+        'penis detail', 'breast detail', 'vagina detail', 'buttocks detail',
+        'penis shape', 'breast shape', 'buttocks shape'
+      ];
+      
+      const isDescriptive = descriptiveTemplates.some(dt => templateLower.includes(dt));
+      
+      // If template is descriptive, don't prefix it
+      if (isDescriptive) {
+        template = template; // Use as-is
+      }
+      // Check if template already contains the answer label to avoid duplication
+      else if (!templateLower.includes(answerLower)) {
         template = `${answerLower} ${template}`;
       } else {
-        // Template already contains answer, use as-is but ensure proper formatting
+        // Template already contains answer, use as-is
         template = template;
       }
     } else {
-      // If no answer label but template is a standalone word like "augmentations",
-      // we should still try to find context or use a fallback
-      // For now, we'll let it through but this should ideally never happen
-      // (weights should always have answer context)
+      // If no answer label, use template as-is (for weight-only nodes)
+      template = template;
     }
     
     // First normalize, then sanitize

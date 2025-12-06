@@ -8,6 +8,7 @@
       { "id": "jawline", "label": "Jawline", "next": "face-jawline" },
       { "id": "lips", "label": "Lips", "next": "face-lips" },
       { "id": "eyebrows", "label": "Eyebrows", "next": "face-eyebrows" },
+      { "id": "face_art", "label": "Face Art", "next": "face-art-root" },
       { "id": "skip_face", "label": "Skip face details", "next": "character-hair-root" }
     ]
   },
@@ -165,6 +166,7 @@
     ]
   }
 ]
+
 
 
 

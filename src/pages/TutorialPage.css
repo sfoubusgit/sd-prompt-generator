@@ -1,0 +1,281 @@
+.tutorial-page {
+  min-height: 100vh;
+  background: #0F0F12;
+  padding: 40px 20px;
+  color: white;
+}
+
+.tutorial-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tutorial-header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tutorial-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #6E56F9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tutorial-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.tutorial-back-button {
+  background: rgba(110, 86, 249, 0.2);
+  border: 1px solid rgba(110, 86, 249, 0.3);
+  color: #6E56F9;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.tutorial-back-button:hover {
+  background: rgba(110, 86, 249, 0.3);
+  border-color: rgba(110, 86, 249, 0.5);
+  box-shadow: 0 4px 12px rgba(110, 86, 249, 0.2);
+  transform: translateY(-2px);
+}
+
+.tutorial-content {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.tutorial-section {
+  background: #1A1A1F;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tutorial-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+
+.tutorial-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 16px;
+}
+
+.tutorial-step {
+  margin-bottom: 24px;
+  padding-left: 24px;
+  border-left: 3px solid rgba(110, 86, 249, 0.5);
+}
+
+.tutorial-step h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #6E56F9;
+}
+
+.tutorial-step p {
+  margin-bottom: 8px;
+}
+
+.tutorial-step ul {
+  margin-top: 12px;
+  margin-left: 24px;
+  list-style-type: disc;
+}
+
+.tutorial-step ul li {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.tutorial-feature {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: rgba(110, 86, 249, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(110, 86, 249, 0.1);
+}
+
+.tutorial-feature h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #6E56F9;
+}
+
+.tutorial-feature p {
+  margin-bottom: 12px;
+}
+
+.tutorial-feature ul {
+  margin-top: 12px;
+  margin-left: 24px;
+  list-style-type: disc;
+}
+
+.tutorial-feature ul li {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.tutorial-note {
+  background: rgba(110, 86, 249, 0.1);
+  border-left: 4px solid #6E56F9;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-style: italic;
+}
+
+.tutorial-note code {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #6E56F9;
+}
+
+.tutorial-workflow {
+  background: rgba(110, 86, 249, 0.05);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(110, 86, 249, 0.1);
+}
+
+.tutorial-workflow ol {
+  margin-left: 24px;
+  counter-reset: step-counter;
+}
+
+.tutorial-workflow ol li {
+  margin-bottom: 16px;
+  padding-left: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+  position: relative;
+  counter-increment: step-counter;
+}
+
+.tutorial-workflow ol li::marker {
+  color: #6E56F9;
+  font-weight: 600;
+}
+
+.tutorial-tips {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+.tutorial-tips li {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(110, 86, 249, 0.05);
+  border-radius: 12px;
+  border-left: 4px solid #6E56F9;
+  line-height: 1.8;
+}
+
+.tutorial-tips li strong {
+  color: #6E56F9;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.tutorial-faq {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(110, 86, 249, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(110, 86, 249, 0.1);
+}
+
+.tutorial-faq h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #6E56F9;
+}
+
+.tutorial-faq p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.8;
+}
+
+.tutorial-footer {
+  text-align: center;
+  background: linear-gradient(135deg, rgba(110, 86, 249, 0.1) 0%, rgba(110, 86, 249, 0.05) 100%);
+  border: 2px solid rgba(110, 86, 249, 0.3);
+}
+
+.tutorial-footer h2 {
+  margin-bottom: 16px;
+}
+
+.tutorial-footer p {
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+
+.tutorial-start-button {
+  background: linear-gradient(135deg, #6E56F9 0%, #8B7AFF 100%);
+  border: none;
+  color: white;
+  padding: 16px 40px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 20px rgba(110, 86, 249, 0.3);
+}
+
+.tutorial-start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(110, 86, 249, 0.5);
+  background: linear-gradient(135deg, #7B66FF 0%, #9B8AFF 100%);
+}
+
+@media (max-width: 768px) {
+  .tutorial-header h1 {
+    font-size: 2rem;
+  }
+
+  .tutorial-subtitle {
+    font-size: 1rem;
+  }
+
+  .tutorial-section {
+    padding: 24px;
+  }
+
+  .tutorial-section h2 {
+    font-size: 1.5rem;
+  }
+}
+

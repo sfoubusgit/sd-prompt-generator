@@ -39,11 +39,18 @@ export function useInterviewEngine() {
   // Track which weights have been modified (touched) from their defaults
   const [touchedWeights, setTouchedWeights] = useState<Set<string>>(new Set());
   
-  // Track which sliders are enabled (checked) - defaults to false (user must explicitly enable)
+  // Track which sliders are enabled (checked) - ALL SLIDERS ARE DISABLED BY DEFAULT
+  // Users must explicitly check the checkbox to enable any slider
   const [enabledSliders, setEnabledSliders] = useState<Map<string, boolean>>(new Map());
+  
+  // Track which sliders are currently focused (for Add button activation)
+  const [focusedSliders, setFocusedSliders] = useState<Set<string>>(new Set());
   
   // Custom prompt elements added by user (with enabled state and prompt type)
   const [customElements, setCustomElements] = useState<Array<{ text: string; enabled: boolean; type: 'prompt' | 'negative' }>>([]);
+  
+  // Custom extensions for temp answers (keyed by nodeId)
+  const [tempCustomExtensions, setTempCustomExtensions] = useState<Map<string, string>>(new Map());
 
   const currentNode = nodeMap.get(currentNodeId) as InterviewNode | undefined;
 
@@ -79,12 +86,15 @@ export function useInterviewEngine() {
 
       setTempRefinements(prev => {
         const m = new Map(prev);
+        const existingRefinement = m.get(currentNodeId);
+        const customExtension = existingRefinement?.customExtension || tempCustomExtensions.get(currentNodeId);
         m.set(currentNodeId, {
           id: `temp-${currentNodeId}-${answerId}`, // Temporary ID
           refinementId: currentNodeId,
           answerId: answer.id,
           label: answer.label,
           questionText: currentNode.question, // Store question text for context
+          customExtension: customExtension, // Preserve custom extension if it exists
         });
         return m;
       });
@@ -114,9 +124,12 @@ export function useInterviewEngine() {
       answerLabel = tempAnswer.label;
       
       setCommittedAnswers(prev => {
+        const rawExtension = tempAnswer.customExtension || tempCustomExtensions.get(currentNodeId);
+        const customExtension = rawExtension ? rawExtension.trim() : undefined;
         return [...prev, {
           ...tempAnswer,
           id: committedAnswerId!,
+          customExtension: customExtension,
         }];
       });
     }
@@ -129,9 +142,12 @@ export function useInterviewEngine() {
       }
       
       setCommittedRefinements(prev => {
+        const rawExtension = tempRefinement.customExtension || tempCustomExtensions.get(currentNodeId);
+        const customExtension = rawExtension ? rawExtension.trim() : undefined;
         return [...prev, {
           ...tempRefinement,
           id: newId,
+          customExtension: customExtension,
         }];
       });
     }
@@ -143,21 +159,51 @@ export function useInterviewEngine() {
           const intensityEnabled = enabledSliders.get('intensity') === true; // Default to false - user must enable
           if (intensityEnabled) {
         const intensity = tempIntensities.get(currentNodeId) ?? 1.0;
-        if (committedAnswerId && answerLabel) {
-          const intensityWeightId = `weight-${committedAnswerId}-intensity`;
-          setWeightValues(prev => {
-            const m = new Map(prev);
-            m.set(intensityWeightId, {
-              id: intensityWeightId,
-              attrId: 'intensity',
-              value: intensity,
-              template: 'intensity',
-              tags: undefined,
-              associatedAnswerId: committedAnswerId,
-              answerLabel: answerLabel,
+        // For effects nodes, allow intensity even without an answer (use question context)
+        // For other nodes, require an answer
+        const isEffectsNode = currentNodeId.startsWith('effects-');
+        if (isEffectsNode || (committedAnswerId && answerLabel)) {
+          // Use answer label if available, otherwise use question context
+          let intensityLabel = answerLabel;
+          let intensityAnswerId = committedAnswerId;
+          
+          if (!intensityLabel && currentNode) {
+            // Extract context from question for effects nodes
+            const question = currentNode.question.toLowerCase();
+            // Pattern: "How intense should the X be?" -> use "X"
+            let match = question.match(/how .+ should the (.+?) be\?$/);
+            if (!match) {
+              match = question.match(/how .+ should (.+?) be\?$/);
+            }
+            if (match && match[1]) {
+              intensityLabel = match[1].trim();
+            } else {
+              // Fallback: use a generic label based on node ID
+              intensityLabel = currentNodeId.replace('effects-', '').replace(/-/g, ' ');
+            }
+            // Create a synthetic answer ID for effects nodes without answers
+            intensityAnswerId = `intensity-${currentNodeId}`;
+          }
+          
+          if (intensityLabel) {
+            const intensityWeightId = isEffectsNode && !committedAnswerId 
+              ? `weight-${currentNodeId}-intensity`
+              : `weight-${intensityAnswerId}-intensity`;
+            setWeightValues(prev => {
+              const m = new Map(prev);
+              m.set(intensityWeightId, {
+                id: intensityWeightId,
+                attrId: 'intensity',
+                value: intensity,
+                template: 'intensity',
+                tags: undefined,
+                associatedAnswerId: intensityAnswerId,
+                answerLabel: intensityLabel!,
+                questionText: currentNode?.question, // Store question text for context
+              });
+              return m;
             });
-            return m;
-          });
+          }
         }
       }
     }
@@ -189,10 +235,15 @@ export function useInterviewEngine() {
       
       // Find the most recent committed answer from previous nodes in the flow to provide context
       // This ensures weights like "augmentations" get contextualized with "Augmentations"
+      // BUT: For weight-only nodes (nodes with weights but no answers), don't use contextual answers
+      // Weight-only nodes should have standalone weights without answer prefixes
+      const isWeightOnlyNode = !currentNode.answers || currentNode.answers.length === 0;
+      
       let contextualAnswerId: string | undefined;
       let contextualAnswerLabel: string | undefined;
       
-      if (!committedAnswerId && history.length > 1) {
+      // Only look for contextual answers if this is NOT a weight-only node
+      if (!isWeightOnlyNode && !committedAnswerId && history.length > 1) {
         // Look back through history to find the most recent committed answer
         for (let i = history.length - 2; i >= 0; i--) {
           const prevNodeId = history[i];
@@ -212,8 +263,9 @@ export function useInterviewEngine() {
       }
       
       // Use current answer if available, otherwise use contextual answer from previous node
-      const finalAnswerId = committedAnswerId || contextualAnswerId;
-      const finalAnswerLabel = answerLabel || contextualAnswerLabel;
+      // BUT: For weight-only nodes, never use contextual answers - keep weights standalone
+      const finalAnswerId = isWeightOnlyNode ? committedAnswerId : (committedAnswerId || contextualAnswerId);
+      const finalAnswerLabel = isWeightOnlyNode ? answerLabel : (answerLabel || contextualAnswerLabel);
       
       // If there's a committed answer, associate weights with it
       // Otherwise, commit weights standalone (for nodes with only weights, no answers)
@@ -343,6 +395,13 @@ export function useInterviewEngine() {
         m.delete(currentNodeId);
         return m;
       });
+      
+      // Clear intensity slider enabled state when skipping
+      setEnabledSliders(prev => {
+        const m = new Map(prev);
+        m.delete('intensity');
+        return m;
+      });
       return;
     }
 
@@ -368,6 +427,13 @@ export function useInterviewEngine() {
         setTempIntensities(prev => {
           const m = new Map(prev);
           m.delete(currentNodeId);
+          return m;
+        });
+        
+        // Clear intensity slider enabled state when skipping
+        setEnabledSliders(prev => {
+          const m = new Map(prev);
+          m.delete('intensity');
           return m;
         });
         return;
@@ -396,6 +462,13 @@ export function useInterviewEngine() {
         setTempIntensities(prev => {
           const m = new Map(prev);
           m.delete(currentNodeId);
+          return m;
+        });
+        
+        // Clear intensity slider enabled state when skipping
+        setEnabledSliders(prev => {
+          const m = new Map(prev);
+          m.delete('intensity');
           return m;
         });
         return;
@@ -473,6 +546,17 @@ export function useInterviewEngine() {
       m.delete(currentNodeId);
       return m;
     });
+    
+    // Clear focused sliders when navigating to new node
+    setFocusedSliders(new Set());
+    
+    // Clear intensity slider enabled state when navigating to new node
+    // (intensity slider should always be disabled by default on each new node)
+    setEnabledSliders(prev => {
+      const m = new Map(prev);
+      m.delete('intensity');
+      return m;
+    });
   }, [currentNode, currentNodeId, committedAnswers, tempAnswers]);
 
   const previous = useCallback(() => {
@@ -501,6 +585,16 @@ export function useInterviewEngine() {
       m.delete(currentNodeId);
       return m;
     });
+    
+    // Clear focused sliders when going back
+    setFocusedSliders(new Set());
+    
+    // Clear intensity slider enabled state when going back
+    setEnabledSliders(prev => {
+      const m = new Map(prev);
+      m.delete('intensity');
+      return m;
+    });
   }, [history, currentNodeId]);
 
   const jumpTo = useCallback((nodeId: string) => {
@@ -520,6 +614,16 @@ export function useInterviewEngine() {
     setTempIntensities(prev => {
       const m = new Map(prev);
       m.delete(currentNodeId);
+      return m;
+    });
+    
+    // Clear focused sliders when jumping to a different node
+    setFocusedSliders(new Set());
+    
+    // Clear intensity slider enabled state when jumping to a different node
+    setEnabledSliders(prev => {
+      const m = new Map(prev);
+      m.delete('intensity');
       return m;
     });
 
@@ -577,11 +681,56 @@ export function useInterviewEngine() {
     });
   }, []);
 
+  const setCustomExtension = useCallback((nodeId: string, extension: string) => {
+    // Store the raw value (with spaces) for the input field
+    // Always set the value, even if empty string, to allow deletion
+    setTempCustomExtensions(prev => {
+      const m = new Map(prev);
+      m.set(nodeId, extension);
+      return m;
+    });
+    // Also update the temp answer/refinement if it exists (store raw value for now)
+    setTempAnswers(prevAnswers => {
+      const m = new Map(prevAnswers);
+      const existing = m.get(nodeId);
+      if (existing) {
+        m.set(nodeId, {
+          ...existing,
+          customExtension: extension || undefined,
+        });
+      }
+      return m;
+    });
+    setTempRefinements(prevRefinements => {
+      const m = new Map(prevRefinements);
+      const existing = m.get(nodeId);
+      if (existing) {
+        m.set(nodeId, {
+          ...existing,
+          customExtension: extension || undefined,
+        });
+      }
+      return m;
+    });
+  }, []);
+
   const setSliderEnabled = useCallback((attrId: string, enabled: boolean) => {
     setEnabledSliders(prev => {
       const m = new Map(prev);
       m.set(attrId, enabled);
       return m;
+    });
+  }, []);
+
+  const setSliderFocused = useCallback((attrId: string, focused: boolean) => {
+    setFocusedSliders(prev => {
+      const newSet = new Set(prev);
+      if (focused) {
+        newSet.add(attrId);
+      } else {
+        newSet.delete(attrId);
+      }
+      return newSet;
     });
   }, []);
 
@@ -673,7 +822,7 @@ export function useInterviewEngine() {
       // If no refinement selected, we're not finished
       if (!hasSelectedRefinement) return false;
         // If refinement selected but no next node, we're finished
-        return currentNode.answers && currentNode.answers.every((a) => !a.next);
+        return currentNode.answers ? currentNode.answers.every((a) => !a.next) : false;
       }
       
       // For regular nodes, check if all answers have no next and no refinements
@@ -787,9 +936,11 @@ export function useInterviewEngine() {
     tempAnswers,
     tempRefinements,
     tempIntensities,
+    tempCustomExtensions,
     selectTempAnswer,
     selectTempRefinement,
     setIntensity,
+    setCustomExtension,
     commitCurrentSelections,
     removeSelection,
     goToNext,
@@ -804,6 +955,8 @@ export function useInterviewEngine() {
     setWeightValues,
     setSliderEnabled,
     enabledSliders,
+    focusedSliders,
+    setSliderFocused,
     customElements,
     addCustomElement,
     removeCustomElement,

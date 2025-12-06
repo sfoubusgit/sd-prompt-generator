@@ -10,9 +10,12 @@ interface WeightSliderProps {
   onChange: (value: number) => void;
   enabled?: boolean;
   onEnabledChange?: (enabled: boolean) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-export function WeightSlider({ id, label, value, min, max, step, onChange, enabled = false, onEnabledChange }: WeightSliderProps) {
+// All sliders are DISABLED by default - user must explicitly enable via checkbox
+export function WeightSlider({ id, label, value, min, max, step, onChange, enabled = false, onEnabledChange, onFocus, onBlur }: WeightSliderProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(parseFloat(e.target.value));
   };
@@ -59,6 +62,8 @@ export function WeightSlider({ id, label, value, min, max, step, onChange, enabl
           step={step}
           value={value}
           onChange={handleChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
           disabled={!enabled}
           className="weight-slider-input"
           style={{

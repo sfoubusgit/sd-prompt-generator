@@ -19,3 +19,5 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
 
 
 
+
+

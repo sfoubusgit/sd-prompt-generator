@@ -11,6 +11,8 @@ interface RefinementPanelProps {
   onWeightChange: (attrId: string, value: number, template: string, tags?: string[]) => void;
   sliderEnabled?: Map<string, boolean>;
   onSliderEnabledChange?: (attrId: string, enabled: boolean) => void;
+  onSliderFocus?: (attrId: string, focused: boolean) => void;
+  onSliderBlur?: (attrId: string, focused: boolean) => void;
 }
 
 export function RefinementPanel({
@@ -21,6 +23,8 @@ export function RefinementPanel({
   onWeightChange,
   sliderEnabled,
   onSliderEnabledChange,
+  onSliderFocus,
+  onSliderBlur,
 }: RefinementPanelProps) {
   return (
     <div className="refinement-panel">
@@ -52,6 +56,8 @@ export function RefinementPanel({
                 onChange={(value) => onWeightChange(weight.id, value, weight.template, weight.tags)}
                 enabled={enabled}
                 onEnabledChange={onSliderEnabledChange ? (enabled) => onSliderEnabledChange(weight.id, enabled) : undefined}
+                onFocus={onSliderFocus ? () => onSliderFocus(weight.id, true) : undefined}
+                onBlur={onSliderBlur ? () => onSliderBlur(weight.id, false) : undefined}
               />
             );
           })}

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "effects-magical-root",
+    "question": "What type of magical or energetic effect?",
+    "answers": [
+      { "id": "aura_energy", "label": "Aura & Energy", "next": "effects-aura-energy" },
+      { "id": "sparks_runes", "label": "Sparks & Runes", "next": "effects-sparks-runes" },
+      { "id": "distortion_time", "label": "Distortion & Time", "next": "effects-distortion-time" },
+      { "id": "skip_magical", "label": "Skip magical effects", "next": "effects-surface-root" }
+    ]
+  },
+  {
+    "id": "effects-aura-energy",
+    "question": "What type of aura or energy field?",
+    "answers": [
+      { "id": "glowing_aura", "label": "Glowing Aura", "next": "effects-magical-intensity" },
+      { "id": "kirlian_energy", "label": "Kirlian Energy Field", "next": "effects-magical-intensity" },
+      { "id": "dark_energy_tendrils", "label": "Dark Energy Tendrils", "next": "effects-magical-intensity" }
+    ]
+  },
+  {
+    "id": "effects-sparks-runes",
+    "question": "What type of sparks or runes?",
+    "answers": [
+      { "id": "floating_sparks", "label": "Floating Magic Sparks", "next": "effects-magical-intensity" },
+      { "id": "arcane_runes", "label": "Arcane Glowing Runes", "next": "effects-magical-intensity" },
+      { "id": "soul_wisps", "label": "Soul Wisps", "next": "effects-magical-intensity" }
+    ]
+  },
+  {
+    "id": "effects-distortion-time",
+    "question": "What type of distortion or time effect?",
+    "answers": [
+      { "id": "levitation", "label": "Levitation / Anti-Gravity", "next": "effects-magical-intensity" },
+      { "id": "motion_blur_trails", "label": "Motion Blur Trails", "next": "effects-magical-intensity" },
+      { "id": "time_freeze_shatter", "label": "Time-Freeze Shatter", "next": "effects-magical-intensity" }
+    ]
+  },
+  {
+    "id": "effects-magical-intensity",
+    "question": "How visible should the magical effect be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "effects-surface-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-surface-root" },
+      { "id": "pronounced", "label": "Pronounced", "next": "effects-surface-root" }
+    ],
+    "weights": [
+      {
+        "id": "magical_effect_intensity",
+        "label": "Magical Effect Intensity",
+        "template": "magical effect intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      },
+      {
+        "id": "energy_glow",
+        "label": "Energy Glow",
+        "template": "energy glow",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

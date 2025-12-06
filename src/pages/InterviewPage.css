@@ -19,10 +19,6 @@
   padding: 32px;
 }
 
-.interview-left {
-  display: flex;
-  flex-direction: column;
-}
 
 .interview-right {
   display: flex;
@@ -61,6 +57,43 @@
   font-family: 'Inter', sans-serif;
 }
 
+.interview-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.tutorial-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: rgba(110, 86, 249, 0.2);
+  border: 1px solid rgba(110, 86, 249, 0.3);
+  color: #6E56F9;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tutorial-button:hover {
+  background: rgba(110, 86, 249, 0.3);
+  border-color: rgba(110, 86, 249, 0.5);
+  box-shadow: 0 6px 20px rgba(110, 86, 249, 0.4);
+  transform: translateY(-2px);
+}
+
+.tutorial-button:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 1200px) {
   .interview-container {
     grid-template-columns: 1fr;
@@ -74,6 +107,13 @@
     position: relative;
     top: 0;
     max-height: none;
+  }
+
+  .tutorial-button {
+    bottom: 16px;
+    left: 16px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 }
 

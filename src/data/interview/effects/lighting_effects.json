@@ -1,0 +1,93 @@
+[
+  {
+    "id": "effects-lighting-root",
+    "question": "What type of lighting effect?",
+    "answers": [
+      { "id": "rim_lighting", "label": "Rim Lighting", "next": "effects-rim-lighting" },
+      { "id": "volumetric_god_rays", "label": "Volumetric God Rays", "next": "effects-volumetric-god-rays" },
+      { "id": "backlighting", "label": "Backlighting", "next": "effects-backlighting" },
+      { "id": "neon_cyberpunk", "label": "Neon & Cyberpunk", "next": "effects-neon-cyberpunk" },
+      { "id": "lens_practical", "label": "Lens & Practical", "next": "effects-lens-practical" },
+      { "id": "skip_lighting", "label": "Skip lighting effects", "next": "effects-atmosphere-root" }
+    ]
+  },
+  {
+    "id": "effects-rim-lighting",
+    "question": "What type of rim lighting?",
+    "answers": [
+      { "id": "cinematic_rim", "label": "Cinematic Rim Lighting", "next": "effects-lighting-intensity" },
+      { "id": "hard_rim", "label": "Hard Rim Light", "next": "effects-lighting-intensity" },
+      { "id": "soft_rim", "label": "Soft Rim Light", "next": "effects-lighting-intensity" },
+      { "id": "neon_rim_glow", "label": "Neon Rim Glow", "next": "effects-lighting-intensity" }
+    ]
+  },
+  {
+    "id": "effects-volumetric-god-rays",
+    "question": "What type of volumetric god rays?",
+    "answers": [
+      { "id": "golden_hour_rays", "label": "Golden Hour God Rays", "next": "effects-lighting-intensity" },
+      { "id": "underwater_caustics", "label": "Underwater Caustics God Rays", "next": "effects-lighting-intensity" },
+      { "id": "forest_rays", "label": "Forest God Rays", "next": "effects-lighting-intensity" },
+      { "id": "crimson_hell_rays", "label": "Crimson Hell Rays", "next": "effects-lighting-intensity" }
+    ]
+  },
+  {
+    "id": "effects-backlighting",
+    "question": "What type of backlighting?",
+    "answers": [
+      { "id": "dramatic_silhouette", "label": "Dramatic Silhouette Backlight", "next": "effects-lighting-intensity" },
+      { "id": "hair_light", "label": "Hair Light / Edge Light", "next": "effects-lighting-intensity" },
+      { "id": "angelic_halo", "label": "Angelic Halo Backlight", "next": "effects-lighting-intensity" }
+    ]
+  },
+  {
+    "id": "effects-neon-cyberpunk",
+    "question": "What type of neon or cyberpunk lighting?",
+    "answers": [
+      { "id": "neon_tube", "label": "Neon Tube Lighting", "next": "effects-lighting-intensity" },
+      { "id": "blade_runner", "label": "Blade Runner Blue-Pink", "next": "effects-lighting-intensity" },
+      { "id": "shibuya_glow", "label": "Shibuya Night Glow", "next": "effects-lighting-intensity" },
+      { "id": "holographic_neon", "label": "Holographic Neon Reflections", "next": "effects-lighting-intensity" }
+    ]
+  },
+  {
+    "id": "effects-lens-practical",
+    "question": "What type of lens or practical lighting?",
+    "answers": [
+      { "id": "anamorphic_flare", "label": "Anamorphic Lens Flare", "next": "effects-lighting-intensity" },
+      { "id": "candlelight", "label": "Practical Candlelight", "next": "effects-lighting-intensity" },
+      { "id": "firelight_flicker", "label": "Firelight Flicker", "next": "effects-lighting-intensity" },
+      { "id": "bioluminescent_glow", "label": "Bioluminescent Self-Glow", "next": "effects-lighting-intensity" }
+    ]
+  },
+  {
+    "id": "effects-lighting-intensity",
+    "question": "How intense should the lighting effect be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "effects-atmosphere-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-atmosphere-root" },
+      { "id": "strong", "label": "Strong", "next": "effects-atmosphere-root" }
+    ],
+    "weights": [
+      {
+        "id": "lighting_effect_intensity",
+        "label": "Lighting Effect Intensity",
+        "template": "lighting effect intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "light_visibility",
+        "label": "Light Visibility",
+        "template": "light visibility",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

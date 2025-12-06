@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useInterviewEngine } from '../hooks/useInterviewEngine';
 import { QuestionCard } from '../components/QuestionCard/QuestionCard';
 import { PreviewPanel } from '../components/PreviewPanel/PreviewPanel';
@@ -7,6 +8,7 @@ import { CustomPromptElements } from '../components/CustomPromptElements/CustomP
 import './InterviewPage.css';
 
 export function InterviewPage() {
+  const navigate = useNavigate();
   const {
     currentNode,
     currentNodeId,
@@ -25,9 +27,11 @@ export function InterviewPage() {
     tempAnswers,
     tempRefinements,
     tempIntensities,
+    tempCustomExtensions,
     selectTempAnswer,
     selectTempRefinement,
     setIntensity,
+    setCustomExtension,
     commitCurrentSelections,
     removeSelection,
     goToNext,
@@ -41,6 +45,8 @@ export function InterviewPage() {
     reset,
     setSliderEnabled,
     enabledSliders,
+    focusedSliders,
+    setSliderFocused,
     customElements,
     addCustomElement,
     removeCustomElement,
@@ -68,12 +74,28 @@ export function InterviewPage() {
   const tempAnswer = tempAnswers.get(currentNodeId);
   const committedAnswer = committedAnswers.find(a => a.nodeId === currentNodeId);
   const selectedAnswerId = tempAnswer?.answerId ?? committedAnswer?.answerId;
+  // Get custom extension from tempCustomExtensions map (raw value with spaces) or from committed answer
+  // Check if the key exists in the map first (even if value is empty string)
+  const tempCustomExt = tempCustomExtensions?.has(currentNodeId) 
+    ? (tempCustomExtensions.get(currentNodeId) ?? '')
+    : undefined;
+  const currentCustomExtension = tempCustomExt !== undefined 
+    ? tempCustomExt 
+    : (tempAnswer?.customExtension ?? committedAnswer?.customExtension ?? '');
   
   // Get selected refinement answer ID (prefer temp, then committed)
   const tempRefinement = tempRefinements.get(currentNodeId);
   const committedRefinement = currentRefinement 
     ? committedRefinements.find(r => r.refinementId === currentRefinement.id)
     : undefined;
+  // Get custom extension from tempCustomExtensions map (raw value with spaces) or from committed refinement
+  // Check if the key exists in the map first (even if value is empty string)
+  const tempRefinementCustomExt = tempCustomExtensions?.has(currentNodeId)
+    ? (tempCustomExtensions.get(currentNodeId) ?? '')
+    : undefined;
+  const currentRefinementCustomExtension = tempRefinementCustomExt !== undefined
+    ? tempRefinementCustomExt
+    : (tempRefinement?.customExtension ?? committedRefinement?.customExtension ?? '');
   const selectedRefinementAnswerId = tempRefinement?.answerId ?? committedRefinement?.answerId;
 
   const handleWeightChange = (attrId: string, value: number, template: string, tags?: string[]) => {
@@ -137,16 +159,22 @@ export function InterviewPage() {
      currentNode.answers.some(a => a.label.toLowerCase() === 'no'))
   );
   
-  // Check if current question is a navigation question asking "What is the X?"
+  // Check if current question is a navigation question asking "What is the X?", "What X would you like to adjust?", or "Which X would you like to configure?"
   // These are category selection questions where you choose which aspect to configure
   // Examples: "What is the character's body type?" (selects Height/Build/Posture)
+  // Examples: "What body attribute would you like to adjust?" (selects Height/Build/Posture/NSFW)
+  // Examples: "Which NSFW attribute would you like to configure?" (selects Nudity/Breasts/Vagina/etc.)
   // But NOT: "What is the character's build?" (selects Slim/Athletic/etc.)
-  // Detection: questions asking "What is the [something]?" where the node ID ends with "-root"
-  // Navigation questions typically have "-root" suffix (e.g., "character-body-root")
+  // Detection: questions asking "What is the [something]?", "What X would you like to adjust?", or "Which X would you like to configure?"
+  // Navigation questions typically have "-root" suffix (e.g., "character-body-root") or are options menus (e.g., "nsfw-options")
   // vs actual selection questions (e.g., "character-build")
+  const questionLower = currentNode?.question.toLowerCase() || '';
   const isNavigationQuestion = currentNode && (
-    currentNode.question.toLowerCase().match(/^what is the .+\?$/) &&
-    currentNodeId.endsWith('-root')
+    (currentNodeId.endsWith('-root') || currentNodeId.endsWith('-options')) && (
+      questionLower.match(/^what is the .+\?$/) ||
+      questionLower.match(/what .+ would you like to (adjust|configure|select|choose)\?$/) ||
+      questionLower.match(/which .+ would you like to (adjust|configure|select|choose)\?$/)
+    )
   );
   
   // Show intensity slider if there's a selection (temp or committed), but not on:
@@ -170,7 +198,7 @@ export function InterviewPage() {
   const hasWeightsOnly = currentNode && currentNode.weights && currentNode.weights.length > 0 && (!currentNode.answers || currentNode.answers.length === 0);
   const canGoToNext = hasCommittedSelectionForCurrentNode || hasTempSelectionForCurrentNode || hasWeightsOnly;
   
-  // Determine if ADD can be enabled (needs temp selection or modified weights)
+  // Determine if ADD can be enabled (needs temp selection, modified weights, or slider interaction)
   const hasModifiedWeights = currentNode && currentNode.weights && currentNode.weights.some(w => {
     const tempWeight = weightValues.get(w.id);
     // Check if weight has been modified from default (either exists and differs, or doesn't exist but should be checked)
@@ -179,7 +207,15 @@ export function InterviewPage() {
     }
     return false;
   });
-  const canAdd = hasTempSelectionForCurrentNode || hasModifiedWeights;
+  
+  // Check if any slider is enabled (checkbox checked) or focused
+  const hasEnabledSliders = currentNode && (
+    (currentNode.weights && currentNode.weights.some(w => enabledSliders.get(w.id) === true)) ||
+    (showIntensity && enabledSliders.get('intensity') === true)
+  );
+  const hasFocusedSliders = focusedSliders.size > 0;
+  
+  const canAdd = hasTempSelectionForCurrentNode || hasModifiedWeights || hasEnabledSliders || hasFocusedSliders;
 
   // Merge weight values from both node and refinement
   // Create a compatible map for components (they only need value, template, tags)
@@ -226,6 +262,13 @@ export function InterviewPage() {
 
   return (
     <div className="interview-page">
+      <button 
+        className="tutorial-button"
+        onClick={() => navigate('/tutorial')}
+        title="Open Tutorial"
+      >
+        📖 Tutorial
+      </button>
       <div className="interview-layout">
         <CategorySidebar
           onSelectCategory={(nodeId) => jumpToCategory(nodeId)}
@@ -244,10 +287,10 @@ export function InterviewPage() {
                 onSelectAnswer={selectTempRefinement}
                 onPrevious={previous}
                 onSuggest={handleSuggest}
-                onAdd={commitCurrentSelections}
+                onAdd={(isNavigationQuestion || isYesNoQuestion) ? undefined : commitCurrentSelections}
                 onNext={goToNext}
                 onSkip={skipToNext}
-                canAdd={hasTempSelectionForCurrentNode}
+                canAdd={canAdd}
                 canNext={canGoToNext}
                 weightValues={allWeightValues}
                 onWeightChange={handleWeightChange}
@@ -257,6 +300,10 @@ export function InterviewPage() {
                 onIntensityChange={handleIntensityChange}
                 sliderEnabled={enabledSliders}
                 onSliderEnabledChange={setSliderEnabled}
+                onSliderFocus={setSliderFocused}
+                onSliderBlur={setSliderFocused}
+                customExtension={currentRefinementCustomExtension}
+                onCustomExtensionChange={(ext) => setCustomExtension(currentNodeId, ext)}
               />
             ) : (
               <QuestionCard
@@ -266,10 +313,10 @@ export function InterviewPage() {
                 onSelectAnswer={selectTempAnswer}
                 onPrevious={previous}
                 onSuggest={handleSuggest}
-                onAdd={commitCurrentSelections}
+                onAdd={(isNavigationQuestion || isYesNoQuestion) ? undefined : commitCurrentSelections}
                 onNext={goToNext}
                 onSkip={skipToNext}
-                canAdd={hasTempSelectionForCurrentNode}
+                canAdd={canAdd}
                 canNext={canGoToNext}
                 refinement={
                   currentRefinement && !isRefinementNode
@@ -288,6 +335,10 @@ export function InterviewPage() {
                 onIntensityChange={handleIntensityChange}
                 sliderEnabled={enabledSliders}
                 onSliderEnabledChange={setSliderEnabled}
+                onSliderFocus={setSliderFocused}
+                onSliderBlur={setSliderFocused}
+                customExtension={currentCustomExtension}
+                onCustomExtensionChange={(ext) => setCustomExtension(currentNodeId, ext)}
               />
             )}
           </div>

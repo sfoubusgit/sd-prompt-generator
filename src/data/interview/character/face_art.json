@@ -1,0 +1,265 @@
+[
+  {
+    "id": "face-art-root",
+    "question": "What type of face art would you like to add?",
+    "description": "Choose the category of face art or makeup",
+    "answers": [
+      { "id": "makeup", "label": "Makeup", "next": "face-art-makeup" },
+      { "id": "face_paint", "label": "Face Paint & Body Paint", "next": "face-art-face-paint" },
+      { "id": "traditional", "label": "Traditional & Cultural", "next": "face-art-traditional" },
+      { "id": "permanent", "label": "Permanent / Semi-Permanent", "next": "face-art-permanent" },
+      { "id": "fantasy_markings", "label": "Fantasy & Sci-Fi Markings", "next": "face-art-fantasy" },
+      { "id": "glitter", "label": "Glitter & Adornments", "next": "face-art-glitter" },
+      { "id": "skip_face_art", "label": "Skip face art", "next": "character-hair-root" }
+    ]
+  },
+  {
+    "id": "face-art-makeup",
+    "question": "What type of makeup style?",
+    "answers": [
+      { "id": "everyday", "label": "Everyday / Beauty Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "glam", "label": "Glam / Editorial / High-Fashion", "next": "face-art-makeup-intensity" },
+      { "id": "natural", "label": "Natural / No-Makeup Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "drag", "label": "Drag / Theatrical / Stage Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "gothic", "label": "Gothic / Punk / Alt Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "egirl", "label": "E-Girl / E-Boy / TikTok Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "gyaru", "label": "Gyaru / Harajuku / Kawaii Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "sfx", "label": "SFX / Horror / Wound Makeup", "next": "face-art-makeup-intensity" },
+      { "id": "fantasy_creature", "label": "Fantasy & Creature Makeup (elf, fairy, mermaid scales, etc.)", "next": "face-art-makeup-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-makeup-intensity",
+    "question": "How intense should the makeup be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "bold", "label": "Bold", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "makeup_intensity",
+        "label": "Makeup Intensity",
+        "template": "makeup intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "makeup_opacity",
+        "label": "Makeup Opacity",
+        "template": "makeup opacity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "face-art-face-paint",
+    "question": "What type of face paint or body paint?",
+    "answers": [
+      { "id": "tribal", "label": "Tribal / War Paint", "next": "face-art-paint-intensity" },
+      { "id": "festival", "label": "Festival / Rave / UV-Reactive Paint", "next": "face-art-paint-intensity" },
+      { "id": "sugar_skull", "label": "Sugar Skull / Día de los Muertos", "next": "face-art-paint-intensity" },
+      { "id": "clown", "label": "Clown / Harlequin / Circus Paint", "next": "face-art-paint-intensity" },
+      { "id": "animal", "label": "Animal / Creature Face Paint", "next": "face-art-paint-intensity" },
+      { "id": "optical", "label": "Optical Illusion / 3D Sculpture Paint", "next": "face-art-paint-intensity" },
+      { "id": "blacklight", "label": "Blacklight / Neon Glow Paint", "next": "face-art-paint-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-paint-intensity",
+    "question": "How vibrant should the face paint be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "vibrant", "label": "Vibrant", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "paint_vibrancy",
+        "label": "Paint Vibrancy",
+        "template": "face paint vibrancy",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      },
+      {
+        "id": "paint_coverage",
+        "label": "Paint Coverage",
+        "template": "paint coverage",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "id": "face-art-traditional",
+    "question": "What traditional or cultural face art style?",
+    "answers": [
+      { "id": "geisha", "label": "Geisha Oshiroi (white face)", "next": "face-art-traditional-intensity" },
+      { "id": "kabuki", "label": "Kabuki Kumadori", "next": "face-art-traditional-intensity" },
+      { "id": "beijing_opera", "label": "Beijing / Chinese Opera Face Paint", "next": "face-art-traditional-intensity" },
+      { "id": "dayak", "label": "Dayak / Bornean / Pacific Islander Patterns", "next": "face-art-traditional-intensity" },
+      { "id": "indian", "label": "Indian Bindis & Bridal Face Decorations", "next": "face-art-traditional-intensity" },
+      { "id": "maori", "label": "Maori-Style Painted Moko (simulated)", "next": "face-art-traditional-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-traditional-intensity",
+    "question": "How prominent should the traditional face art be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "prominent", "label": "Prominent", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "traditional_art_intensity",
+        "label": "Traditional Art Intensity",
+        "template": "traditional face art intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      }
+    ]
+  },
+  {
+    "id": "face-art-permanent",
+    "question": "What type of permanent or semi-permanent face art?",
+    "answers": [
+      { "id": "facial_tattoos", "label": "Facial Tattoos (teardrop, script, micro tattoos)", "next": "face-art-permanent-detail" },
+      { "id": "permanent_makeup", "label": "Permanent Makeup / Cosmetic Tattooing", "next": "face-art-permanent-makeup" },
+      { "id": "subdermal", "label": "Subdermal / Transdermal Implants (horns, jewels)", "next": "face-art-permanent-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-permanent-detail",
+    "question": "What type of facial tattoo?",
+    "answers": [
+      { "id": "teardrop", "label": "Teardrop tattoo", "next": "face-art-permanent-intensity" },
+      { "id": "script", "label": "Script / Text tattoo", "next": "face-art-permanent-intensity" },
+      { "id": "micro", "label": "Micro tattoos", "next": "face-art-permanent-intensity" },
+      { "id": "geometric", "label": "Geometric patterns", "next": "face-art-permanent-intensity" },
+      { "id": "symbolic", "label": "Symbolic / Meaningful designs", "next": "face-art-permanent-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-permanent-makeup",
+    "question": "What type of permanent makeup?",
+    "answers": [
+      { "id": "microbladed_eyebrows", "label": "Microbladed Eyebrows", "next": "face-art-permanent-intensity" },
+      { "id": "tattooed_eyeliner", "label": "Tattooed Eyeliner", "next": "face-art-permanent-intensity" },
+      { "id": "lip_blushing", "label": "Lip Blushing / Full Lip Tattoo", "next": "face-art-permanent-intensity" },
+      { "id": "freckle_tattoos", "label": "Freckle Tattoos", "next": "face-art-permanent-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-permanent-intensity",
+    "question": "How visible should the permanent art be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "bold", "label": "Bold", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "permanent_art_visibility",
+        "label": "Permanent Art Visibility",
+        "template": "permanent face art visibility",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "face-art-fantasy",
+    "question": "What type of fantasy or sci-fi markings?",
+    "answers": [
+      { "id": "glowing_runes", "label": "Glowing Runes / Sigils", "next": "face-art-fantasy-intensity" },
+      { "id": "alien_circuitry", "label": "Alien Circuitry / Cybernetic Tattoos", "next": "face-art-fantasy-intensity" },
+      { "id": "demonic", "label": "Demonic / Occult Symbols", "next": "face-art-fantasy-intensity" },
+      { "id": "bioluminescent", "label": "Bioluminescent Freckles / Veins", "next": "face-art-fantasy-intensity" },
+      { "id": "vampire_bites", "label": "Vampire Bite Marks & Blood", "next": "face-art-fantasy-intensity" },
+      { "id": "third_eye", "label": "Third-Eye Gems / Crystal Bindis", "next": "face-art-fantasy-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-fantasy-intensity",
+    "question": "How prominent should the fantasy markings be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "glowing", "label": "Glowing / Prominent", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "fantasy_marking_intensity",
+        "label": "Fantasy Marking Intensity",
+        "template": "fantasy marking intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.25
+      },
+      {
+        "id": "glow_effect",
+        "label": "Glow Effect",
+        "template": "glow effect",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  },
+  {
+    "id": "face-art-glitter",
+    "question": "What type of glitter or adornments?",
+    "answers": [
+      { "id": "glitter_tears", "label": "Glitter Tears / Glitter Freckles", "next": "face-art-glitter-intensity" },
+      { "id": "rhinestones", "label": "Rhinestones / Face Gems", "next": "face-art-glitter-intensity" },
+      { "id": "metallic_foil", "label": "Metallic Foil / Chrome Accents", "next": "face-art-glitter-intensity" },
+      { "id": "led", "label": "LED / Light-Up Makeup", "next": "face-art-glitter-intensity" }
+    ]
+  },
+  {
+    "id": "face-art-glitter-intensity",
+    "question": "How sparkly should the adornments be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "character-hair-root" },
+      { "id": "moderate", "label": "Moderate", "next": "character-hair-root" },
+      { "id": "sparkly", "label": "Very Sparkly", "next": "character-hair-root" }
+    ],
+    "weights": [
+      {
+        "id": "glitter_intensity",
+        "label": "Glitter Intensity",
+        "template": "glitter intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "sparkle_visibility",
+        "label": "Sparkle Visibility",
+        "template": "sparkle visibility",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

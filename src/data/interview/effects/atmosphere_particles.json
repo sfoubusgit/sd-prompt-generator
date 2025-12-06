@@ -1,0 +1,82 @@
+[
+  {
+    "id": "effects-atmosphere-root",
+    "question": "What type of atmosphere or particle effect?",
+    "answers": [
+      { "id": "fog_mist", "label": "Fog & Mist", "next": "effects-fog-mist" },
+      { "id": "precipitation", "label": "Precipitation", "next": "effects-precipitation" },
+      { "id": "floating_particles", "label": "Floating Particles", "next": "effects-floating-particles" },
+      { "id": "smoke_vapor", "label": "Smoke & Vapor", "next": "effects-smoke-vapor" },
+      { "id": "skip_atmosphere", "label": "Skip atmosphere effects", "next": "effects-color-grading-root" }
+    ]
+  },
+  {
+    "id": "effects-fog-mist",
+    "question": "What type of fog or mist?",
+    "answers": [
+      { "id": "thick_london_fog", "label": "Thick London Fog", "next": "effects-atmosphere-intensity" },
+      { "id": "dreamlike_haze", "label": "Dreamlike Haze", "next": "effects-atmosphere-intensity" },
+      { "id": "toxic_green_fog", "label": "Toxic Green Fog", "next": "effects-atmosphere-intensity" },
+      { "id": "dry_ice_fog", "label": "Dry Ice Floor Fog", "next": "effects-atmosphere-intensity" }
+    ]
+  },
+  {
+    "id": "effects-precipitation",
+    "question": "What type of precipitation?",
+    "answers": [
+      { "id": "heavy_rain", "label": "Heavy Rain / Wet Surfaces", "next": "effects-atmosphere-intensity" },
+      { "id": "gentle_snow", "label": "Gentle Snowfall", "next": "effects-atmosphere-intensity" },
+      { "id": "blizzard", "label": "Blizzard", "next": "effects-atmosphere-intensity" },
+      { "id": "cherry_blossom", "label": "Cherry Blossom Petals Falling", "next": "effects-atmosphere-intensity" }
+    ]
+  },
+  {
+    "id": "effects-floating-particles",
+    "question": "What type of floating particles?",
+    "answers": [
+      { "id": "golden_dust", "label": "Golden Dust Motes", "next": "effects-atmosphere-intensity" },
+      { "id": "marine_snow", "label": "Marine Snow", "next": "effects-atmosphere-intensity" },
+      { "id": "pollen_sparkles", "label": "Pollen & Sparkles", "next": "effects-atmosphere-intensity" },
+      { "id": "floating_embers", "label": "Floating Embers / Ash", "next": "effects-atmosphere-intensity" }
+    ]
+  },
+  {
+    "id": "effects-smoke-vapor",
+    "question": "What type of smoke or vapor?",
+    "answers": [
+      { "id": "incense_smoke", "label": "Incense Smoke", "next": "effects-atmosphere-intensity" },
+      { "id": "cigar_vape", "label": "Cigar / Vape Clouds", "next": "effects-atmosphere-intensity" },
+      { "id": "vaporwave_mist", "label": "Vaporwave Purple Mist", "next": "effects-atmosphere-intensity" }
+    ]
+  },
+  {
+    "id": "effects-atmosphere-intensity",
+    "question": "How dense should the atmosphere effect be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "effects-color-grading-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-color-grading-root" },
+      { "id": "dense", "label": "Dense", "next": "effects-color-grading-root" }
+    ],
+    "weights": [
+      {
+        "id": "atmosphere_density",
+        "label": "Atmosphere Density",
+        "template": "atmosphere density",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "particle_visibility",
+        "label": "Particle Visibility",
+        "template": "particle visibility",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

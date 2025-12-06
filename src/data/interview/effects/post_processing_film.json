@@ -1,0 +1,71 @@
+[
+  {
+    "id": "effects-post-processing-root",
+    "question": "What type of post-processing or film look?",
+    "answers": [
+      { "id": "film_emulation", "label": "Film Emulation", "next": "effects-film-emulation" },
+      { "id": "digital_artifacts", "label": "Digital Artifacts", "next": "effects-digital-artifacts" },
+      { "id": "depth_focus", "label": "Depth & Focus", "next": "effects-depth-focus" },
+      { "id": "skip_post_processing", "label": "Skip post-processing", "next": "effects-magical-root" }
+    ]
+  },
+  {
+    "id": "effects-film-emulation",
+    "question": "What type of film emulation?",
+    "answers": [
+      { "id": "35mm_grain", "label": "35mm Film Grain", "next": "effects-post-intensity" },
+      { "id": "kodak_portra", "label": "Kodak Portra 400", "next": "effects-post-intensity" },
+      { "id": "fujifilm_superia", "label": "Fujifilm Superia", "next": "effects-post-intensity" },
+      { "id": "polaroid_sx70", "label": "Polaroid SX-70", "next": "effects-post-intensity" }
+    ]
+  },
+  {
+    "id": "effects-digital-artifacts",
+    "question": "What type of digital artifact?",
+    "answers": [
+      { "id": "vhs_glitch", "label": "VHS Glitch", "next": "effects-post-intensity" },
+      { "id": "crt_scanlines", "label": "CRT Scanlines", "next": "effects-post-intensity" },
+      { "id": "chromatic_aberration", "label": "Chromatic Aberration", "next": "effects-post-intensity" },
+      { "id": "datamosh", "label": "Datamosh", "next": "effects-post-intensity" }
+    ]
+  },
+  {
+    "id": "effects-depth-focus",
+    "question": "What type of depth or focus effect?",
+    "answers": [
+      { "id": "creamy_bokeh", "label": "Creamy Bokeh", "next": "effects-post-intensity" },
+      { "id": "tilt_shift", "label": "Tilt-Shift Miniature", "next": "effects-post-intensity" },
+      { "id": "rack_focus", "label": "Rack Focus", "next": "effects-post-intensity" }
+    ]
+  },
+  {
+    "id": "effects-post-intensity",
+    "question": "How pronounced should the post-processing effect be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "effects-magical-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-magical-root" },
+      { "id": "strong", "label": "Strong", "next": "effects-magical-root" }
+    ],
+    "weights": [
+      {
+        "id": "post_processing_intensity",
+        "label": "Post-Processing Intensity",
+        "template": "post-processing intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "film_look_authenticity",
+        "label": "Film Look Authenticity",
+        "template": "film look authenticity",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

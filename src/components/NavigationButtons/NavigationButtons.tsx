@@ -30,13 +30,18 @@ export function NavigationButtons({ onPrevious, onSuggest, onAdd, onNext, onSkip
         </button>
       )}
       {onAdd && (
-        <button
-          className="nav-button nav-button-add"
-          onClick={onAdd}
-          disabled={!canAdd}
-        >
-          Add
-        </button>
+        <div className="nav-button-add-wrapper">
+          <button
+            className="nav-button nav-button-add"
+            onClick={onAdd}
+            disabled={!canAdd}
+          >
+            Add
+          </button>
+          {canAdd && (
+            <span className="add-hint">add the attribute!</span>
+          )}
+        </div>
       )}
       {onNext ? (
         <button

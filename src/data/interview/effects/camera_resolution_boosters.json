@@ -1,0 +1,60 @@
+[
+  {
+    "id": "effects-camera-boosters-root",
+    "question": "What type of camera or resolution enhancement?",
+    "answers": [
+      { "id": "lens_simulation", "label": "Lens Simulation", "next": "effects-lens-simulation" },
+      { "id": "quality_enhancers", "label": "Quality Enhancers", "next": "effects-quality-enhancers" },
+      { "id": "skip_boosters", "label": "Skip camera boosters", "next": "camera-lens-root" }
+    ]
+  },
+  {
+    "id": "effects-lens-simulation",
+    "question": "What type of lens simulation?",
+    "answers": [
+      { "id": "fisheye", "label": "Fish-Eye Distortion", "next": "effects-boosters-intensity" },
+      { "id": "macro_closeup", "label": "Macro Extreme Close-Up", "next": "effects-boosters-intensity" },
+      { "id": "long_exposure", "label": "Long Exposure Light Trails", "next": "effects-boosters-intensity" }
+    ]
+  },
+  {
+    "id": "effects-quality-enhancers",
+    "question": "What type of quality enhancement?",
+    "answers": [
+      { "id": "8k_hyperdetailed", "label": "8K Hyperdetailed", "next": "effects-boosters-intensity" },
+      { "id": "octane_render", "label": "Octane Render", "next": "effects-boosters-intensity" },
+      { "id": "sharp_focus", "label": "Sharp Focus", "next": "effects-boosters-intensity" },
+      { "id": "unreal_engine5", "label": "Unreal Engine 5 Realism", "next": "effects-boosters-intensity" }
+    ]
+  },
+  {
+    "id": "effects-boosters-intensity",
+    "question": "How strong should the enhancement be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "camera-lens-root" },
+      { "id": "moderate", "label": "Moderate", "next": "camera-lens-root" },
+      { "id": "strong", "label": "Strong", "next": "camera-lens-root" }
+    ],
+    "weights": [
+      {
+        "id": "enhancement_intensity",
+        "label": "Enhancement Intensity",
+        "template": "enhancement intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "quality_boost",
+        "label": "Quality Boost",
+        "template": "quality boost",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

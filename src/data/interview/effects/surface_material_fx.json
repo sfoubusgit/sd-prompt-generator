@@ -1,0 +1,69 @@
+[
+  {
+    "id": "effects-surface-root",
+    "question": "What type of surface or material effect?",
+    "answers": [
+      { "id": "wet_glossy", "label": "Wet & Glossy", "next": "effects-wet-glossy" },
+      { "id": "metallic_reflective", "label": "Metallic & Reflective", "next": "effects-metallic-reflective" },
+      { "id": "organic_decay", "label": "Organic & Decay", "next": "effects-organic-decay" },
+      { "id": "skip_surface", "label": "Skip surface effects", "next": "effects-camera-boosters-root" }
+    ]
+  },
+  {
+    "id": "effects-wet-glossy",
+    "question": "What type of wet or glossy effect?",
+    "answers": [
+      { "id": "dripping_water", "label": "Dripping Water / Sweat", "next": "effects-surface-intensity" },
+      { "id": "oily_iridescent", "label": "Oily Iridescent Sheen", "next": "effects-surface-intensity" },
+      { "id": "freshly_washed", "label": "Freshly-Washed Skin", "next": "effects-surface-intensity" }
+    ]
+  },
+  {
+    "id": "effects-metallic-reflective",
+    "question": "What type of metallic or reflective effect?",
+    "answers": [
+      { "id": "chrome_reflections", "label": "Chrome Reflections", "next": "effects-surface-intensity" },
+      { "id": "liquid_metal", "label": "Liquid Metal Drips", "next": "effects-surface-intensity" },
+      { "id": "holographic_prism", "label": "Holographic Prism", "next": "effects-surface-intensity" }
+    ]
+  },
+  {
+    "id": "effects-organic-decay",
+    "question": "What type of organic or decay effect?",
+    "answers": [
+      { "id": "frost_icy", "label": "Frost / Icy Coating", "next": "effects-surface-intensity" },
+      { "id": "rusty_patina", "label": "Rusty Patina", "next": "effects-surface-intensity" },
+      { "id": "cracked_porcelain", "label": "Cracked Porcelain", "next": "effects-surface-intensity" }
+    ]
+  },
+  {
+    "id": "effects-surface-intensity",
+    "question": "How prominent should the surface effect be?",
+    "answers": [
+      { "id": "subtle", "label": "Subtle", "next": "effects-camera-boosters-root" },
+      { "id": "moderate", "label": "Moderate", "next": "effects-camera-boosters-root" },
+      { "id": "prominent", "label": "Prominent", "next": "effects-camera-boosters-root" }
+    ],
+    "weights": [
+      {
+        "id": "surface_effect_intensity",
+        "label": "Surface Effect Intensity",
+        "template": "surface effect intensity",
+        "min": 1.0,
+        "max": 1.4,
+        "step": 0.01,
+        "default": 1.2
+      },
+      {
+        "id": "material_realism",
+        "label": "Material Realism",
+        "template": "material realism",
+        "min": 1.0,
+        "max": 1.3,
+        "step": 0.01,
+        "default": 1.15
+      }
+    ]
+  }
+]
+

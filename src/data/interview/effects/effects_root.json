@@ -1,0 +1,18 @@
+[
+  {
+    "id": "effects-root",
+    "question": "What type of effects would you like to add?",
+    "description": "Choose a category of visual effects",
+    "answers": [
+      { "id": "lighting_effects", "label": "Lighting Effects", "next": "effects-lighting-root" },
+      { "id": "atmosphere_particles", "label": "Atmosphere & Particles", "next": "effects-atmosphere-root" },
+      { "id": "color_grading", "label": "Color Grading & Mood", "next": "effects-color-grading-root" },
+      { "id": "post_processing", "label": "Post-Processing & Film Looks", "next": "effects-post-processing-root" },
+      { "id": "magical_energetic", "label": "Magical & Energetic Effects", "next": "effects-magical-root" },
+      { "id": "surface_material", "label": "Surface & Material FX", "next": "effects-surface-root" },
+      { "id": "camera_resolution", "label": "Camera & Resolution Boosters", "next": "effects-camera-boosters-root" },
+      { "id": "skip_effects", "label": "Skip effects", "next": "camera-lens-root" }
+    ]
+  }
+]
+
